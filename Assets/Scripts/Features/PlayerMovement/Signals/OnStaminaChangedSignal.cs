@@ -1,4 +1,6 @@
-﻿public class OnStaminaChangedSignal : ISignal
+﻿using UnityEngine;
+
+public class OnStaminaChangedSignal : ISignal
 {
     public float Stamina;
 

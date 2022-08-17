@@ -14,5 +14,6 @@ public class PlayerMovementConfig : ScriptableObject
     public float StaminaRegeneration;
     public float StaminaConsuming;
     public float StaminaRegeneratingDelay;
+    public float StaminaOnJump;
 }
 
