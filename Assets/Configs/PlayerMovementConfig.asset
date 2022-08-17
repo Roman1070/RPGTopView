@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WalkingSpeed: 5
   RunningSpeed: 10
-  WalkingBackSpeed: 3
+  WalkingBackSpeed: 2
   Gravity: -9.81
   GroundCheckDistance: 0.2
   JumpHeight: 1.5
   MaxStamina: 100
   StaminaRegeneration: 8
   StaminaConsuming: 10
+  StaminaRegeneratingDelay: 2
+  StaminaOnJump: 15

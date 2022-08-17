@@ -216,7 +216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d49d51059cca4c4bb7a7885d8291176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Views: []
+  Views:
+  - {fileID: 2038854267}
+  - {fileID: 0}
   StaminaSlider: {fileID: 2038854265}
 --- !u!1001 &221654462
 PrefabInstance:
@@ -3078,6 +3080,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2038854264}
   - component: {fileID: 2038854265}
+  - component: {fileID: 2038854267}
+  - component: {fileID: 2038854266}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -3158,6 +3162,58 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &2038854266
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038854263}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &2038854267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038854263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5d18a04c8a8d5418373e60781175f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Kurwa:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _StartValue: 1
+  _EndValue: 0
+  _Duration: 1
+  CanvasGroup: {fileID: 2038854266}
 --- !u!1001 &2096033792
 PrefabInstance:
   m_ObjectHideFlags: 0
