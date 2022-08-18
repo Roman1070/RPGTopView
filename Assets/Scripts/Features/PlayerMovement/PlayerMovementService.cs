@@ -26,6 +26,7 @@ public class PlayerMovementService : LoadableService
             new PlayerMovementController(_player,_signalBus,_updateProvider,_movementConfig),
             new PlayerModelRotationController(_player,_signalBus),
             new PlayerJumpController(_player,_signalBus,_updateProvider,_movementConfig),
+            new PlayerCombatController(_player,_signalBus)
         };
     }
 }

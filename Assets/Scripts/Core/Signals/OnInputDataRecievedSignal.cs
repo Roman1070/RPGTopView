@@ -2,31 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnInputDataRecievedSignal : ISignal
+public struct InputDataPack
 {
     public Vector2Int Direction;
     public Vector2 Rotation;
-    public bool Jump;
+    public bool JumpAttempt;
     public bool SprintAttempt;
     public bool SprintBreak;
+    public bool AttackAttempt;
+}
 
-    public OnInputDataRecievedSignal(Vector2Int direction)
+public class OnInputDataRecievedSignal : ISignal
+{
+    public InputDataPack Data;
+
+    public OnInputDataRecievedSignal(InputDataPack data)
     {
-        Direction = direction;
+        Data = data;
     }
 
-    public OnInputDataRecievedSignal(Vector2Int direction, bool jump)
-    {
-        Direction = direction;
-        Jump = jump;
-    }
-
-    public OnInputDataRecievedSignal(Vector2Int direction, Vector2 rotation, bool jump, bool sprint, bool sprintBreak)
-    {
-        Direction = direction;
-        Rotation = rotation;
-        Jump = jump;
-        SprintAttempt = sprint;
-        SprintBreak = sprintBreak;
-    }
 }

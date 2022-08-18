@@ -7,19 +7,21 @@ using DG.Tweening;
 public class PlayerMovementController : PlayerMovementControllerBase
 {
     private float _speed;
+    private float _stamina;
     private bool _isGrounded;
+    private bool _isRunning;
+    private bool _staminaIsGrowing;
     private Vector3 _directionBeforeJump;
     private Vector3 _direction;
-    private float _stamina;
-    private bool _isRunning;
     private PlayerMovementConfig _config;
-    private bool _staminaIsGrowing;
+    private Animator _animator;
 
     private Tween _StaminaGrowthEnabler;
 
     public PlayerMovementController(PlayerView player, SignalBus signalBus, UpdateProvider updateProvider, PlayerMovementConfig config) : base(player,signalBus)
     {
         _config = config;
+        _animator = _player.Model.GetComponent<Animator>();
 
         _signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
         _signalBus.Subscribe<OnGroundedStatusChangedSignal>(UpdateGroundedStatus, this);
@@ -52,28 +54,34 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
-        var moveDirection = new Vector3(signal.Direction.x, 0, signal.Direction.y);
+        var moveDirection = new Vector3(signal.Data.Direction.x, 0, signal.Data.Direction.y);
         moveDirection = _player.transform.TransformDirection(moveDirection);
 
-        if(!_isRunning && signal.SprintAttempt &&_isGrounded)
-        {
+        if(!_isRunning && signal.Data.SprintAttempt &&_isGrounded)
             StartRun();
-        }
         
-        if (_isRunning && signal.SprintBreak)
-        {
+        if (_isRunning && signal.Data.SprintBreak)
             EndRun();
-        }
-
-        if (_isRunning)
-            _speed = _config.RunningSpeed;
-        else
-            _speed = signal.Direction.y >= 0 ? _config.WalkingSpeed : _config.WalkingBackSpeed;
 
         _direction = _isGrounded ? moveDirection : _directionBeforeJump;
 
+        CalculateSpeed(signal.Data.Direction);
+
         _player.Controller.Move(_direction * _speed * Time.deltaTime);
-        _player.transform.Rotate(Vector3.up, signal.Rotation.x);
+        _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
+    }
+
+    private void CalculateSpeed(Vector2 input)
+    {
+        if (_isRunning)
+            _speed = _config.RunningSpeed;
+        else
+            _speed = input.y >= 0 ? _config.WalkingSpeed : _config.WalkingBackSpeed;
+
+
+        if (input == Vector2.zero)
+            _animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
+        else _animator.SetFloat("Speed", _isRunning ? 1 : 0.5f, 0.1f, Time.deltaTime);
     }
 
     private void UpdateStamina()

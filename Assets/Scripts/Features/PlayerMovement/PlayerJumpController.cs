@@ -25,7 +25,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
 
     private void CheckJumpAttempt(OnInputDataRecievedSignal signal)
     {
-        if (_isGrounded && signal.Jump && _stamina >= _config.StaminaOnJump)
+        if (_isGrounded && signal.Data.JumpAttempt && _stamina >= _config.StaminaOnJump)
         {
             Jump();
         }

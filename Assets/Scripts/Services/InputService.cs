@@ -14,6 +14,7 @@ public class InputService : LoadableService
     private KeyCode Down => KeyCode.S;
     private KeyCode Jump => KeyCode.Space;
     private KeyCode Sprint => KeyCode.LeftShift;
+    private KeyCode Attack => KeyCode.Mouse0;
 
     public override void Init()
     {
@@ -32,7 +33,14 @@ public class InputService : LoadableService
 
         float rotX = Input.GetAxis("Mouse X") * _sens;
         float rotY = Input.GetAxis("Mouse Y") * _sens;
-        _signalBus.FireSignal(new OnInputDataRecievedSignal(direction,new Vector2(rotX,rotY),Input.GetKeyDown(Jump),
-            Input.GetKeyDown(Sprint),Input.GetKeyUp(Sprint)));
+        InputDataPack data = new InputDataPack();
+        data.Direction = direction;
+        data.Rotation = new Vector2(rotX, rotY);
+        data.JumpAttempt = Input.GetKeyDown(Jump);
+        data.SprintAttempt = Input.GetKeyDown(Sprint);
+        data.SprintBreak = Input.GetKeyUp(Sprint);
+        data.AttackAttempt = Input.GetKeyDown(Attack);
+
+        _signalBus.FireSignal(new OnInputDataRecievedSignal(data));
     }
 }
