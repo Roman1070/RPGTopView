@@ -21,13 +21,11 @@ public class PlayerCombatController : PlayerMovementControllerBase
         {
             _animator.SetTrigger("Attack");
             _attackAvailable = false;
-            _signalBus.FireSignal(new OnMovementAbilityStatusChangedSignal(false));
-            float attackDuration = _config.AttacksDurations[0] + _config.AttacksDurations[1] + _config.AttacksDurations[2];
+            float attackDuration = _config.AttacksDurations[0];
 
             DOVirtual.DelayedCall(attackDuration,()=>
             {
                 _attackAvailable = true;
-                _signalBus.FireSignal(new OnMovementAbilityStatusChangedSignal(true));
             });
         }
     }
