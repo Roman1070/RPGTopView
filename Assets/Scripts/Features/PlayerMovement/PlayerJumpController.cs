@@ -8,10 +8,11 @@ public class PlayerJumpController : PlayerMovementControllerBase
     private PlayerMovementConfig _config;
     private bool _previousGroundedStatus;
     private float _stamina;
-
+    private Animator _animator;
     public PlayerJumpController(PlayerView player, SignalBus signalBus, UpdateProvider updateProvider, PlayerMovementConfig config) : base(player, signalBus)
     {
         _config = config;
+        _animator = _player.Model.GetComponent<Animator>();
 
         _signalBus.Subscribe<OnInputDataRecievedSignal>(CheckJumpAttempt,this);
         _signalBus.Subscribe<OnStaminaChangedSignal>(UpdateStamina,this);
@@ -60,5 +61,6 @@ public class PlayerJumpController : PlayerMovementControllerBase
     {
         _velocity.y = Mathf.Sqrt(_config.JumpHeight * -2 * _config.Gravity);
         _signalBus.FireSignal(new OnStaminaChangedSignal(_stamina-_config.StaminaOnJump));
+        _animator.SetTrigger("Jump");
     }
 }

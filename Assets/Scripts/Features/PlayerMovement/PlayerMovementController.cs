@@ -57,15 +57,21 @@ public class PlayerMovementController : PlayerMovementControllerBase
         var moveDirection = new Vector3(signal.Data.Direction.x, 0, signal.Data.Direction.y);
         moveDirection = _player.transform.TransformDirection(moveDirection);
 
-        if(!_isRunning && signal.Data.SprintAttempt &&_isGrounded)
+        if(!_isRunning && signal.Data.SprintAttempt &&_isGrounded && signal.Data.Direction.y>=0)
             StartRun();
         
-        if (_isRunning && signal.Data.SprintBreak)
+        if (_isRunning && (signal.Data.SprintBreak || signal.Data.Direction.y<0 || signal.Data.Direction == Vector2.zero))
             EndRun();
 
         _direction = _isGrounded ? moveDirection : _directionBeforeJump;
 
-        CalculateSpeed(signal.Data.Direction);
+        if (signal.Data.AttackAttempt)
+        {
+            _speed = 0;
+            _isRunning = false;
+        }
+        else
+            CalculateSpeed(signal.Data.Direction);
 
         _player.Controller.Move(_direction * _speed * Time.deltaTime);
         _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
@@ -80,8 +86,21 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
 
         if (input == Vector2.zero)
-            _animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
-        else _animator.SetFloat("Speed", _isRunning ? 1 : 0.5f, 0.1f, Time.deltaTime);
+        {
+            _animator.SetInteger("Speed", 0);
+            _isRunning = false;
+        }
+        else 
+        {
+            if (input.y>=0)
+            {
+                _animator.SetInteger("Speed", _isRunning ? 2 : 1);
+            }
+            else
+            {
+                _animator.SetInteger("Speed",-1);
+            }
+        }
     }
 
     private void UpdateStamina()
@@ -103,6 +122,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
     private void EndRun()
     {
+        Debug.Log("EndRun");
         _isRunning = false;
         _staminaIsGrowing = false;
         _StaminaGrowthEnabler = DOVirtual.DelayedCall(_config.StaminaRegeneratingDelay, () =>
@@ -113,6 +133,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
     private void StartRun()
     {
+        Debug.Log("StartRun");
         _isRunning = true;
         _staminaIsGrowing = false;
         _StaminaGrowthEnabler.Kill();

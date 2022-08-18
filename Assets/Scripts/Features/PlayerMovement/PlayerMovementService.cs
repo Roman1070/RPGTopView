@@ -10,6 +10,8 @@ public class PlayerMovementService : LoadableService
     private UpdateProvider _updateProvider;
     [Inject]
     private PlayerMovementConfig _movementConfig;
+    [Inject]
+    private PlayerCombatConfig _combatConfig;
 
     private List<PlayerMovementControllerBase> _controllers;
 
@@ -26,7 +28,7 @@ public class PlayerMovementService : LoadableService
             new PlayerMovementController(_player,_signalBus,_updateProvider,_movementConfig),
             new PlayerModelRotationController(_player,_signalBus),
             new PlayerJumpController(_player,_signalBus,_updateProvider,_movementConfig),
-            new PlayerCombatController(_player,_signalBus)
+            new PlayerCombatController(_player,_signalBus,_combatConfig)
         };
     }
 }
