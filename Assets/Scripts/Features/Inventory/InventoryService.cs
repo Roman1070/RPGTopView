@@ -1,28 +1,58 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class InventoryService : LoadableService
 {
-    [SerializeField]
     private ItemsMap _itemsMap;
 
-    private ItemsCount[] _itemsCount;
-
-    public override void Init()
+    private Dictionary<string, int> _itemsCount;
+    private Dictionary<string,int> ItemsCount
     {
-        _signalBus.Subscribe<OnItemCountChangedSignal>(ChangeItemCount,this);
+        get
+        {
+            if (_itemsCount == null)
+            {
+                _itemsCount = new Dictionary<string, int>();
+                for (int i = 0; i < _itemsMap.Items.Length; i++)
+                {
+                    _itemsCount.Add(_itemsMap.Items[i].Id, 0);
+                }
+            }
+            return _itemsCount;
+        }
+
+        set
+        {
+            _itemsCount = ItemsCount;
+        }
+    }
+
+    private List<InventoryControllerBase> _controllers;
+
+    public InventoryService(SignalBus signalBus, ItemsMap itemsMap) : base(signalBus)
+    {
+        _itemsMap = itemsMap;
+        _signalBus.Subscribe<OnItemCountChangedSignal>(ChangeItemCount, this);
+
+        InitControllers();
+    }
+
+    public void InitControllers()
+    {
+
     }
 
     private void ChangeItemCount(OnItemCountChangedSignal signal)
     {
-        _itemsCount.First(_ => _.Id == signal.Id).SetCount(signal.Value);
+        ItemsCount[signal.Id] += signal.Delta;
+        for(int i = 0; i < ItemsCount.Count; i++)
+        {
+            Debug.LogError($"{GetItem(signal.Id).NameDef.Name} count is {ItemsCount[signal.Id]}");
+        }
     }
 
-    public ItemConfig GetItem(string id)
-    {
-        return _itemsMap.Items.First(_ => _.Id == id).Item;
-    }
+    public int GetItemCount(string id) => ItemsCount[id];
+
+    public Item GetItem(string id) => _itemsMap.Items.First(_ => _.Id == id).Item;
 }

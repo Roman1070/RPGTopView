@@ -1,6 +1,5 @@
-using System;
 using UnityEngine;
-using Zenject;
+
 public struct InputDataPack
 {
     public Vector2Int Direction;
@@ -10,14 +9,20 @@ public struct InputDataPack
     public bool SprintBreak;
     public bool AttackAttempt;
     public bool RollAttempt;
+    public bool CollectAttempt;
 }
 
 public class InputService : LoadableService
 {
-    [Inject]
-    private UpdateProvider _updateProvider;
-    [SerializeField]
     private float _sens = 2;
+
+    private UpdateProvider _updateProvider;
+
+    public InputService(SignalBus signalBus, UpdateProvider updateProvider) : base(signalBus)
+    {
+        _updateProvider = updateProvider;
+        _updateProvider.Updates.Add(GetInput);
+    }
 
     private KeyCode Right => KeyCode.D;
     private KeyCode Left => KeyCode.A;
@@ -27,14 +32,10 @@ public class InputService : LoadableService
     private KeyCode Sprint => KeyCode.LeftShift;
     private KeyCode Attack => KeyCode.Mouse0;
     private KeyCode Roll => KeyCode.LeftControl;
+    private KeyCode Collect => KeyCode.E;
     private KeyCode Block => KeyCode.Mouse1;
     //всю эту движуху сверху в конфиг
 
-    public override void Init()
-    {
-        base.Init();
-        _updateProvider.Updates.Add(GetInput);
-    }
 
     private void GetInput()
     {
@@ -43,7 +44,7 @@ public class InputService : LoadableService
         int rightImpact = Input.GetKey(Right) ? 1 : 0;
         int leftImpact = Input.GetKey(Left) ? 1 : 0;
 
-        Vector2Int direction = new Vector2Int(rightImpact-leftImpact,upperImpact-lowerImpact);
+        Vector2Int direction = new Vector2Int(rightImpact - leftImpact, upperImpact - lowerImpact);
 
         float rotX = Input.GetAxis("Mouse X") * _sens;
         float rotY = Input.GetAxis("Mouse Y") * _sens;
@@ -56,6 +57,7 @@ public class InputService : LoadableService
         data.SprintBreak = Input.GetKeyUp(Sprint);
         data.AttackAttempt = Input.GetKeyDown(Attack);
         data.RollAttempt = Input.GetKeyDown(Roll);
+        data.CollectAttempt = Input.GetKeyDown(Collect);
 
         _signalBus.FireSignal(new OnInputDataRecievedSignal(data));
     }

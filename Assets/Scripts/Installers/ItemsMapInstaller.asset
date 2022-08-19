@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8cb529457bc5f34b9e26c0281626471, type: 3}
-  m_Name: RESOURCE_WOOD
+  m_Script: {fileID: 11500000, guid: 2d40027455793c04ba5dc44696c1de5c, type: 3}
+  m_Name: ItemsMapInstaller
   m_EditorClassIdentifier: 
-  ItemId: RESOURCE_WOOD
-  NameDef:
-    Name: Wood
-  GroupDef:
-    Group: 0
+  _itemsMap: {fileID: 11400000, guid: fc575fb4625df25418e208949d3d5de7, type: 2}

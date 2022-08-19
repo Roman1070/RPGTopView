@@ -1,10 +1,12 @@
 using UnityEngine;
 using Zenject;
 
-public abstract class LoadableService : MonoBehaviour
+public abstract class LoadableService
 {
-    [Inject]
-    protected readonly SignalBus _signalBus;
+    protected SignalBus _signalBus;
 
-    public virtual void Init() { }
+    public LoadableService(SignalBus signalBus)
+    {
+        _signalBus = signalBus;
+    }
 }

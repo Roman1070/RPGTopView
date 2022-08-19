@@ -4,20 +4,19 @@ using Zenject;
 
 public class PlayerMovementService : LoadableService
 {
-    [Inject]
     private PlayerView _player;
-    [Inject]
-    private UpdateProvider _updateProvider;
-    [Inject]
     private PlayerMovementConfig _movementConfig;
-    [Inject]
-    private PlayerCombatConfig _combatConfig;
+    private UpdateProvider _updateProvider;
 
     private List<PlayerMovementControllerBase> _controllers;
 
-    public override void Init()
+    public PlayerMovementService(SignalBus signalBus, UpdateProvider updateProvider, PlayerView playerView, PlayerMovementConfig config):
+        base(signalBus)
     {
-        base.Init();
+        _updateProvider = updateProvider;
+           _player = playerView;
+        _movementConfig = config;
+
         InitControllers();
     }
 
@@ -28,7 +27,6 @@ public class PlayerMovementService : LoadableService
             new PlayerMovementController(_player,_signalBus,_updateProvider,_movementConfig),
             new PlayerModelRotationController(_player,_signalBus),
             new PlayerJumpController(_player,_signalBus,_updateProvider,_movementConfig),
-            new PlayerCombatController(_player,_signalBus,_combatConfig),
             new PlayerRollController(_player,_signalBus,_movementConfig,_updateProvider),
             new PlayerStatesController(_player,_signalBus,_updateProvider)
         };

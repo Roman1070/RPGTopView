@@ -5,14 +5,20 @@ using Zenject;
 
 public class GameUiService : LoadableService
 {
-    [Inject]
     private GameCanvas _gameCanvas;
-    [Inject]
     private PlayerMovementConfig _movementConfig;
 
     private List<GameUiControllerBase> _controllers;
 
-    public override void Init()
+    public GameUiService(SignalBus signalBus, GameCanvas canvas, PlayerMovementConfig config) : base(signalBus)
+    {
+        _gameCanvas = canvas;
+        _movementConfig = config;
+
+        InitControllers();
+    }
+
+    public void InitControllers()
     {
         _controllers = new List<GameUiControllerBase>()
         {
