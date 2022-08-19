@@ -16,9 +16,9 @@ MonoBehaviour:
   RunningSpeed: 10
   WalkingBackSpeed: 2
   Gravity: -9.81
-  GroundCheckDistance: 0.2
+  GroundCheckDistance: 0.02
   JumpHeight: 1
-  RollDistance: 7
+  RollDistance: 15
   MaxStamina: 100
   StaminaRegeneration: 20
   StaminaConsuming: 10

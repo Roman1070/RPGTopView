@@ -8,7 +8,8 @@ public class PlayerRollController : PlayerMovementControllerBase
     private bool _rollEnabled;
     private Animator _animator;
     private PlayerMovementConfig _config;
-    private Vector3 _velocity;
+    private float _z;
+    private Vector3 _rollVector;
 
     public PlayerRollController(PlayerView player, SignalBus signalBus, PlayerMovementConfig config, UpdateProvider updateProvider) : base(player, signalBus)
     {
@@ -35,28 +36,28 @@ public class PlayerRollController : PlayerMovementControllerBase
 
     private void Update()
     {
-        if (Mathf.Abs(_velocity.z) <= 0.1f)
+        if (Mathf.Abs(_z) <= 0.1f)
         {
             return;
         }
 
-        if(_velocity.z>0)
-            _velocity.z -= Time.deltaTime * _config.RollDistance;
+        if(_z > 0)
+            _z -= Time.deltaTime * _config.RollDistance;
         else
-            _velocity.z += Time.deltaTime * _config.RollDistance;
+            _z += Time.deltaTime * _config.RollDistance;
 
-        _player.Controller.Move(_player.Model.transform.TransformDirection(_velocity) * Time.deltaTime);
+        _player.Controller.Move(_rollVector*_z * Time.deltaTime);
 
     }
 
     private void Roll(bool forward)
     {
-        _velocity.z = _config.RollDistance * (forward ? 1 : -1);
+        _z = _config.RollDistance * (forward ? 1 : -1);
         _signalBus.FireSignal(new OnStaminaChangedSignal(_stamina - _config.StaminaOnRoll));
         _animator.SetTrigger(forward ? "Roll forward" : "Roll backward");
 
         _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Rolling, true));
-
+        _rollVector = _player.Model.transform.TransformDirection(new Vector3(0,0,1));
         DOVirtual.DelayedCall(0.8f, () =>
         {
             _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Rolling, false));

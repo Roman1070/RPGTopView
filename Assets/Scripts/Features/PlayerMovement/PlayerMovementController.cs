@@ -52,12 +52,11 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
-        _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
 
         var moveDirection = new Vector3(signal.Data.Direction.x, 0, signal.Data.Direction.y);
         moveDirection = _player.transform.TransformDirection(moveDirection);
 
-        if(!_isRunning && signal.Data.SprintAttempt && signal.Data.Direction.y>=0 &&_movementAvailable)
+        if(!_isRunning && signal.Data.SprintAttempt && signal.Data.Direction.y>=0 &&_movementAvailable &&_stamina>10)
             StartRun();
         
         if (_isRunning && (signal.Data.SprintBreak || signal.Data.Direction.y<0 || signal.Data.Direction == Vector2.zero))
@@ -66,6 +65,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
         if (_movementAvailable)
         {
             _player.Controller.Move(moveDirection * _speed * Time.deltaTime);
+            _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
             CalculateSpeed(signal.Data.Direction);
         }
         else CalculateSpeed(Vector2.zero);

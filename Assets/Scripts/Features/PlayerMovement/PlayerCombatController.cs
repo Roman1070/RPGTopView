@@ -11,9 +11,15 @@ public class PlayerCombatController : PlayerMovementControllerBase
     public PlayerCombatController(PlayerView player, SignalBus signalBus, PlayerCombatConfig config) : base(player, signalBus)
     {
         signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
+        signalBus.Subscribe<GetCharacterStatesSignal>(GetCharacterStates, this);
         _animator = player.Model.GetComponent<Animator>();
-        _attackAvailable = true;
+        _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Attacking, false));
         _config = config;
+    }
+
+    private void GetCharacterStates(GetCharacterStatesSignal obj)
+    {
+        _attackAvailable = !(obj.States[CharacterState.Jumping] || obj.States[CharacterState.Rolling] || obj.States[CharacterState.Attacking]);
     }
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
@@ -21,12 +27,12 @@ public class PlayerCombatController : PlayerMovementControllerBase
         if (signal.Data.AttackAttempt &&_attackAvailable)
         {
             _animator.SetTrigger("Attack");
-            _attackAvailable = false;
+            _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Attacking, true));
             float attackDuration = _config.AttacksDurations[0];
 
             DOVirtual.DelayedCall(attackDuration,()=>
             {
-                _attackAvailable = true;
+                _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Attacking, false));
             });
         }
     }
