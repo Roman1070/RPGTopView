@@ -18,7 +18,7 @@ MonoBehaviour:
   Gravity: -9.81
   GroundCheckDistance: 0.02
   JumpHeight: 1
-  RollDistance: 15
+  RollDistance: 10
   MaxStamina: 100
   StaminaRegeneration: 20
   StaminaConsuming: 10

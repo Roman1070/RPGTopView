@@ -67,6 +67,14 @@ public class PlayerMovementController : PlayerMovementControllerBase
             _player.Controller.Move(moveDirection * _speed * Time.deltaTime);
             _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
             CalculateSpeed(signal.Data.Direction);
+            if(signal.Data.Direction == Vector2.zero)
+            {
+                _signalBus.FireSignal(new UpdateLastSpeedSignal(0));
+            }
+            else
+            {
+                _signalBus.FireSignal(new UpdateLastSpeedSignal(signal.Data.Direction.y>=0? _speed : -_speed));
+            }
         }
         else CalculateSpeed(Vector2.zero);
 

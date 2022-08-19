@@ -7,6 +7,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
     private bool _jumpAvailable;
     private bool _isJumping;
     private Vector3 _velocity;
+    private float _speedBeforeJump;
     private PlayerMovementConfig _config;
     private float _stamina;
     private Animator _animator;
@@ -19,19 +20,17 @@ public class PlayerJumpController : PlayerMovementControllerBase
         _signalBus.Subscribe<OnInputDataRecievedSignal>(CheckJumpAttempt,this);
         _signalBus.Subscribe<OnStaminaChangedSignal>(UpdateStamina,this);
         _signalBus.Subscribe<GetCharacterStatesSignal>(GetCharacterState, this);
-        //_signalBus.Subscribe<UpdateVelocityBeforeJumpSignal>(UpdateVelocity, this);
+        _signalBus.Subscribe<UpdateLastSpeedSignal>(UpdateSpeed, this);
         updateProvider.Updates.Add(Update);
     }
 
-    private void UpdateVelocity(UpdateVelocityBeforeJumpSignal obj)
+    private void UpdateSpeed(UpdateLastSpeedSignal obj)
     {
-        _velocity = obj.Velocity;
+        _speedBeforeJump = obj.Speed;
     }
 
     private void GetCharacterState(GetCharacterStatesSignal obj)
     {
-        _isJumping = obj.States[CharacterState.Jumping];
-
         _jumpAvailable = _stamina >= _config.StaminaOnJump && !(obj.States[CharacterState.Rolling] || _isJumping);
     }
 
@@ -63,12 +62,20 @@ public class PlayerJumpController : PlayerMovementControllerBase
     private void Jump()
     {
         _velocity.y = Mathf.Sqrt(_config.JumpHeight * -2 * _config.Gravity);
+        _velocity.z = _speedBeforeJump;
+        _velocity = _player.Model.transform.TransformDirection(_velocity);
         _signalBus.FireSignal(new OnStaminaChangedSignal(_stamina-_config.StaminaOnJump));
         _animator.SetTrigger("Jump");
         _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Jumping, true));
+        _isJumping = true;
         DOVirtual.DelayedCall(0.9f, () =>
         {
             _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Jumping, false));
+            _velocity = Vector3.zero;
+            DOVirtual.DelayedCall(0.4f, () =>
+            {
+                _isJumping = false;
+            });
         });
     }
 }
