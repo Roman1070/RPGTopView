@@ -1,6 +1,16 @@
 using System;
 using UnityEngine;
 using Zenject;
+public struct InputDataPack
+{
+    public Vector2Int Direction;
+    public Vector2 Rotation;
+    public bool JumpAttempt;
+    public bool SprintAttempt;
+    public bool SprintBreak;
+    public bool AttackAttempt;
+    public bool RollAttempt;
+}
 
 public class InputService : LoadableService
 {
@@ -16,22 +26,14 @@ public class InputService : LoadableService
     private KeyCode Jump => KeyCode.Space;
     private KeyCode Sprint => KeyCode.LeftShift;
     private KeyCode Attack => KeyCode.Mouse0;
+    private KeyCode Roll => KeyCode.LeftControl;
     private KeyCode Block => KeyCode.Mouse1;
     //всю эту движуху сверху в конфиг
-
-    private bool _movementEnabled;
 
     public override void Init()
     {
         base.Init();
         _updateProvider.Updates.Add(GetInput);
-        _movementEnabled = true;
-        _signalBus.Subscribe<OnMovementAbilityStatusChangedSignal>(UpdateMovementAbility,this);
-    }
-
-    private void UpdateMovementAbility(OnMovementAbilityStatusChangedSignal signal)
-    {
-        _movementEnabled = signal.Available;
     }
 
     private void GetInput()
@@ -46,7 +48,6 @@ public class InputService : LoadableService
         float rotX = Input.GetAxis("Mouse X") * _sens;
         float rotY = Input.GetAxis("Mouse Y") * _sens;
 
-
         InputDataPack data = new InputDataPack();
         data.Direction = direction;
         data.Rotation = new Vector2(rotX, rotY);
@@ -54,13 +55,7 @@ public class InputService : LoadableService
         data.SprintAttempt = Input.GetKeyDown(Sprint);
         data.SprintBreak = Input.GetKeyUp(Sprint);
         data.AttackAttempt = Input.GetKeyDown(Attack);
-
-        if (!_movementEnabled)
-        {
-            data.Direction = Vector2Int.zero;
-            data.Rotation = Vector2.zero;
-            data.JumpAttempt = false;
-        }
+        data.RollAttempt = Input.GetKeyDown(Roll);
 
         _signalBus.FireSignal(new OnInputDataRecievedSignal(data));
     }

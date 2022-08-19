@@ -10,10 +10,12 @@ public class PlayerMovementConfig : ScriptableObject
     public float Gravity;
     public float GroundCheckDistance;
     public float JumpHeight;
+    public float RollDistance;
     public float MaxStamina;
     public float StaminaRegeneration;
     public float StaminaConsuming;
     public float StaminaRegeneratingDelay;
     public float StaminaOnJump;
+    public float StaminaOnRoll;
 }
 

@@ -8,11 +8,9 @@ public class PlayerMovementController : PlayerMovementControllerBase
 {
     private float _speed;
     private float _stamina;
-    private bool _isGrounded;
     private bool _isRunning;
+    private bool _movementAvailable;
     private bool _staminaIsGrowing;
-    private Vector3 _directionBeforeJump;
-    private Vector3 _direction;
     private PlayerMovementConfig _config;
     private Animator _animator;
 
@@ -24,12 +22,18 @@ public class PlayerMovementController : PlayerMovementControllerBase
         _animator = _player.Model.GetComponent<Animator>();
 
         _signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
-        _signalBus.Subscribe<OnGroundedStatusChangedSignal>(UpdateGroundedStatus, this);
         _signalBus.Subscribe<OnStaminaChangedSignal>(OnStaminaChanged, this);
+        _signalBus.Subscribe<GetCharacterStatesSignal>(GetCharacterStates, this);
         updateProvider.Updates.Add(UpdateStamina);
 
         Cursor.lockState = CursorLockMode.Locked;
         _stamina = _config.MaxStamina;
+    }
+
+    private void GetCharacterStates(GetCharacterStatesSignal signal)
+    {
+        _isRunning = signal.States[CharacterState.Running];
+        _movementAvailable = !(signal.States[CharacterState.Jumping] || signal.States[CharacterState.Rolling]);
     }
 
     private void OnStaminaChanged(OnStaminaChangedSignal signal)
@@ -46,35 +50,26 @@ public class PlayerMovementController : PlayerMovementControllerBase
         _stamina = signal.Stamina;
     }
 
-    private void UpdateGroundedStatus(OnGroundedStatusChangedSignal signal)
-    {
-        _isGrounded = signal.IsGrounded;
-        _directionBeforeJump = _direction;
-    }
-
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
+        _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
+
         var moveDirection = new Vector3(signal.Data.Direction.x, 0, signal.Data.Direction.y);
         moveDirection = _player.transform.TransformDirection(moveDirection);
 
-        if(!_isRunning && signal.Data.SprintAttempt &&_isGrounded && signal.Data.Direction.y>=0)
+        if(!_isRunning && signal.Data.SprintAttempt && signal.Data.Direction.y>=0 &&_movementAvailable)
             StartRun();
         
         if (_isRunning && (signal.Data.SprintBreak || signal.Data.Direction.y<0 || signal.Data.Direction == Vector2.zero))
             EndRun();
 
-        _direction = _isGrounded ? moveDirection : _directionBeforeJump;
-
-        if (signal.Data.AttackAttempt)
+        if (_movementAvailable)
         {
-            _speed = 0;
-            _isRunning = false;
-        }
-        else
+            _player.Controller.Move(moveDirection * _speed * Time.deltaTime);
             CalculateSpeed(signal.Data.Direction);
+        }
+        else CalculateSpeed(Vector2.zero);
 
-        _player.Controller.Move(_direction * _speed * Time.deltaTime);
-        _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
     }
 
     private void CalculateSpeed(Vector2 input)
@@ -88,7 +83,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
         if (input == Vector2.zero)
         {
             _animator.SetInteger("Speed", 0);
-            _isRunning = false;
+            _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Running, false));
         }
         else 
         {
@@ -122,8 +117,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
     private void EndRun()
     {
-        Debug.Log("EndRun");
-        _isRunning = false;
+        _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Running, false));
         _staminaIsGrowing = false;
         _StaminaGrowthEnabler = DOVirtual.DelayedCall(_config.StaminaRegeneratingDelay, () =>
         {
@@ -133,8 +127,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
     private void StartRun()
     {
-        Debug.Log("StartRun");
-        _isRunning = true;
+        _signalBus.FireSignal(new SetCharacterStateSignal(CharacterState.Running, true));
         _staminaIsGrowing = false;
         _StaminaGrowthEnabler.Kill();
     }
