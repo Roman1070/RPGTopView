@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
-
 public class CollectButtonController : GameUiControllerBase
 {
     private CollectButton _button;
@@ -9,7 +8,7 @@ public class CollectButtonController : GameUiControllerBase
 
     public CollectButtonController(SignalBus signalBus, GameCanvas gameCanvas) : base(signalBus, gameCanvas)
     {
-        _button = gameCanvas.GetView<GameUiPanel>().CollectButton;
+        _button = gameCanvas.GetView<GameUiPanel>().GetView<CollectButton>();
         signalBus.Subscribe<UpdateCollectableItemSignal>(OnNearbyItemsUpdated,this);
         signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded,this);
     }

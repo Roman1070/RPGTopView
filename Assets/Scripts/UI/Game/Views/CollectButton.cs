@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CollectButton : MonoBehaviour
+public class CollectButton : View
 {
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private Text _text;

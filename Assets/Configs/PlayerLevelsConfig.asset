@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847eb06264ba0bb4db27e7735367c09b, type: 3}
+  m_Name: PlayerLevelsConfig
+  m_EditorClassIdentifier: 
+  ExpOnLevel: 00000000c8000000c20100000c0300004c0400004006000066080000b80b0000a00f00005014000064190000

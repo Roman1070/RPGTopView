@@ -7,10 +7,3 @@
         _signalBus = signalBus;
     }
 }
-
-public class PlayerExpirienceController : PlayerDataControllerBase
-{
-    public PlayerExpirienceController(SignalBus signalBus) : base(signalBus)
-    {
-    }
-}

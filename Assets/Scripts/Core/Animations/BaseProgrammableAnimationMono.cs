@@ -38,9 +38,8 @@ public abstract class BaseProgrammableAnimationMono<T> : MonoBehaviour
         _Animation = new ProgrammableAnimation(this);
     }
 
-    public void SetValues(T startVal, T finalVal,float duration)
+    public void SetValues(T startVal, T finalVal)
     {
-        _Duration = duration;
         _StartValue = startVal;
         _EndValue = finalVal;
     }

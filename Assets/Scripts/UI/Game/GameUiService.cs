@@ -24,7 +24,8 @@ public class GameUiService : LoadableService
         {
             new StaminaSliderController(_signalBus,_gameCanvas,_movementConfig),
             new CollectedItemWidgetsController(_signalBus,_gameCanvas),
-            new CollectButtonController(_signalBus, _gameCanvas)
+            new CollectButtonController(_signalBus, _gameCanvas),
+            new PlayerExperienceUiController(_signalBus,_gameCanvas)
         };
     }
 }

@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 16266901}
   - component: {fileID: 16266903}
   - component: {fileID: 16266902}
+  - component: {fileID: 16266904}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -162,8 +163,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.116000004, y: 0.5325121}
   m_AnchorMax: {x: 0.67800003, y: 0.74}
-  m_AnchoredPosition: {x: -32.337, y: 2.5354}
-  m_SizeDelta: {x: -64.675, y: -0.4926}
+  m_AnchoredPosition: {x: -26.602783, y: 1.3908005}
+  m_SizeDelta: {x: -79.6698, y: -2.7818}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &16266902
 MonoBehaviour:
@@ -203,6 +204,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16266900}
   m_CullTransparentMesh: 1
+--- !u!114 &16266904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16266900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3cfd663a2c151f45b60da17b8379ab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Kurwa:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _StartValue: 0
+  _EndValue: 0
+  _Duration: 0.2
+  _Image: {fileID: 16266902}
 --- !u!1 &26083089
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,6 +389,7 @@ RectTransform:
   - {fileID: 925062179}
   - {fileID: 1153490481}
   - {fileID: 650555106}
+  - {fileID: 171904541}
   m_Father: {fileID: 539810430}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -375,8 +417,10 @@ MonoBehaviour:
   - {fileID: 257775463}
   - {fileID: 2141808274}
   - {fileID: 297135353}
+  - {fileID: 1153490485}
+  - {fileID: 650555109}
+  - {fileID: 171904542}
   StaminaSlider: {fileID: 2038854265}
-  CollectButton: {fileID: 1153490485}
 --- !u!1 &47849172 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1400461039152700, guid: c7821bc923171f24094e69062402d005, type: 3}
@@ -791,14 +835,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171904540}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 399715573}
   - {fileID: 2111200163}
-  m_Father: {fileID: 539810430}
-  m_RootOrder: 1
+  m_Father: {fileID: 41543538}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2938,7 +2982,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 41543538}
-  - {fileID: 171904541}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3822,6 +3865,7 @@ GameObject:
   - component: {fileID: 650555106}
   - component: {fileID: 650555108}
   - component: {fileID: 650555107}
+  - component: {fileID: 650555109}
   m_Layer: 5
   m_Name: Unit Frame
   m_TagString: Untagged
@@ -3888,6 +3932,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 650555105}
   m_CullTransparentMesh: 1
+--- !u!114 &650555109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650555105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff899344aea12b44b16abaf30130ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Health: {fileID: 16266904}
+  ExperienceBar: {fileID: 1091887108}
+  Level: {fileID: 2014573123}
 --- !u!1 &654154863 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1327385724211766, guid: dc00aab85b301f242896a77c4b442ec0, type: 3}
@@ -6563,8 +6622,9 @@ GameObject:
   - component: {fileID: 1091887105}
   - component: {fileID: 1091887107}
   - component: {fileID: 1091887106}
+  - component: {fileID: 1091887108}
   m_Layer: 5
-  m_Name: RageBar
+  m_Name: ExpirienceBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6586,8 +6646,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.116000004, y: 0.32500002}
   m_AnchorMax: {x: 0.55600005, y: 0.48700002}
-  m_AnchoredPosition: {x: -25.276611, y: 2.4637985}
-  m_SizeDelta: {x: -50.5532, y: -4.9276}
+  m_AnchoredPosition: {x: -17.2761, y: 2.3099}
+  m_SizeDelta: {x: -67.7851, y: -4.6199}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1091887106
 MonoBehaviour:
@@ -6627,6 +6687,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091887104}
   m_CullTransparentMesh: 1
+--- !u!114 &1091887108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1091887104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3cfd663a2c151f45b60da17b8379ab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Kurwa:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _StartValue: 0
+  _EndValue: 0
+  _Duration: 0.5
+  _Image: {fileID: 1091887106}
 --- !u!1 &1153490480
 GameObject:
   m_ObjectHideFlags: 0
@@ -9285,6 +9385,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9234c391c4af46042b5af382d8522e28, type: 2}
   - {fileID: 11400000, guid: 8653dc7b497552746abb0f302670bb44, type: 2}
   - {fileID: 11400000, guid: 2cc6a4c80568b3347aa5b734d37e6510, type: 2}
+  - {fileID: 11400000, guid: 572b8ac0a7232f946820cfb7050f4c4a, type: 2}
   _monoInstallers:
   - {fileID: 1838537052}
   - {fileID: 535802671}
