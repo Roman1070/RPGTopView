@@ -16,7 +16,7 @@ public class ItemCollectAttemptController : ItemCollectControllerBase
 
     private void UpdatePlayerState(SendCharacterStatesSignal signal)
     {
-        _collectingAvailable = !(signal.States[PlayerState.Rolling] || signal.States[PlayerState.Jumping]
+        _collectingAvailable = !(signal.States[PlayerState.Rolling] || !signal.States[PlayerState.Grounded]
             || signal.States[PlayerState.Collecting] || signal.States[PlayerState.Attacking]);
     }
 

@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerJumpController : PlayerMovementControllerBase
 {
     private bool _jumpAvailable;
-    private bool _isJumping;
     private Vector3 _velocity;
     private float _speedBeforeJump;
     private PlayerMovementConfig _config;
     private float _stamina;
     private Animator _animator;
+    private bool _previousFrameGrounded;
 
     public PlayerJumpController(PlayerView player, SignalBus signalBus, UpdateProvider updateProvider, PlayerMovementConfig config) : base(player, signalBus)
     {
@@ -31,7 +31,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
 
     private void GetCharacterState(SendCharacterStatesSignal obj)
     {
-        _jumpAvailable = _stamina >= _config.StaminaOnJump && !(obj.States[PlayerState.Rolling] || _isJumping);
+        _jumpAvailable = _stamina >= _config.StaminaOnJump && !obj.States[PlayerState.Rolling] && obj.States[PlayerState.Grounded];
     }
 
     private void UpdateStamina(OnStaminaChangedSignal signal)
@@ -49,7 +49,23 @@ public class PlayerJumpController : PlayerMovementControllerBase
 
     private void Update()
     {
-        if (!_isJumping && _velocity.y < 0)
+        Vector3 origin = _player.GroundChecker.position;
+        RaycastHit[] hits = Physics.SphereCastAll(origin, 0.02f, -_player.transform.up, 0.02f);
+
+        bool isGrounded = false;
+        foreach (var hit in hits)
+        {
+            if (hit.collider.CompareTag("Ground")) isGrounded = true;
+        }
+
+        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Grounded, isGrounded));
+        if (isGrounded && !_previousFrameGrounded)
+        { 
+            _velocity.x = 0;
+            _velocity.z = 0;
+        }
+
+        if (_jumpAvailable && _velocity.y < 0)
         {
             _velocity.y = -2f;
         }
@@ -57,6 +73,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
         _velocity.y += _config.Gravity * Time.deltaTime;
 
         _player.Controller.Move(_velocity * Time.deltaTime);
+        _previousFrameGrounded = isGrounded;
     }
 
     private void Jump()
@@ -66,16 +83,5 @@ public class PlayerJumpController : PlayerMovementControllerBase
         _velocity = _player.Model.transform.TransformDirection(_velocity);
         _signalBus.FireSignal(new OnStaminaChangedSignal(_stamina-_config.StaminaOnJump));
         _animator.SetTrigger("Jump");
-        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Jumping, true));
-        _isJumping = true;
-        DOVirtual.DelayedCall(0.9f, () =>
-        {
-            _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Jumping, false));
-            _velocity = Vector3.zero;
-            DOVirtual.DelayedCall(0.4f, () =>
-            {
-                _isJumping = false;
-            });
-        });
     }
 }

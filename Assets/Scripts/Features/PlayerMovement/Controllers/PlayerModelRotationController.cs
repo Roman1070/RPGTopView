@@ -14,7 +14,7 @@ public class PlayerModelRotationController : PlayerMovementControllerBase
 
     private void GetCharacterStates(SendCharacterStatesSignal signal)
     {
-        _rotationAvailable = !(signal.States[PlayerState.Rolling] || signal.States[PlayerState.Jumping] || signal.States[PlayerState.Collecting]);
+        _rotationAvailable = !(signal.States[PlayerState.Rolling] || !signal.States[PlayerState.Grounded] || signal.States[PlayerState.Collecting]);
     }
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)

@@ -4,9 +4,9 @@ public enum PlayerState
 {
     Running,
     Rolling,
-    Jumping,
     Attacking,
-    Collecting
+    Collecting,
+    Grounded
 }
 
 public class PlayerStatesController : PlayerMovementControllerBase
@@ -19,9 +19,9 @@ public class PlayerStatesController : PlayerMovementControllerBase
         {
             {PlayerState.Running, false},
             {PlayerState.Rolling, false},
-            {PlayerState.Jumping, false},
             {PlayerState.Attacking, false},
             {PlayerState.Collecting, false},
+            {PlayerState.Grounded, true},
         };
         _signalBus.Subscribe<SetPlayerStateSignal>(SetState, this);
         updateProvider.Updates.Add(Update);

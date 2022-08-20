@@ -18,7 +18,7 @@ public class PlayerCombatController : PlayerCombatControllerBase
 
     private void GetCharacterStates(SendCharacterStatesSignal obj)
     {
-        _attackAvailable = !(obj.States[PlayerState.Jumping] || obj.States[PlayerState.Rolling] || obj.States[PlayerState.Attacking]);
+        _attackAvailable = !(!obj.States[PlayerState.Grounded] || obj.States[PlayerState.Rolling] || obj.States[PlayerState.Attacking]);
     }
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)

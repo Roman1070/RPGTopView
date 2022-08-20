@@ -23,7 +23,7 @@ public class PlayerRollController : PlayerMovementControllerBase
 
     private void GetCharacterStates(SendCharacterStatesSignal obj)
     {
-        _rollEnabled = !(obj.States[PlayerState.Jumping] || obj.States[PlayerState.Rolling]);
+        _rollEnabled = !(!obj.States[PlayerState.Grounded] || obj.States[PlayerState.Rolling]);
     }
 
     private void CheckRollAttempt(OnInputDataRecievedSignal signal)

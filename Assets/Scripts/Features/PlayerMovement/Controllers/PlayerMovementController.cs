@@ -30,7 +30,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
     private void GetCharacterStates(SendCharacterStatesSignal signal)
     {
         _isRunning = signal.States[PlayerState.Running];
-        _movementAvailable = !(signal.States[PlayerState.Jumping] || signal.States[PlayerState.Rolling]
+        _movementAvailable = !(!signal.States[PlayerState.Grounded] || signal.States[PlayerState.Rolling]
             || signal.States[PlayerState.Collecting]);
     }
 
