@@ -35,7 +35,8 @@ public class ServicesLoader : MonoBehaviour
             new GameUiService(_signalBus,_gameCanvas,_movementConfig),
             new PlayerCombatService(_signalBus,_playerView,_combatConfig),
             new ItemCollectService(_signalBus,_updateProvider,_playerView),
-            new InventoryService(_signalBus,_itemsMap)
+            new InventoryService(_signalBus,_itemsMap),
+            new DevConsoleService(_signalBus, _gameCanvas)
         };
         _signalBus.FireSignal(new OnServicesLoadedSignal(_services));
     }

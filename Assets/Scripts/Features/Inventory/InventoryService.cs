@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class InventoryService : LoadableService
 {
     private ItemsMap _itemsMap;
 
     private Dictionary<string, int> _itemsCount;
-    private Dictionary<string,int> ItemsCount
+    private Dictionary<string, int> ItemsCount
     {
         get
         {
@@ -45,7 +44,7 @@ public class InventoryService : LoadableService
 
     private void ChangeItemCount(OnItemCountChangedSignal signal)
     {
-        foreach(var item in signal.Items)
+        foreach (var item in signal.Items)
         {
             ItemsCount[item.Id] += item.Count;
         }

@@ -14,9 +14,9 @@ public class EnvironmentItemCheckController : ItemCollectControllerBase
 
     private void Check()
     {
-        Vector3 origin = _player.transform.position;
+        Vector3 origin = _player.transform.position+Vector3.up*2;
 
-        if (Physics.SphereCast(origin, 0.1f, _player.transform.forward, out RaycastHit hit, 10))
+        if (Physics.SphereCast(origin, 1, - _player.transform.up, out RaycastHit hit, 3))
         {
             _signalBus.FireSignal(new UpdateCollectableItemSignal(hit.collider.TryGetComponent(out CollectableObject obj) ? obj : null));
         }

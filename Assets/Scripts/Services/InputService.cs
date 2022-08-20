@@ -10,6 +10,7 @@ public struct InputDataPack
     public bool AttackAttempt;
     public bool RollAttempt;
     public bool CollectAttempt;
+    public bool DevConsoleCall;
 }
 
 public class InputService : LoadableService
@@ -24,16 +25,17 @@ public class InputService : LoadableService
         _updateProvider.Updates.Add(GetInput);
     }
 
-    private KeyCode Right => KeyCode.D;
-    private KeyCode Left => KeyCode.A;
-    private KeyCode Up => KeyCode.W;
-    private KeyCode Down => KeyCode.S;
-    private KeyCode Jump => KeyCode.Space;
-    private KeyCode Sprint => KeyCode.LeftShift;
-    private KeyCode Attack => KeyCode.Mouse0;
-    private KeyCode Roll => KeyCode.LeftControl;
-    private KeyCode Collect => KeyCode.E;
-    private KeyCode Block => KeyCode.Mouse1;
+    public KeyCode Right => KeyCode.D;
+    public KeyCode Left => KeyCode.A;
+    public KeyCode Up => KeyCode.W;
+    public KeyCode Down => KeyCode.S;
+    public KeyCode Jump => KeyCode.Space;
+    public KeyCode Sprint => KeyCode.LeftShift;
+    public KeyCode Attack => KeyCode.Mouse0;
+    public KeyCode Roll => KeyCode.LeftControl;
+    public KeyCode Collect => KeyCode.E;
+    public KeyCode DevConsole => KeyCode.KeypadMinus;
+    public KeyCode Block => KeyCode.Mouse1;
     //всю эту движуху сверху в конфиг
 
 
@@ -58,6 +60,7 @@ public class InputService : LoadableService
         data.AttackAttempt = Input.GetKeyDown(Attack);
         data.RollAttempt = Input.GetKeyDown(Roll);
         data.CollectAttempt = Input.GetKeyDown(Collect);
+        data.DevConsoleCall = Input.GetKeyDown(DevConsole);
 
         _signalBus.FireSignal(new OnInputDataRecievedSignal(data));
     }
