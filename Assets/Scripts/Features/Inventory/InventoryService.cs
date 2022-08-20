@@ -45,11 +45,11 @@ public class InventoryService : LoadableService
 
     private void ChangeItemCount(OnItemCountChangedSignal signal)
     {
-        ItemsCount[signal.Id] += signal.Delta;
-        for(int i = 0; i < ItemsCount.Count; i++)
+        foreach(var item in signal.Items)
         {
-            Debug.LogError($"{GetItem(signal.Id).NameDef.Name} count is {ItemsCount[signal.Id]}");
+            ItemsCount[item.Id] += item.Count;
         }
+
     }
 
     public int GetItemCount(string id) => ItemsCount[id];

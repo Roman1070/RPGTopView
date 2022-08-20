@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8cb529457bc5f34b9e26c0281626471, type: 3}
-  m_Name: RESOURCE_WOOD
+  m_Name: RESOURCE_STONE
   m_EditorClassIdentifier: 
-  ItemId: RESOURCE_WOOD
+  ItemId: RESOURCE_STONE
   NameDef:
-    Name: Wood
+    Name: Stone
   GroupDef:
     Group: 0
   IconDef:
-    Icon: {fileID: 21300000, guid: 54c6fcc9ec54d7d4e8a60a50fdc9ef31, type: 3}
+    Icon: {fileID: 21300000, guid: 264127445f15cf640977bb6357d21a05, type: 3}

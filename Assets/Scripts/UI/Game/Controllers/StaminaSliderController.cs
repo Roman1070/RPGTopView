@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,7 @@ public class StaminaSliderController : GameUiControllerBase
         _sliderAnim = _slider.GetComponent<GroupOpacityAnimation>();
         _maxStamina = movementConfig.MaxStamina;
         _slider.maxValue = _maxStamina;
-        //_sliderAnim.SetProgress(1);
+        _sliderAnim.SetProgress(1);
 
         _hideSlider = DOVirtual.DelayedCall(0,()=> { });
 

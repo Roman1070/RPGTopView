@@ -1,11 +1,11 @@
+using System.Collections.Generic;
+
 public class OnItemCountChangedSignal : ISignal
 {
-    public string Id;
-    public int Delta;
+    public EnumerableItem[] Items;
 
-    public OnItemCountChangedSignal(string id, int value)
+    public OnItemCountChangedSignal(EnumerableItem[] items)
     {
-        Id = id;
-        Delta = value;
+        Items = items;
     }
 }

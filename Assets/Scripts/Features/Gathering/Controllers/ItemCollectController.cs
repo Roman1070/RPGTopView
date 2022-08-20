@@ -25,6 +25,6 @@ public class ItemCollectController : ItemCollectControllerBase
     {
         yield return new WaitForSeconds(delay);
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Collecting, false));
-        _signalBus.FireSignal(new OnItemCountChangedSignal(obj.Id, obj.Count));
+        _signalBus.FireSignal(new OnItemCountChangedSignal(obj.Items));
     }
 }

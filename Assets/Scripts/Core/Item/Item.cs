@@ -8,4 +8,5 @@ public class Item : ScriptableObject
     public string ItemId;
     public ItemNameDef NameDef;
     public ItemGroupDef GroupDef;
+    public ItemIconDef IconDef;
 }

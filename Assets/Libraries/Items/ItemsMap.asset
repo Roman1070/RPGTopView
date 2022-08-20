@@ -15,3 +15,5 @@ MonoBehaviour:
   Items:
   - Id: RESOURCE_WOOD
     Item: {fileID: 11400000, guid: 42e4f87fe4e4c8147b4c5dbcc1265c66, type: 2}
+  - Id: RESOURCE_STONE
+    Item: {fileID: 11400000, guid: 4f75fdb948fd3ee4db2b80f7570405a1, type: 2}

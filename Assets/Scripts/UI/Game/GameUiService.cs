@@ -23,6 +23,7 @@ public class GameUiService : LoadableService
         _controllers = new List<GameUiControllerBase>()
         {
             new StaminaSliderController(_signalBus,_gameCanvas,_movementConfig),
+            new CollectedItemWidgetsController(_signalBus,_gameCanvas),
         };
     }
 }

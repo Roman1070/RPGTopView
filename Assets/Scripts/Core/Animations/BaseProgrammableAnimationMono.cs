@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseProgrammableAnimationMono<T> : View
+public abstract class BaseProgrammableAnimationMono<T> : MonoBehaviour
 {
     [SerializeField]
     protected AnimationCurve _Kurwa;

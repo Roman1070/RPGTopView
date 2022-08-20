@@ -22,19 +22,6 @@ public class ServicesLoader : MonoBehaviour
     protected readonly ItemsMap _itemsMap;
     #endregion
 
-    #region SINGLETONE
-    private static ServicesLoader _instance;
-    public static ServicesLoader Instance
-    {
-        get
-        {
-            if (_instance == null)
-                _instance = FindObjectOfType<ServicesLoader>();
-            return _instance;
-        }
-    }
-    #endregion
-
     private List<LoadableService> _services;
 
     private void Start()
@@ -47,18 +34,9 @@ public class ServicesLoader : MonoBehaviour
             new PlayerMovementService(_signalBus,_updateProvider,_playerView,_movementConfig),
             new GameUiService(_signalBus,_gameCanvas,_movementConfig),
             new PlayerCombatService(_signalBus,_playerView,_combatConfig),
-            new InventoryService(_signalBus,_itemsMap),
             new ItemCollectService(_signalBus,_updateProvider,_playerView),
+            new InventoryService(_signalBus,_itemsMap)
         };
-    }
-
-    public LoadableService GetService(Type type)
-    {
-        foreach(var service in _services)
-        {
-            if (service.GetType() == type)
-                return service;
-        }
-        return null;
+        _signalBus.FireSignal(new OnServicesLoadedSignal(_services));
     }
 }

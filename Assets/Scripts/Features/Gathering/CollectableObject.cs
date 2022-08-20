@@ -1,7 +1,14 @@
+using System;
 using UnityEngine;
 
-public class CollectableObject : MonoBehaviour
+[Serializable]
+public struct EnumerableItem
 {
     public string Id;
     public int Count;
+}
+
+public class CollectableObject : MonoBehaviour
+{
+    public EnumerableItem[] Items;
 }

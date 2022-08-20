@@ -110,5 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32bc578dea2ff44d838936f5e0f479e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Id: RESOURCE_WOOD
-  Count: 3
+  Items:
+  - Id: RESOURCE_WOOD
+    Count: 3
