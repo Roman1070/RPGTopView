@@ -10,13 +10,13 @@ public class PlayerCombatController : PlayerCombatControllerBase
     public PlayerCombatController(PlayerView player, SignalBus signalBus, PlayerCombatConfig config) : base( signalBus,player,config)
     {
         signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
-        signalBus.Subscribe<SendCharacterStatesSignal>(GetCharacterStates, this);
+        signalBus.Subscribe<SendPlayerStatesSignal>(GetCharacterStates, this);
         _animator = player.Model.GetComponent<Animator>();
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Attacking, false));
         _config = config;
     }
 
-    private void GetCharacterStates(SendCharacterStatesSignal obj)
+    private void GetCharacterStates(SendPlayerStatesSignal obj)
     {
         _attackAvailable = !(!obj.States[PlayerState.Grounded] || obj.States[PlayerState.Rolling] || obj.States[PlayerState.Attacking]);
     }

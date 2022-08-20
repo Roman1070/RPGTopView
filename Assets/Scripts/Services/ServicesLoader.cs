@@ -34,12 +34,13 @@ public class ServicesLoader : MonoBehaviour
         {
             new InputService(_signalBus,_updateProvider),
             new PlayerMovementService(_signalBus,_updateProvider,_playerView,_movementConfig),
-            new GameUiService(_signalBus,_gameCanvas,_movementConfig),
+            new GameUiService(_signalBus,_gameCanvas,_movementConfig, _playerView.Camera),
             new PlayerCombatService(_signalBus,_playerView,_combatConfig),
             new ItemCollectService(_signalBus,_updateProvider,_playerView),
             new InventoryService(_signalBus,_itemsMap),
             new DevConsoleService(_signalBus, _gameCanvas),
-            new PlayerDataService(_signalBus, _levelsConfig)
+            new PlayerDataService(_signalBus, _levelsConfig),
+            new PlayerStatesService(_signalBus, _updateProvider)
         };
         _signalBus.FireSignal(new OnServicesLoadedSignal(_services));
     }

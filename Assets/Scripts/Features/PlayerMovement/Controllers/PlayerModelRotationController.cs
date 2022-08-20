@@ -9,10 +9,10 @@ public class PlayerModelRotationController : PlayerMovementControllerBase
     public PlayerModelRotationController(PlayerView player, SignalBus signalBus) : base(player, signalBus)
     {
         _signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
-        _signalBus.Subscribe<SendCharacterStatesSignal>(GetCharacterStates, this);
+        _signalBus.Subscribe<SendPlayerStatesSignal>(GetCharacterStates, this);
     }
 
-    private void GetCharacterStates(SendCharacterStatesSignal signal)
+    private void GetCharacterStates(SendPlayerStatesSignal signal)
     {
         _rotationAvailable = !(signal.States[PlayerState.Rolling] || !signal.States[PlayerState.Grounded] || signal.States[PlayerState.Collecting]);
     }

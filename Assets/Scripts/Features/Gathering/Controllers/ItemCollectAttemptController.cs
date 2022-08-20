@@ -11,10 +11,10 @@ public class ItemCollectAttemptController : ItemCollectControllerBase
     {
         _signalBus.Subscribe<UpdateCollectableItemSignal>(UpdateCollectablesData, this);
         _signalBus.Subscribe<OnInputDataRecievedSignal>(UpdateInputData,this);
-        _signalBus.Subscribe<SendCharacterStatesSignal>(UpdatePlayerState, this);
+        _signalBus.Subscribe<SendPlayerStatesSignal>(UpdatePlayerState, this);
     }
 
-    private void UpdatePlayerState(SendCharacterStatesSignal signal)
+    private void UpdatePlayerState(SendPlayerStatesSignal signal)
     {
         _collectingAvailable = !(signal.States[PlayerState.Rolling] || !signal.States[PlayerState.Grounded]
             || signal.States[PlayerState.Collecting] || signal.States[PlayerState.Attacking]);

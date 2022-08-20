@@ -8,4 +8,5 @@ public class PlayerView : MonoBehaviour
     public CharacterController Controller;
     public Transform Model;
     public Transform GroundChecker;
+    public Camera Camera;
 }

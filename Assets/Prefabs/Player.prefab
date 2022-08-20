@@ -173,6 +173,7 @@ MonoBehaviour:
   Controller: {fileID: 3099874770490587427}
   Model: {fileID: 3756727896327743710}
   GroundChecker: {fileID: 1411110047}
+  Camera: {fileID: 963194227}
 --- !u!143 &3099874770490587427
 CharacterController:
   m_ObjectHideFlags: 0
@@ -439,15 +440,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4813254953496842, guid: d7e0e3051694820429ee013f39c0fb2d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.003
       objectReference: {fileID: 0}
     - target: {fileID: 4813254953496842, guid: d7e0e3051694820429ee013f39c0fb2d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.188
       objectReference: {fileID: 0}
     - target: {fileID: 4813254953496842, guid: d7e0e3051694820429ee013f39c0fb2d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.041
       objectReference: {fileID: 0}
     - target: {fileID: 4813254953496842, guid: d7e0e3051694820429ee013f39c0fb2d, type: 3}
       propertyPath: m_LocalRotation.w

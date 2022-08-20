@@ -17,13 +17,13 @@ public class PlayerRollController : PlayerMovementControllerBase
         updateProvider.Updates.Add(Update);
         _signalBus.Subscribe<OnStaminaChangedSignal>(UpdateStamina, this);
         _signalBus.Subscribe<OnInputDataRecievedSignal>(CheckRollAttempt, this);
-        _signalBus.Subscribe<SendCharacterStatesSignal>(GetCharacterStates, this);
+        _signalBus.Subscribe<SendPlayerStatesSignal>(GetCharacterStates, this);
         _animator = _player.Model.GetComponent<Animator>();
     }
 
-    private void GetCharacterStates(SendCharacterStatesSignal obj)
+    private void GetCharacterStates(SendPlayerStatesSignal obj)
     {
-        _rollEnabled = !(!obj.States[PlayerState.Grounded] || obj.States[PlayerState.Rolling]);
+        _rollEnabled = !(!obj.States[PlayerState.Grounded] || obj.States[PlayerState.Rolling] || obj.States[PlayerState.Attacking]);
     }
 
     private void CheckRollAttempt(OnInputDataRecievedSignal signal)

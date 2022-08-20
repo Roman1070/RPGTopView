@@ -20,7 +20,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
 
         _signalBus.Subscribe<OnInputDataRecievedSignal>(CheckJumpAttempt, this);
         _signalBus.Subscribe<OnStaminaChangedSignal>(UpdateStamina, this);
-        _signalBus.Subscribe<SendCharacterStatesSignal>(GetCharacterState, this);
+        _signalBus.Subscribe<SendPlayerStatesSignal>(GetCharacterState, this);
         _signalBus.Subscribe<UpdateLastSpeedSignal>(UpdateSpeed, this);
         updateProvider.Updates.Add(Update);
     }
@@ -30,7 +30,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
         _speedBeforeJump = obj.Speed;
     }
 
-    private void GetCharacterState(SendCharacterStatesSignal obj)
+    private void GetCharacterState(SendPlayerStatesSignal obj)
     {
         _jumpAvailable = _stamina >= _config.StaminaOnJump && !obj.States[PlayerState.Rolling] && obj.States[PlayerState.Grounded]
             && !obj.States[PlayerState.Collecting] &&!_jumpedRecently;

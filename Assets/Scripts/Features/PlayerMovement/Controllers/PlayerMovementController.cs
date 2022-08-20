@@ -20,14 +20,14 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
         _signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
         _signalBus.Subscribe<OnStaminaChangedSignal>(OnStaminaChanged, this);
-        _signalBus.Subscribe<SendCharacterStatesSignal>(GetCharacterStates, this);
+        _signalBus.Subscribe<SendPlayerStatesSignal>(GetCharacterStates, this);
         updateProvider.Updates.Add(UpdateStamina);
 
         Cursor.lockState = CursorLockMode.Locked;
         _stamina = _config.MaxStamina;
     }
 
-    private void GetCharacterStates(SendCharacterStatesSignal signal)
+    private void GetCharacterStates(SendPlayerStatesSignal signal)
     {
         _isRunning = signal.States[PlayerState.Running];
         _movementAvailable = !(!signal.States[PlayerState.Grounded] || signal.States[PlayerState.Rolling]
@@ -64,7 +64,6 @@ public class PlayerMovementController : PlayerMovementControllerBase
         {
             _player.Controller.Move(moveDirection * _speed * Time.deltaTime);
             _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
-            CalculateSpeed(signal.Data.Direction);
             if (signal.Data.Direction == Vector2.zero)
             {
                 _signalBus.FireSignal(new UpdateLastSpeedSignal(0));
@@ -74,7 +73,8 @@ public class PlayerMovementController : PlayerMovementControllerBase
                 _signalBus.FireSignal(new UpdateLastSpeedSignal(signal.Data.Direction.y >= 0 ? _speed : -_speed));
             }
         }
-        else CalculateSpeed(Vector2.zero);
+
+        CalculateSpeed(signal.Data.Direction);
 
     }
 
