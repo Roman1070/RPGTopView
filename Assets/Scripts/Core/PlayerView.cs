@@ -9,4 +9,7 @@ public class PlayerView : MonoBehaviour
     public Transform Model;
     public Transform GroundChecker;
     public Camera Camera;
+    public Transform HandAnchor;
+    public Transform SpineAnchor;
+    public Transform CurrentWeapon;
 }

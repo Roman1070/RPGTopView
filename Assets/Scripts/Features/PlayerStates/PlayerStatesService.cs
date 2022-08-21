@@ -7,7 +7,9 @@ public enum PlayerState
     Rolling,
     Attacking,
     Interacting,
-    Grounded
+    Grounded,
+    IsArmed,
+    DrawingWeapon,
 }
 
 public class PlayerStatesService : LoadableService
@@ -23,6 +25,8 @@ public class PlayerStatesService : LoadableService
             {PlayerState.Attacking, false},
             {PlayerState.Interacting, false},
             {PlayerState.Grounded, true},
+            {PlayerState.IsArmed, true},
+            {PlayerState.DrawingWeapon, false},
         };
         _signalBus.Subscribe<SetPlayerStateSignal>(SetState, this);
     }
@@ -35,5 +39,7 @@ public class PlayerStatesService : LoadableService
         States[signal.State] = signal.Value;
     }
 
-    public bool GetState(PlayerState state) => States[state];
+    public override void OnServicesLoaded(params LoadableService[] services)
+    {
+    }
 }

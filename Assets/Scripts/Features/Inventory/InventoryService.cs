@@ -86,4 +86,9 @@ public class InventoryService : LoadableService
     public int GetItemCount(string id) => ItemsCount[id];
 
     public Item GetItem(string id) => ItemsMap.Items.First(_ => _.Id == id).Item;
+
+    public override void OnServicesLoaded(params LoadableService[] services)
+    {
+
+    }
 }

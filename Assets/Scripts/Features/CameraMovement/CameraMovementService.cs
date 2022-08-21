@@ -16,6 +16,10 @@ public class CameraMovementService : LoadableService
         InitControllers();
     }
 
+    public override void OnServicesLoaded(params LoadableService[] services)
+    {
+    }
+
     private void InitControllers()
     {
         _controllers = new List<CameraMovementControllerBase>()

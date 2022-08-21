@@ -19,13 +19,11 @@ public class PlayerMovementService : LoadableService
         _updateProvider = updateProvider;
            _player = playerView;
         _movementConfig = config;
-        signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded, this);
-
     }
 
-    private void OnServicesLoaded(OnServicesLoadedSignal obj)
+    public override void OnServicesLoaded(params LoadableService[] services)
     {
-        _playerStatesService = obj.Services.First(s => s is PlayerStatesService) as PlayerStatesService;
+        _playerStatesService = services.First(s => s.GetType() == typeof(PlayerStatesService)) as PlayerStatesService;
         InitControllers();
     }
 

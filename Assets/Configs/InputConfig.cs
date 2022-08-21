@@ -19,4 +19,5 @@ public class InputConfig : ScriptableObject
     public KeyCode Collect = KeyCode.E;
     public KeyCode DevConsole = KeyCode.KeypadMinus;
     public KeyCode Inventory = KeyCode.I;
+    public KeyCode ToggleArmedStatus = KeyCode.Alpha1;
 }

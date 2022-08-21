@@ -69,4 +69,7 @@ public class DevConsoleService : LoadableService
 
     }
 
+    public override void OnServicesLoaded(params LoadableService[] services)
+    {
+    }
 }

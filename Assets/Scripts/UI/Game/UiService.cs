@@ -21,14 +21,13 @@ public class UiService : LoadableService
         _gameCanvas = canvas;
         _movementConfig = config;
         _playerCamera = playerCamera;
-        signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded,this);
     }
 
-    private void OnServicesLoaded(OnServicesLoadedSignal obj)
+    public override void OnServicesLoaded(params LoadableService[] services)
     {
-        _statesService = obj.Services.First(s => s is PlayerStatesService) as PlayerStatesService;
-        _inputService = obj.Services.First(s => s is InputService) as InputService;
-        _inventory = obj.Services.First(s => s is InventoryService) as InventoryService;
+        _inputService = services.First(s => s.GetType() == typeof(InputService)) as InputService;
+        _statesService = services.First(s => s.GetType() == typeof(PlayerStatesService)) as PlayerStatesService;
+        _inventory = services.First(s => s.GetType() == typeof(InventoryService)) as InventoryService;
         InitControllers();
     }
 

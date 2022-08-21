@@ -244,6 +244,9 @@ MonoBehaviour:
   Model: {fileID: 3756727896327743710}
   GroundChecker: {fileID: 1411110047}
   Camera: {fileID: 963194227}
+  HandAnchor: {fileID: 3756727896613828499}
+  SpineAnchor: {fileID: 3756727897179381535}
+  CurrentWeapon: {fileID: 7719088668790602824}
 --- !u!143 &3099874770490587427
 CharacterController:
   m_ObjectHideFlags: 0
@@ -444,6 +447,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3756727896299222481, guid: bf1bfac2f1f52124a88eae02354cea04, type: 3}
   m_PrefabInstance: {fileID: 331383362}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &3756727897179381535 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3756727896940338525, guid: bf1bfac2f1f52124a88eae02354cea04, type: 3}
+  m_PrefabInstance: {fileID: 331383362}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3756727897651499650 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3756727897404068032, guid: bf1bfac2f1f52124a88eae02354cea04, type: 3}
@@ -506,3 +514,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2a4ffc4311ba5e4c81b0fc76531c362, type: 3}
+--- !u!4 &7719088668790602824 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6296745903544955297, guid: d2a4ffc4311ba5e4c81b0fc76531c362, type: 3}
+  m_PrefabInstance: {fileID: 4358709517818580457}
+  m_PrefabAsset: {fileID: 0}

@@ -13,6 +13,7 @@ public class InputDataPack
     public bool DevConsoleCall;
     public bool InventoryCall;
     public bool Esc;
+    public bool ToggleArmedStatus;
 }
 
 public class InputService : LoadableService
@@ -28,6 +29,10 @@ public class InputService : LoadableService
         _cameraConfig = cameraConfig;
         Config = config;
         _updateProvider.Updates.Add(GetInput);
+    }
+
+    public override void OnServicesLoaded(params LoadableService[] services)
+    {
     }
 
     private void GetInput()
@@ -59,6 +64,7 @@ public class InputService : LoadableService
         data.DevConsoleCall = Input.GetKeyDown(Config.DevConsole);
         data.InventoryCall = Input.GetKeyDown(Config.Inventory);
         data.Esc = Input.GetKeyDown(KeyCode.Escape);
+        data.ToggleArmedStatus = Input.GetKeyDown(Config.ToggleArmedStatus);
 
         _previousDirection = direction;
         _signalBus.FireSignal(new OnInputDataRecievedSignal(data));

@@ -6,7 +6,6 @@ public class PlayerCombatController : PlayerCombatControllerBase
 {
     private PlayerStatesService _states;
     private Animator _animator;
-    private bool _attackAvailable;
 
     public PlayerCombatController(PlayerView player, SignalBus signalBus, PlayerCombatConfig config, PlayerStatesService states) : base(signalBus, player, config)
     {
@@ -18,18 +17,29 @@ public class PlayerCombatController : PlayerCombatControllerBase
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
-        _attackAvailable = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.Attacking]);
-
-        if (signal.Data.AttackAttempt &&_attackAvailable)
+        if (signal.Data.AttackAttempt)
         {
-            _animator.SetTrigger("Attack");
-            _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Attacking, true));
-            float attackDuration = _config.AttacksDurations[0];
+            bool attackAvaialbe = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.Attacking] || _states.States[PlayerState.DrawingWeapon]);
 
-            DOVirtual.DelayedCall(attackDuration,()=>
+            if (attackAvaialbe)
             {
-                _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Attacking, false));
-            });
+                if (!_states.States[PlayerState.IsArmed])
+                {
+                    _signalBus.FireSignal(new DrawWeaponSignal());
+                    return;
+                }
+
+                _animator.SetTrigger("Attack");
+                _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Attacking, true));
+                float attackDuration = _config.AttacksDurations[0];
+
+                DOVirtual.DelayedCall(attackDuration, () =>
+                {
+                    _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Attacking, false));
+                });
+            }
+
+            
         }
     }
 }

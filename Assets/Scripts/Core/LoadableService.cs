@@ -9,4 +9,6 @@ public abstract class LoadableService
     {
         _signalBus = signalBus;
     }
+
+    public abstract void OnServicesLoaded(params LoadableService[] services);
 }

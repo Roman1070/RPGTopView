@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -28,26 +29,46 @@ public class ServicesLoader : MonoBehaviour
     protected readonly InputConfig _inputConfig;
     #endregion
 
+    private static ServicesLoader _instance;
+    public static ServicesLoader Instance
+    {
+        get
+        {
+            if (_instance == null)
+                _instance = FindObjectOfType<ServicesLoader>();
+
+            return _instance;
+        }
+    }
+
     private List<LoadableService> _services;
+
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        InitServices();
+    }
 
+    private void InitServices()
+    {
         _services = new List<LoadableService>()
         {
-            new InputService(_signalBus,_updateProvider,_cameraConfig,_inputConfig),
-            new PlayerMovementService(_signalBus,_updateProvider,_playerView,_movementConfig),
-            new UiService(_signalBus,_gameCanvas,_movementConfig, _playerView.Camera),
-            new PlayerCombatService(_signalBus,_playerView,_combatConfig),
-            new ItemCollectService(_signalBus,_updateProvider,_playerView),
-            new InventoryService(_signalBus,_itemsMap),
+            new InputService(_signalBus, _updateProvider, _cameraConfig, _inputConfig),
+            new PlayerMovementService(_signalBus, _updateProvider, _playerView, _movementConfig),
+            new UiService(_signalBus, _gameCanvas, _movementConfig, _playerView.Camera),
+            new PlayerCombatService(_signalBus, _playerView, _combatConfig),
+            new ItemCollectService(_signalBus, _updateProvider, _playerView),
+            new InventoryService(_signalBus, _itemsMap),
             new DevConsoleService(_signalBus, _gameCanvas),
             new PlayerDataService(_signalBus, _levelsConfig),
             new PlayerStatesService(_signalBus),
-            new CameraMovementService(_signalBus,_playerView,_cameraConfig),
-            new InventoryUiService(_signalBus, _gameCanvas)
+            new CameraMovementService(_signalBus, _playerView, _cameraConfig),
+            new InventoryUiService(_signalBus, _gameCanvas),
+            new PlayerGearService(_signalBus, _playerView)
         };
-        _signalBus.FireSignal(new OnServicesLoadedSignal(_services));
+
+        foreach (var service in _services)
+            service.OnServicesLoaded(_services.ToArray());
     }
 }

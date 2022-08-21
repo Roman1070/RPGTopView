@@ -10,7 +10,12 @@ public class InventoryUiService : LoadableService
     public InventoryUiService(SignalBus signalBus, GameCanvas gameCanvas) : base(signalBus)
     {
         _gameCanvas = gameCanvas;
-        _signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded, this);
+    }
+
+    public override void OnServicesLoaded(params LoadableService[] services)
+    {
+        _inventoryService = services.First(s => s.GetType() == typeof(InventoryService)) as InventoryService;
+        InitControllers();
     }
 
     private void InitControllers()
@@ -20,11 +25,5 @@ public class InventoryUiService : LoadableService
             new InventoryPanelActivityController(_signalBus,_gameCanvas,_inventoryService),
             new InventoryUiContentController(_signalBus,_gameCanvas,_inventoryService)
         };
-    }
-
-    private void OnServicesLoaded(OnServicesLoadedSignal obj)
-    {
-        _inventoryService = obj.Services.First(_ => _ is InventoryService) as InventoryService;
-        InitControllers();
     }
 }

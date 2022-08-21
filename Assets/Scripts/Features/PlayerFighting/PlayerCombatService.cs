@@ -13,13 +13,12 @@ public class PlayerCombatService : LoadableService
         : base(signalBus)
     {
         _player = player;
-        _config = config;
-        signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded, this);
+        _config = config;        
     }
 
-    private void OnServicesLoaded(OnServicesLoadedSignal obj)
+    public override void OnServicesLoaded(params LoadableService[] services)
     {
-        _playerStatesService = obj.Services.First(s => s is PlayerStatesService) as PlayerStatesService;
+        _playerStatesService = services.First(s => s.GetType() == typeof(PlayerStatesService)) as PlayerStatesService;
         InitControllers();
     }
 
