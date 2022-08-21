@@ -8,10 +8,13 @@ public class PlayerGearService : LoadableService
     private PlayerView _player;
     private List<PlayerGearControllerBase> _controllers;
     private PlayerStatesService _statesService;
+    private EquipedWeaponOffsetConfig _weaponOffsetConfig;
 
-    public PlayerGearService(SignalBus signalBus, PlayerView player) : base(signalBus)
+
+    public PlayerGearService(SignalBus signalBus, PlayerView player, EquipedWeaponOffsetConfig weaponOffsetConfig) : base(signalBus)
     {
         _player = player;
+        _weaponOffsetConfig = weaponOffsetConfig;
     }
 
     public override void OnServicesLoaded(params LoadableService[] services)
@@ -24,7 +27,7 @@ public class PlayerGearService : LoadableService
     {
         _controllers = new List<PlayerGearControllerBase>()
         {
-            new PlayerArmedStateController(_signalBus,_player,_statesService),
+            new PlayerArmedStateController(_signalBus,_player,_statesService,_weaponOffsetConfig),
         };
     }
 }

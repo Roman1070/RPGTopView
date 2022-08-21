@@ -25,7 +25,7 @@ public class PlayerStatesService : LoadableService
             {PlayerState.Attacking, false},
             {PlayerState.Interacting, false},
             {PlayerState.Grounded, true},
-            {PlayerState.IsArmed, true},
+            {PlayerState.IsArmed, false},
             {PlayerState.DrawingWeapon, false},
         };
         _signalBus.Subscribe<SetPlayerStateSignal>(SetState, this);

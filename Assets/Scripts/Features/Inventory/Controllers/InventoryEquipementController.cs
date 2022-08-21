@@ -9,7 +9,7 @@ public class InventoryEquipementController : InventoryControllerBase
     {
         _equippedItems = new Dictionary<ItemSlot, Item>()
         {
-            { ItemSlot.Weapon, null},
+            { ItemSlot.Weapon, inventoryService.GetItem("WEAPON_SWORD_1")},
             { ItemSlot.Helmet, null},
             { ItemSlot.Body, null},
             { ItemSlot.Gloves, null},

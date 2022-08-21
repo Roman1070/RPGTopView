@@ -10,18 +10,26 @@ public class PlayerArmedStateController : PlayerGearControllerBase
     private Transform _handAnchor;
     private Transform _spineAnchor;
     private Transform _currentWeapon;
+    private EquipedWeaponOffsetConfig _weaponOffsetConfig;
+    private string _currentWeaponId;
 
-    public PlayerArmedStateController(SignalBus signalBus, PlayerView player, PlayerStatesService statesService) : base(signalBus, player)
+    public PlayerArmedStateController(SignalBus signalBus, PlayerView player, PlayerStatesService statesService, EquipedWeaponOffsetConfig weaponOffsetConfig) : base(signalBus, player)
     {
         _statesService = statesService;
+        _weaponOffsetConfig = weaponOffsetConfig;
         _handAnchor = player.HandAnchor;
         _spineAnchor = player.SpineAnchor;
         _currentWeapon = player.CurrentWeapon;
         _animator = _player.Model.GetComponent<Animator>();
 
-        _statesService.States[PlayerState.IsArmed] = true;
         signalBus.Subscribe<OnInputDataRecievedSignal>(OnInput, this);
         signalBus.Subscribe<DrawWeaponSignal>(DrawWeapon, this);
+        signalBus.Subscribe<UpdateEquipedItemsDataSignal>(UpdateEquipedItem, this);
+    }
+
+    private void UpdateEquipedItem(UpdateEquipedItemsDataSignal obj)
+    {
+        _currentWeaponId = obj.EquipedItems[ItemSlot.Weapon].Id;
     }
 
     private void DrawWeapon(DrawWeaponSignal obj)
@@ -55,8 +63,8 @@ public class PlayerArmedStateController : PlayerGearControllerBase
         DOVirtual.DelayedCall(_animationDuration * 0.35f, () =>
         {
             _currentWeapon.SetParent(_handAnchor);
-            _currentWeapon.transform.localPosition = Vector3.zero;
-            _currentWeapon.transform.localEulerAngles = Vector3.zero;
+            _currentWeapon.transform.localPosition = _weaponOffsetConfig.GetOffsetData(_currentWeaponId).DrawnPosition;
+            _currentWeapon.transform.localEulerAngles = _weaponOffsetConfig.GetOffsetData(_currentWeaponId).DrawnRotation;
         });
 
         DOVirtual.DelayedCall(_animationDuration + 0.4f, () =>
@@ -74,7 +82,8 @@ public class PlayerArmedStateController : PlayerGearControllerBase
         {
             _currentWeapon.SetParent(_spineAnchor);
             _statesService.States[PlayerState.IsArmed] = false;
-            //_currentWeapon.transform.DOLocalMove()
+            _currentWeapon.transform.DOLocalMove(_weaponOffsetConfig.GetOffsetData(_currentWeaponId).RemovedPosition, 0.2f);
+            _currentWeapon.transform.localEulerAngles = _weaponOffsetConfig.GetOffsetData(_currentWeaponId).RemovedRotation;
 
             DOVirtual.DelayedCall(0.4f, () =>
             {

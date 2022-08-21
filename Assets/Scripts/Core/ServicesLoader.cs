@@ -27,6 +27,8 @@ public class ServicesLoader : MonoBehaviour
     protected readonly CameraMovementConfig _cameraConfig;
     [Inject]
     protected readonly InputConfig _inputConfig;
+    [Inject]
+    protected readonly EquipedWeaponOffsetConfig _weaponOffsetConfig;
     #endregion
 
     private static ServicesLoader _instance;
@@ -65,7 +67,7 @@ public class ServicesLoader : MonoBehaviour
             new PlayerStatesService(_signalBus),
             new CameraMovementService(_signalBus, _playerView, _cameraConfig),
             new InventoryUiService(_signalBus, _gameCanvas),
-            new PlayerGearService(_signalBus, _playerView)
+            new PlayerGearService(_signalBus, _playerView, _weaponOffsetConfig)
         };
 
         foreach (var service in _services)
