@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemWidgetView : View
+public class ItemWidgetView : ViewsContainer
 {
     [SerializeField]
     private CanvasGroup _canvasGroup;

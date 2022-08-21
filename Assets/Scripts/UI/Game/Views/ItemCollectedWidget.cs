@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,12 @@ public class ItemCollectedWidget : View
     public void SetItem(Item item, int count)
     {
         _icon.sprite = item.IconDef.Icon;
+        _count.text = count.ToString();
+        _name.text = item.NameDef.Name;
+    }
+    public void SetItem(Item item, int count, InventoryService service)
+    {
+        _icon.sprite = service.GetIcon(item.Id);
         _count.text = count.ToString();
         _name.text = item.NameDef.Name;
     }

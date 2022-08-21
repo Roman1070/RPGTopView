@@ -48,7 +48,11 @@ public class DevConsoleService : LoadableService
         _args = new object[parts.Length - 1];
         for (int i = 0; i < _args.Length; i++)
         {
-            _args[i] = int.Parse(parts[i + 1]);
+            if (int.TryParse(parts[i + 1], out var arg))
+            {
+                _args[i] = arg;
+            }
+            else _args[i] = parts[i + 1];
         }
 
         _console.InputField.text = "";
@@ -57,6 +61,9 @@ public class DevConsoleService : LoadableService
         {
             case "addexp":
                 _signalBus.FireSignal(new OnExperienceChangedSignal((int)_args[0]));
+                break;
+            case "addweapon":
+                _signalBus.FireSignal(new OnItemCountChangedSignal(new EnumerableItem[] { new EnumerableItem("WEAPON_"+(string)_args[0], 1) }));
                 break;
         }
 

@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8cb529457bc5f34b9e26c0281626471, type: 3}
   m_Name: RESOURCE_STONE
   m_EditorClassIdentifier: 
-  ItemId: RESOURCE_STONE
+  Id: RESOURCE_STONE
   NameDef:
     Name: Stone
   GroupDef:
     Group: 0
   IconDef:
     Icon: {fileID: 21300000, guid: 264127445f15cf640977bb6357d21a05, type: 3}
+  RarityDef:
+    Rarity: 0
+  GearScoreDef:
+    Mappings: []
+  PrafabDef:
+    Prefabs: []

@@ -6,13 +6,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemConfig", menuName = "Configs/ItemConfig")]
 public class Item : ScriptableObject
 {
-    public string ItemId;
+    public string Id;
     public ItemNameDef NameDef;
     public ItemGroupDef GroupDef;
     public ItemIconDef IconDef;
     public ItemRarityDef RarityDef;
     public ItemGearScoreDef GearScoreDef;
-    public ItemLevelDef LevelDef;
+    public ItemPrefabDef PrafabDef;
 
     public List<Type> Definitions
     {
@@ -25,7 +25,7 @@ public class Item : ScriptableObject
             if (IconDef != null) defs.Add(IconDef.GetType());
             if (RarityDef != null) defs.Add(RarityDef.GetType());
             if (GearScoreDef.Mappings.Length>0) defs.Add(GearScoreDef.GetType());
-            if (LevelDef.Level>0) defs.Add(LevelDef.GetType());
+            if (PrafabDef.Prefabs.Length>0) defs.Add(PrafabDef.GetType());
 
             return defs;
         }

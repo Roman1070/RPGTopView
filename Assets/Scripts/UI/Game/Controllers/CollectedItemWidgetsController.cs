@@ -21,7 +21,14 @@ public class CollectedItemWidgetsController : GameUiControllerBase
         for (int i = 0; i < signal.Items.Length; i++)
         {
             _widgets[i].gameObject.SetActive(true);
-            _widgets[i].SetItem(_inventoryService.GetItem(signal.Items[i].Id), signal.Items[i].Count);
+            if (_inventoryService.GetItem(signal.Items[i].Id).GroupDef.Group == ItemGroup.Resource)
+            {
+                _widgets[i].SetItem(_inventoryService.GetItem(signal.Items[i].Id), signal.Items[i].Count);
+            }
+            if (_inventoryService.GetItem(signal.Items[i].Id).GroupDef.Group == ItemGroup.MeleeWeapon)
+            {
+                _widgets[i].SetItem(_inventoryService.GetItem(signal.Items[i].Id), signal.Items[i].Count,_inventoryService);
+            }
             _widgets[i].PlayAnims();
         }
     }
