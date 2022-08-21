@@ -19,13 +19,13 @@ public class PlayerModelRotationController : PlayerMovementControllerBase
 
     private void OnInput(OnInputDataRecievedSignal obj)
     {
-        _rotationAvailable = !(_states.States[PlayerState.Rolling] || _states.States[PlayerState.Collecting]);
+        _rotationAvailable = !(_states.States[PlayerState.Rolling] || _states.States[PlayerState.Interacting]);
         _targetDirection = obj.Data.Direction;
     }
 
     private void OnStateChange(OnPlayerStateChangedSignal obj)
     {
-        if ((obj.State == PlayerState.Rolling || obj.State == PlayerState.Collecting) && obj.Value == false)
+        if ((obj.State == PlayerState.Rolling || obj.State == PlayerState.Interacting) && obj.Value == false)
         {
             _rotationAvailable = true;
             OnDirectionChanged(new OnMovementDirectionChagnedSignal(_targetDirection));

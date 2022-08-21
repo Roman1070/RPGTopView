@@ -6,15 +6,10 @@ public class CollectedItemWidgetsController : GameUiControllerBase
     private ItemCollectedWidget[] _widgets;
     private InventoryService _inventoryService;
 
-    public CollectedItemWidgetsController(SignalBus signalBus, GameCanvas gameCanvas) : base(signalBus, gameCanvas)
+    public CollectedItemWidgetsController(SignalBus signalBus, GameCanvas gameCanvas, InventoryService inventory) : base(signalBus, gameCanvas)
     {
+        _inventoryService = inventory;
         _widgets = gameCanvas.GetView<GameUiPanel>().GetViews<ItemCollectedWidget>().ToArray();
-    }
-
-    private void OnServicesLoaded(OnServicesLoadedSignal signal)
-    {
-        _inventoryService = signal.Services.First(t=>t is InventoryService) as InventoryService;
-        _signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded, this);
         _signalBus.Subscribe<OnItemCountChangedSignal>(ShowWidgets, this);
     }
 

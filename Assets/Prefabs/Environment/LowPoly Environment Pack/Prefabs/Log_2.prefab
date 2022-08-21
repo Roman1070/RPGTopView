@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23480334074049270}
   - component: {fileID: 2561974586684377802}
   - component: {fileID: 4795299749914526182}
+  - component: {fileID: 190003882792539530}
   m_Layer: 0
   m_Name: Log_2
   m_TagString: Ground
@@ -110,6 +111,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32bc578dea2ff44d838936f5e0f479e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionTime: 1
   Items:
   - Id: RESOURCE_WOOD
     Count: 3
+--- !u!205 &190003882792539530
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330862079685384}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.017376766, y: 0.059960164, z: 0.06363538}
+  m_Size: 0.6516013
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.3087835
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 23480334074049270}
+  m_Enabled: 1

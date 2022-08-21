@@ -6,7 +6,7 @@ public enum PlayerState
     Running,
     Rolling,
     Attacking,
-    Collecting,
+    Interacting,
     Grounded
 }
 
@@ -21,7 +21,7 @@ public class PlayerStatesService : LoadableService
             {PlayerState.Running, false},
             {PlayerState.Rolling, false},
             {PlayerState.Attacking, false},
-            {PlayerState.Collecting, false},
+            {PlayerState.Interacting, false},
             {PlayerState.Grounded, true},
         };
         _signalBus.Subscribe<SetPlayerStateSignal>(SetState, this);

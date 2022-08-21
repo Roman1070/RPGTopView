@@ -31,7 +31,7 @@ public class DevConsoleService : LoadableService
         if (val) _console.InputField.text = "";
         _canvasGroup.alpha = val ? 1 : 0;
         _canvasGroup.blocksRaycasts = val;
-        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Collecting, val));
+        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Interacting, val));
     }
 
     private void InitButton()

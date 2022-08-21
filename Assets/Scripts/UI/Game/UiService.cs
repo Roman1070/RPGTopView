@@ -12,6 +12,7 @@ public class UiService : LoadableService
     private Camera _playerCamera;
     private PlayerStatesService _statesService;
     private InputService _inputService;
+    private InventoryService _inventory;
 
     private List<GameUiControllerBase> _controllers;
 
@@ -27,6 +28,7 @@ public class UiService : LoadableService
     {
         _statesService = obj.Services.First(s => s is PlayerStatesService) as PlayerStatesService;
         _inputService = obj.Services.First(s => s is InputService) as InputService;
+        _inventory = obj.Services.First(s => s is InventoryService) as InventoryService;
         InitControllers();
     }
 
@@ -35,8 +37,8 @@ public class UiService : LoadableService
         _controllers = new List<GameUiControllerBase>()
         {
             new StaminaSliderController(_signalBus,_gameCanvas,_movementConfig),
-            new CollectedItemWidgetsController(_signalBus,_gameCanvas),
-            new CollectButtonController(_signalBus, _gameCanvas,_playerCamera,_statesService,_inputService),
+            new CollectedItemWidgetsController(_signalBus,_gameCanvas, _inventory),
+            new InteractButtonController(_signalBus, _gameCanvas,_playerCamera,_statesService,_inputService),
             new PlayerExperienceUiController(_signalBus,_gameCanvas),
             new UiPanelsController(_signalBus, _gameCanvas)
         };

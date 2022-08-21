@@ -58,7 +58,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
         UpdateGroundedStatus();
 
         _jumpAvailable = _stamina >= _config.StaminaOnJump && !_states.States[PlayerState.Rolling] && _states.States[PlayerState.Grounded]
-            && !_states.States[PlayerState.Collecting];
+            && !_states.States[PlayerState.Interacting];
 
         if (_states.States[PlayerState.Grounded] && _velocity.y <= 0)
         {

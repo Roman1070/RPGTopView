@@ -30,7 +30,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
         _movementAvailable = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling]
-            || _states.States[PlayerState.Collecting]);
+            || _states.States[PlayerState.Interacting]);
 
         var moveDirection = new Vector3(signal.Data.Direction.x, 0, signal.Data.Direction.y);
         moveDirection = _player.transform.TransformDirection(moveDirection);
