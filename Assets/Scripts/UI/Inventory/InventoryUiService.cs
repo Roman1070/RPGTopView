@@ -18,6 +18,7 @@ public class InventoryUiService : LoadableService
         _controllers = new List<InventoryUiControllerBase>()
         {
             new InventoryPanelActivityController(_signalBus,_gameCanvas,_inventoryService),
+            new InventoryUiContentController(_signalBus,_gameCanvas,_inventoryService)
         };
     }
 

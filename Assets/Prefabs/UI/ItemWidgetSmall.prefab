@@ -136,8 +136,8 @@ PrefabInstance:
       value: -0.9000015
       objectReference: {fileID: 0}
     - target: {fileID: 6224078184245964818, guid: 6b8be0bb33232c24186f2b70af0ef9f1, type: 3}
-      propertyPath: m_Maskable
-      value: 0
+      propertyPath: m_FontData.m_BestFit
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6224078184245964818, guid: 6b8be0bb33232c24186f2b70af0ef9f1, type: 3}
       propertyPath: m_FontData.m_MaxSize
@@ -147,8 +147,8 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontSize
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 6224078184580946772, guid: 6b8be0bb33232c24186f2b70af0ef9f1, type: 3}
-      propertyPath: m_Enabled
+    - target: {fileID: 6224078184245964818, guid: 6b8be0bb33232c24186f2b70af0ef9f1, type: 3}
+      propertyPath: m_FontData.m_AlignByGeometry
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6224078184580946777, guid: 6b8be0bb33232c24186f2b70af0ef9f1, type: 3}

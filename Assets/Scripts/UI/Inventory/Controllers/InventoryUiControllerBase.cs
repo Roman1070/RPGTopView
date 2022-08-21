@@ -3,8 +3,8 @@
 public class InventoryUiControllerBase
 {
     protected SignalBus _signalBus;
-    private GameCanvas _gameCanvas;
-    private InventoryService _inventoryService;
+    protected GameCanvas _gameCanvas;
+    protected InventoryService _inventoryService;
 
     public InventoryUiControllerBase(SignalBus signalBus, GameCanvas gameCanvas, InventoryService inventoryService)
     {

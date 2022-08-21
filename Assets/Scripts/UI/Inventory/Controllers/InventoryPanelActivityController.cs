@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-public class InventoryPanelActivityController : InventoryUiControllerBase
+﻿public class InventoryPanelActivityController : InventoryUiControllerBase
 {
     public InventoryPanelActivityController(SignalBus signalBus, GameCanvas gameCanvas, InventoryService inventoryService) : base(signalBus, gameCanvas, inventoryService)
     {
@@ -19,4 +16,5 @@ public class InventoryPanelActivityController : InventoryUiControllerBase
             _signalBus.FireSignal(new BackToPreviuosPanelSignal());
         }
     }
+
 }
