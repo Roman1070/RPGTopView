@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 
 public class InventoryEquipementController : InventoryControllerBase
@@ -16,6 +17,7 @@ public class InventoryEquipementController : InventoryControllerBase
             { ItemSlot.Boots, null}
         };
         signalBus.Subscribe<OnEquipedItemChangedSignal>(OnEquipItem, this);
+        DOVirtual.DelayedCall(0.1f,()=> _signalBus.FireSignal(new UpdateEquipedItemsDataSignal(_equippedItems)));
     }
 
     private void OnEquipItem(OnEquipedItemChangedSignal obj)

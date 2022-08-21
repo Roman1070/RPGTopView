@@ -4,7 +4,7 @@ public abstract class InteractableObject : MonoBehaviour
 {
     public abstract string Action { get; }
     public bool IsActive { get; protected set; }
-    public float InteractionTime = 1;
+    public abstract float InteractionTime { get; }
 
     private void Awake()
     {

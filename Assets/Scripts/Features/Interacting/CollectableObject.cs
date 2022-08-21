@@ -20,9 +20,11 @@ public class CollectableObject : InteractableObject
 
     public override string Action => "Collect";
 
+    public override float InteractionTime => 1;
+
     public override void OnInteractingFinished()
     {
         base.OnInteractingFinished();
-        gameObject.SetActive(false);
+        transform.parent.gameObject.SetActive(false);
     }
 }

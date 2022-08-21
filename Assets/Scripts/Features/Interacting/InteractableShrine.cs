@@ -2,5 +2,7 @@
 {
     public int ExperienceAmount;
 
-    public override string Action => "Interact";
+    public override string Action => "Pray";
+
+    public override float InteractionTime => 5;
 }

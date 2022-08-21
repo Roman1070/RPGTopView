@@ -8,6 +8,7 @@
     {
         if (obj is InteractableShrine)
         {
+            _animator.SetTrigger("Pray");
             obj = obj as InteractableShrine;
             _player.StartCoroutine(Interact(obj));
         }

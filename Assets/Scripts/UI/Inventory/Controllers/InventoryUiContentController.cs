@@ -57,14 +57,14 @@ public class InventoryUiContentController : InventoryUiControllerBase
         var itemWidgetViews = _gameCanvas.GetView<InventoryPanel>().GetView<TabsView>().TabMappings[index].Content.GetViews<ItemWidgetView>();
         foreach (var item in itemWidgetViews) item.SetActive(false);
 
-        var items = ItemsMap.Items.Where(i => i.Item.GroupDef.Group == group && !_itemEquiped[i.Id]).ToArray();
+        var unequipedItems = ItemsMap.Items.Where(i => i.Item.GroupDef.Group == group && !_itemEquiped[i.Id]).ToArray();
 
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < unequipedItems.Length; i++)
         {
-            var item = items[i];
+            var item = unequipedItems[i];
             var view = itemWidgetViews[i];
             int count = _inventoryService.GetItemCount(item.Id);
-            if (count > 0 && !_itemEquiped[item.Id])
+            if (count > 0)
             {
                 view.SetActive(true);
                 view.SetCount(count);
