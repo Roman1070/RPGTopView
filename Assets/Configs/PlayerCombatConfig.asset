@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerCombatConfig
   m_EditorClassIdentifier: 
   AttacksDurations:
-  - 1.933
+  - 0.8

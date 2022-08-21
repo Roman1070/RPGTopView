@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,8 +25,8 @@ public class PlayerExpirienceController : PlayerDataControllerBase
             Level = 1;
         }
 
-        signalBus.FireSignal(new UpdatePlayerUiWidgetSignal(NormalizedExp, Level,false));
         signalBus.Subscribe<OnExperienceChangedSignal>(OnExpChanged,this);
+        DOVirtual.DelayedCall(0.1f, () => { signalBus.FireSignal(new UpdatePlayerUiWidgetSignal(NormalizedExp, Level, false)); } );
     }
 
     private void OnExpChanged(OnExperienceChangedSignal signal)

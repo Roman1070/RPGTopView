@@ -1,39 +1,43 @@
 ﻿using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class PlayerJumpController : PlayerMovementControllerBase
 {
     private bool _isGrounded;
     private bool _jumpAvailable;
-    private bool _previousFrameGrounded;
-    private bool _jumpedRecently;
     private float _stamina;
     private float _speedBeforeJump;
+    private bool _groundCheckEnabled;
     private Vector3 _velocity;
     private Animator _animator;
     private PlayerMovementConfig _config;
 
-    public PlayerJumpController(PlayerView player, SignalBus signalBus, UpdateProvider updateProvider, PlayerMovementConfig config) : base(player, signalBus)
+    public PlayerJumpController(PlayerView player, SignalBus signalBus, UpdateProvider updateProvider, PlayerMovementConfig config, PlayerStatesService playerStatesService) : base(player, signalBus,playerStatesService)
     {
         _config = config;
         _animator = _player.Model.GetComponent<Animator>();
 
         _signalBus.Subscribe<OnInputDataRecievedSignal>(CheckJumpAttempt, this);
+        _signalBus.Subscribe<OnPlayerStateChangedSignal>(OnStateChanged, this);
         _signalBus.Subscribe<OnStaminaChangedSignal>(UpdateStamina, this);
-        _signalBus.Subscribe<SendPlayerStatesSignal>(GetCharacterState, this);
         _signalBus.Subscribe<UpdateLastSpeedSignal>(UpdateSpeed, this);
+        _groundCheckEnabled = true;
         updateProvider.Updates.Add(Update);
+    }
+
+    private void OnStateChanged(OnPlayerStateChangedSignal obj)
+    {
+        if(obj.State == PlayerState.Grounded && obj.Value == true)
+        {
+            _velocity.x = 0;
+            _velocity.z = 0;
+        }
     }
 
     private void UpdateSpeed(UpdateLastSpeedSignal obj)
     {
         _speedBeforeJump = obj.Speed;
-    }
-
-    private void GetCharacterState(SendPlayerStatesSignal obj)
-    {
-        _jumpAvailable = _stamina >= _config.StaminaOnJump && !obj.States[PlayerState.Rolling] && obj.States[PlayerState.Grounded]
-            && !obj.States[PlayerState.Collecting] &&!_jumpedRecently;
     }
 
     private void UpdateStamina(OnStaminaChangedSignal signal)
@@ -53,13 +57,10 @@ public class PlayerJumpController : PlayerMovementControllerBase
     {
         UpdateGroundedStatus();
 
-        if (_isGrounded && !_previousFrameGrounded)
-        {
-            _velocity.x = 0;
-            _velocity.z = 0;
-        }
+        _jumpAvailable = _stamina >= _config.StaminaOnJump && !_states.States[PlayerState.Rolling] && _states.States[PlayerState.Grounded]
+            && !_states.States[PlayerState.Collecting];
 
-        if (_jumpAvailable && _velocity.y < 0)
+        if (_states.States[PlayerState.Grounded] && _velocity.y <= 0)
         {
             _velocity.y = -2f;
         }
@@ -67,18 +68,26 @@ public class PlayerJumpController : PlayerMovementControllerBase
         _velocity.y += _config.Gravity * Time.deltaTime;
 
         _player.Controller.Move(_velocity * Time.deltaTime);
-        _previousFrameGrounded = _isGrounded;
     }
 
     private void UpdateGroundedStatus()
     {
+        if (!_groundCheckEnabled) 
+        { 
+            _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Grounded, false));
+            return;
+        }
+
         Vector3 origin = _player.GroundChecker.position;
-        RaycastHit[] hits = Physics.SphereCastAll(origin, 0.2f, -_player.transform.up, 0.2f);
+        RaycastHit[] hits = Physics.SphereCastAll(origin, 0.3f , -_player.transform.up, 0.05f);
 
         _isGrounded = false;
         foreach (var hit in hits)
         {
-            if (hit.collider.CompareTag("Ground")) _isGrounded = true;
+            if (hit.collider.CompareTag("Ground")) 
+            {
+                _isGrounded = true;
+            }
         }
 
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Grounded, _isGrounded));
@@ -91,10 +100,10 @@ public class PlayerJumpController : PlayerMovementControllerBase
         _velocity = _player.Model.transform.TransformDirection(_velocity);
         _signalBus.FireSignal(new OnStaminaChangedSignal(_stamina - _config.StaminaOnJump));
         _animator.SetTrigger("Jump");
-        _jumpedRecently = true;
-        DOVirtual.DelayedCall(1.3f, () =>
+        _groundCheckEnabled = false;
+        DOVirtual.DelayedCall(0.2f, () =>
         {
-            _jumpedRecently = false;
+            _groundCheckEnabled = true;
         });
     }
 }

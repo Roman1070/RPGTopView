@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -7,6 +9,7 @@ public class PlayerMovementService : LoadableService
     private PlayerView _player;
     private PlayerMovementConfig _movementConfig;
     private UpdateProvider _updateProvider;
+    private PlayerStatesService _playerStatesService;
 
     private List<PlayerMovementControllerBase> _controllers;
 
@@ -16,7 +19,13 @@ public class PlayerMovementService : LoadableService
         _updateProvider = updateProvider;
            _player = playerView;
         _movementConfig = config;
+        signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded, this);
 
+    }
+
+    private void OnServicesLoaded(OnServicesLoadedSignal obj)
+    {
+        _playerStatesService = obj.Services.First(s => s is PlayerStatesService) as PlayerStatesService;
         InitControllers();
     }
 
@@ -24,10 +33,11 @@ public class PlayerMovementService : LoadableService
     {
         _controllers = new List<PlayerMovementControllerBase>()
         {
-            new PlayerMovementController(_player,_signalBus,_updateProvider,_movementConfig),
-            new PlayerModelRotationController(_player,_signalBus),
-            new PlayerJumpController(_player,_signalBus,_updateProvider,_movementConfig),
-            new PlayerRollController(_player,_signalBus,_movementConfig,_updateProvider),
+            new PlayerMovementController(_player,_signalBus,_updateProvider,_movementConfig,_playerStatesService),
+            new PlayerModelRotationController(_player,_signalBus,_playerStatesService),
+            new PlayerJumpController(_player,_signalBus,_updateProvider,_movementConfig,_playerStatesService),
+            new PlayerRollController(_player,_signalBus,_movementConfig,_updateProvider,_playerStatesService),
+            new PlayerStaminaController(_player, _signalBus, _movementConfig, _updateProvider,_playerStatesService),
         };
     }
 }

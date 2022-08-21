@@ -3,21 +3,18 @@ using System;
 
 public class ItemCollectAttemptController : ItemCollectControllerBase
 {
+    private PlayerStatesService _states;
+
     private bool _collectAttempt;
 
     private bool _collectingAvailable;
 
-    public ItemCollectAttemptController(SignalBus signalBus) : base(signalBus)
+    public ItemCollectAttemptController(SignalBus signalBus, PlayerStatesService states) : base(signalBus)
     {
-        _signalBus.Subscribe<UpdateCollectableItemSignal>(UpdateCollectablesData, this);
-        _signalBus.Subscribe<OnInputDataRecievedSignal>(UpdateInputData,this);
-        _signalBus.Subscribe<SendPlayerStatesSignal>(UpdatePlayerState, this);
-    }
+        _states = states;
 
-    private void UpdatePlayerState(SendPlayerStatesSignal signal)
-    {
-        _collectingAvailable = !(signal.States[PlayerState.Rolling] || !signal.States[PlayerState.Grounded]
-            || signal.States[PlayerState.Collecting] || signal.States[PlayerState.Attacking]);
+        _signalBus.Subscribe<UpdateCollectableItemSignal>(UpdateCollectablesData, this);
+        _signalBus.Subscribe<OnInputDataRecievedSignal>(UpdateInputData, this);
     }
 
     private void UpdateInputData(OnInputDataRecievedSignal obj)
@@ -27,6 +24,9 @@ public class ItemCollectAttemptController : ItemCollectControllerBase
 
     private void UpdateCollectablesData(UpdateCollectableItemSignal signal)
     {
+        _collectingAvailable = !(_states.States[PlayerState.Rolling] || !_states.States[PlayerState.Grounded]
+               || _states.States[PlayerState.Collecting] || _states.States[PlayerState.Attacking]);
+
         if (_collectAttempt && _collectingAvailable)
         {
             if (signal.Object != null)

@@ -11,60 +11,57 @@ public class InputDataPack
     public bool RollAttempt;
     public bool CollectAttempt;
     public bool DevConsoleCall;
-    public bool InventoryToggle;
+    public bool InventoryCall;
+    public bool Esc;
 }
 
 public class InputService : LoadableService
 {
-    private float _sens = 2;
-
+    public readonly InputConfig Config;
     private UpdateProvider _updateProvider;
+    private CameraMovementConfig _cameraConfig;
+    private Vector2 _previousDirection;
 
-    public InputService(SignalBus signalBus, UpdateProvider updateProvider) : base(signalBus)
+    public InputService(SignalBus signalBus, UpdateProvider updateProvider, CameraMovementConfig cameraConfig, InputConfig config) : base(signalBus)
     {
         _updateProvider = updateProvider;
+        _cameraConfig = cameraConfig;
+        Config = config;
         _updateProvider.Updates.Add(GetInput);
     }
 
-    public KeyCode Right => KeyCode.D;
-    public KeyCode Left => KeyCode.A;
-    public KeyCode Up => KeyCode.W;
-    public KeyCode Down => KeyCode.S;
-    public KeyCode Jump => KeyCode.Space;
-    public KeyCode Sprint => KeyCode.LeftShift;
-    public KeyCode Attack => KeyCode.Mouse0;
-    public KeyCode Roll => KeyCode.LeftControl;
-    public KeyCode Collect => KeyCode.E;
-    public KeyCode DevConsole => KeyCode.KeypadMinus;
-    public KeyCode Inventory => KeyCode.I;
-
-    //всю эту движуху сверху в конфиг
-
-
     private void GetInput()
     {
-        int upperImpact = Input.GetKey(Up) ? 1 : 0;
-        int lowerImpact = Input.GetKey(Down) ? 1 : 0;
-        int rightImpact = Input.GetKey(Right) ? 1 : 0;
-        int leftImpact = Input.GetKey(Left) ? 1 : 0;
+        int upperImpact = Input.GetKey(Config.Up) ? 1 : 0;
+        int lowerImpact = Input.GetKey(Config.Down) ? 1 : 0;
+        int rightImpact = Input.GetKey(Config.Right) ? 1 : 0;
+        int leftImpact = Input.GetKey(Config.Left) ? 1 : 0;
 
         Vector2Int direction = new Vector2Int(rightImpact - leftImpact, upperImpact - lowerImpact);
 
-        float rotX = Input.GetAxis("Mouse X") * _sens;
-        float rotY = Input.GetAxis("Mouse Y") * _sens;
+        if (direction != _previousDirection)
+        {
+            _signalBus.FireSignal(new OnMovementDirectionChagnedSignal(direction));
+        }
+
+        float rotX = Input.GetAxis("Mouse X") * _cameraConfig.Sensitivity.x;
+        float rotY = Input.GetAxis("Mouse Y") * _cameraConfig.Sensitivity.y;
 
         InputDataPack data = new InputDataPack();
         data.Direction = direction;
         data.Rotation = new Vector2(rotX, rotY);
-        data.JumpAttempt = Input.GetKeyDown(Jump);
-        data.SprintAttempt = Input.GetKeyDown(Sprint);
-        data.SprintBreak = Input.GetKeyUp(Sprint);
-        data.AttackAttempt = Input.GetKeyDown(Attack);
-        data.RollAttempt = Input.GetKeyDown(Roll);
-        data.CollectAttempt = Input.GetKeyDown(Collect);
-        data.DevConsoleCall = Input.GetKeyDown(DevConsole);
-        data.InventoryToggle = Input.GetKeyDown(Inventory);
+        data.JumpAttempt = Input.GetKeyDown(Config.Jump);
+        data.SprintAttempt = Input.GetKeyDown(Config.Sprint);
+        data.SprintBreak = Input.GetKeyUp(Config.Sprint);
+        data.AttackAttempt = Input.GetKeyDown(Config.Attack);
+        data.RollAttempt = Input.GetKeyDown(Config.Roll);
+        data.CollectAttempt = Input.GetKeyDown(Config.Collect);
+        data.DevConsoleCall = Input.GetKeyDown(Config.DevConsole);
+        data.InventoryCall = Input.GetKeyDown(Config.Inventory);
+        data.Esc = Input.GetKeyDown(KeyCode.Escape);
 
+        _previousDirection = direction;
         _signalBus.FireSignal(new OnInputDataRecievedSignal(data));
+
     }
 }

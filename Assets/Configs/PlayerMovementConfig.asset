@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91de14f5682d4214592a2537685cb86d, type: 3}
   m_Name: PlayerMovementConfig
   m_EditorClassIdentifier: 
-  WalkingSpeed: 5
-  RunningSpeed: 10
-  WalkingBackSpeed: 2
+  WalkingSpeed: 3
+  RunningSpeed: 5
+  WalkingBackSpeed: 1.2
   Gravity: -9.81
   GroundCheckDistance: 0.02
-  JumpHeight: 1
-  RollDistance: 10
+  JumpHeight: 0.6
+  RollDistance: 6
   MaxStamina: 100
   StaminaRegeneration: 20
   StaminaConsuming: 10

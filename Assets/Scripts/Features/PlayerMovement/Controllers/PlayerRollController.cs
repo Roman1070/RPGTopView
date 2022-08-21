@@ -5,30 +5,24 @@ using UnityEngine;
 public class PlayerRollController : PlayerMovementControllerBase
 {
     private float _stamina;
-    private bool _rollEnabled;
+    private bool _rollAvailable;
     private Animator _animator;
     private PlayerMovementConfig _config;
     private float _z;
     private Vector3 _rollVector;
 
-    public PlayerRollController(PlayerView player, SignalBus signalBus, PlayerMovementConfig config, UpdateProvider updateProvider) : base(player, signalBus)
+    public PlayerRollController(PlayerView player, SignalBus signalBus, PlayerMovementConfig config, UpdateProvider updateProvider, PlayerStatesService playerStatesService) : base(player, signalBus,playerStatesService)
     {
         _config = config;
         updateProvider.Updates.Add(Update);
         _signalBus.Subscribe<OnStaminaChangedSignal>(UpdateStamina, this);
         _signalBus.Subscribe<OnInputDataRecievedSignal>(CheckRollAttempt, this);
-        _signalBus.Subscribe<SendPlayerStatesSignal>(GetCharacterStates, this);
         _animator = _player.Model.GetComponent<Animator>();
-    }
-
-    private void GetCharacterStates(SendPlayerStatesSignal obj)
-    {
-        _rollEnabled = !(!obj.States[PlayerState.Grounded] || obj.States[PlayerState.Rolling] || obj.States[PlayerState.Attacking]);
     }
 
     private void CheckRollAttempt(OnInputDataRecievedSignal signal)
     {
-        if (_rollEnabled && signal.Data.RollAttempt && _stamina >= _config.StaminaOnRoll)
+        if (_rollAvailable && signal.Data.RollAttempt && _stamina >= _config.StaminaOnRoll)
         {
             Roll(signal.Data.Direction.y >= 0);
         }
@@ -36,6 +30,8 @@ public class PlayerRollController : PlayerMovementControllerBase
 
     private void Update()
     {
+        _rollAvailable = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.Attacking]);
+
         if (Mathf.Abs(_z) <= 0.1f)
         {
             return;
