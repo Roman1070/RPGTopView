@@ -1,4 +1,6 @@
-﻿public class UpdateCollectableItemSignal : ISignal
+﻿using UnityEngine;
+
+public class UpdateCollectableItemSignal : ISignal
 {
     public CollectableObject Object;
 

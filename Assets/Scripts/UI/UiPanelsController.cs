@@ -15,6 +15,16 @@ public class UiPanelsController : GameUiControllerBase
         _activePanelType = gameCanvas.GetView<GameUiPanel>().GetType();
         _signalBus.Subscribe<SetActivePanelSignal>(SetActivePanel, this);
         _signalBus.Subscribe<BackToPreviuosPanelSignal>(BackToPreviousPanel, this);
+        OnLoad();
+    }
+
+    private void OnLoad()
+    {
+        foreach (var panel in _panels)
+        {
+            panel.SetActive(false,true);
+        }
+        SetActivePanel(new SetActivePanelSignal(_activePanelType));
     }
 
     private void SetActivePanel(SetActivePanelSignal obj)
@@ -31,6 +41,7 @@ public class UiPanelsController : GameUiControllerBase
         _previousPanelType = _activePanelType;
         panelToActivate.SetActive(true);
         _activePanelType = panelToActivate.GetType();
+        Cursor.lockState = _activePanelType == typeof(GameUiPanel) ? CursorLockMode.Locked : CursorLockMode.None;
     }
 
     private void BackToPreviousPanel(BackToPreviuosPanelSignal signal)

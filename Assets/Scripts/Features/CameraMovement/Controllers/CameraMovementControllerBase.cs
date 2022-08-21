@@ -13,3 +13,10 @@ public class CameraMovementControllerBase
         _config = config;
     }
 }
+
+public class CameraPositionVariantsController : CameraMovementControllerBase
+{
+    public CameraPositionVariantsController(SignalBus signalBus, Transform cameraAnchor, CameraMovementConfig config) : base(signalBus, cameraAnchor, config)
+    {
+    }
+}

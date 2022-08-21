@@ -9,13 +9,13 @@ public class CollectedItemWidgetsController : GameUiControllerBase
     public CollectedItemWidgetsController(SignalBus signalBus, GameCanvas gameCanvas) : base(signalBus, gameCanvas)
     {
         _widgets = gameCanvas.GetView<GameUiPanel>().GetViews<ItemCollectedWidget>().ToArray();
-        signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded,this);
-        signalBus.Subscribe<OnItemCountChangedSignal>(ShowWidgets,this);
     }
 
     private void OnServicesLoaded(OnServicesLoadedSignal signal)
     {
         _inventoryService = signal.Services.First(t=>t is InventoryService) as InventoryService;
+        _signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded, this);
+        _signalBus.Subscribe<OnItemCountChangedSignal>(ShowWidgets, this);
     }
 
     private void ShowWidgets(OnItemCountChangedSignal signal)

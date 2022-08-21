@@ -33,8 +33,6 @@ public class PlayerStatesService : LoadableService
             _signalBus.FireSignal(new OnPlayerStateChangedSignal(signal.State, signal.Value));
 
         States[signal.State] = signal.Value;
-
-        Debug.LogError($"running {States[PlayerState.Running]}  rolling {States[PlayerState.Rolling]}  grounded  {States[PlayerState.Grounded]}");
     }
 
     public bool GetState(PlayerState state) => States[state];

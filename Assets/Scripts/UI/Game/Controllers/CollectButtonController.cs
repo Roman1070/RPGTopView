@@ -8,18 +8,13 @@ public class CollectButtonController : GameUiControllerBase
     private InputService _inputService;
     private PlayerStatesService _states;
 
-    public CollectButtonController(SignalBus signalBus, GameCanvas gameCanvas, Camera camera, PlayerStatesService states) : base(signalBus, gameCanvas)
+    public CollectButtonController(SignalBus signalBus, GameCanvas gameCanvas, Camera camera, PlayerStatesService states, InputService inputService) : base(signalBus, gameCanvas)
     {
         _button = gameCanvas.GetView<GameUiPanel>().GetView<CollectButton>();
         _camera = camera;
         _states = states;
-        signalBus.Subscribe<UpdateCollectableItemSignal>(OnNearbyItemsUpdated, this);
-        signalBus.Subscribe<OnServicesLoadedSignal>(OnServicesLoaded, this);
-    }
-
-    private void OnServicesLoaded(OnServicesLoadedSignal obj)
-    {
-        _inputService = obj.Services.First(_ => _ is InputService) as InputService;
+        _inputService = inputService;
+        _signalBus.Subscribe<UpdateCollectableItemSignal>(OnNearbyItemsUpdated, this);
     }
 
     private void OnNearbyItemsUpdated(UpdateCollectableItemSignal signal)
@@ -30,7 +25,7 @@ public class CollectButtonController : GameUiControllerBase
         }
         else
         {
-            _button.SetData(_inputService.Config.Collect.ToString());
+            _button.SetData(_inputService.Config.Collect.ToString(), "Collect");
             _button.transform.position = _camera.WorldToScreenPoint(signal.Object.transform.position);
             _button.SetActive(true);
         }
