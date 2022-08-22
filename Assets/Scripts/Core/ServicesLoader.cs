@@ -53,7 +53,7 @@ public class ServicesLoader : MonoBehaviour
             new DevConsoleService(_signalBus, _gameCanvas),
             new PlayerDataService(_signalBus, _levelsConfig),
             new PlayerStatesService(_signalBus),
-            new CameraMovementService(_signalBus, _playerView, _cameraConfig),
+            new CameraMovementService(_signalBus, _playerView, _cameraConfig,_updateProvider),
             new InventoryUiService(_signalBus, _gameCanvas),
             new PlayerGearService(_signalBus, _playerView, _weaponOffsetConfig)
         };

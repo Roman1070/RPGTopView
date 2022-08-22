@@ -8,11 +8,15 @@ public class CameraMovementService : LoadableService
     private Transform _cameraAnchor;
     private List<CameraMovementControllerBase> _controllers;
     private CameraMovementConfig _config;
+    private PlayerView _player;
+    private UpdateProvider _updateProvider;
 
-    public CameraMovementService(SignalBus signalBus, PlayerView player, CameraMovementConfig config) : base(signalBus)
+    public CameraMovementService(SignalBus signalBus, PlayerView player, CameraMovementConfig config, UpdateProvider updateProvider) : base(signalBus)
     {
+        _player = player;
         _cameraAnchor = player.Camera.transform.parent;
         _config = config;
+        _updateProvider = updateProvider;
         InitControllers();
     }
 
@@ -24,7 +28,7 @@ public class CameraMovementService : LoadableService
     {
         _controllers = new List<CameraMovementControllerBase>()
         {
-            new CameraMovementGroundedController(_signalBus,_cameraAnchor,_config)
+            new CameraMovementGroundedController(_signalBus,_cameraAnchor,_config,_player,_updateProvider)
         };
     }
 }

@@ -10,4 +10,5 @@ public class CameraMovementConfig : ScriptableObject
     public int MaxAngle;
     public bool InvertX;
     public bool InvertY;
+    public Vector3 CameraOffset;
 }

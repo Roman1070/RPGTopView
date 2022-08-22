@@ -9,17 +9,34 @@ public class PlayerMovementController : PlayerMovementControllerBase
     private bool _movementAvailable;
     private PlayerMovementConfig _config;
     private Animator _animator;
+    private Tween _rotateTween;
+    private bool _playerRotationAllowed;
+    private Vector3 _previousCameraRotation;
+
+    private Vector3 TargetRotation => new Vector3(_player.transform.eulerAngles.x, _player.Camera.transform.parent.eulerAngles.y, _player.transform.eulerAngles.z);
 
     public PlayerMovementController(PlayerView player, SignalBus signalBus, UpdateProvider updateProvider, PlayerMovementConfig config, PlayerStatesService statesService) : base(player, signalBus, statesService)
     {
         _config = config;
         _animator = _player.Model.GetComponent<Animator>();
 
+        _signalBus.Subscribe<OnPlayerStateChangedSignal>(OnStateChanged, this);
         _signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
         _signalBus.Subscribe<OnStaminaChangedSignal>(OnStaminaChanged, this);
 
         Cursor.lockState = CursorLockMode.Locked;
         _stamina = _config.MaxStamina;
+    }
+
+    private void OnStateChanged(OnPlayerStateChangedSignal obj)
+    {
+        if (obj.State == PlayerState.Idle || obj.State == PlayerState.Idle)
+        {
+            if (!obj.Value)
+            {
+                RotatePlayer();
+            }
+        }
     }
 
     private void OnStaminaChanged(OnStaminaChangedSignal signal)
@@ -30,8 +47,14 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
+        if (TargetRotation != _previousCameraRotation)
+        {
+            _previousCameraRotation = TargetRotation;
+            if(signal.Data.Direction!=Vector2Int.zero && !_states.States[PlayerState.Interacting]) RotatePlayer();
+        }
+
         _movementAvailable = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling]
-            || _states.States[PlayerState.Interacting] || _states.States[PlayerState.Attacking]);
+         || _states.States[PlayerState.Interacting] || _states.States[PlayerState.Attacking]);
 
 
         if (_movementAvailable)
@@ -46,7 +69,6 @@ public class PlayerMovementController : PlayerMovementControllerBase
                 EndRun();
 
             _player.Controller.Move(moveDirection * _speed * Time.deltaTime);
-            _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
             if (signal.Data.Direction == Vector2.zero)
             {
                 _signalBus.FireSignal(new UpdateLastSpeedSignal(0));
@@ -60,8 +82,16 @@ public class PlayerMovementController : PlayerMovementControllerBase
         {
             EndRun();
         }
+        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Idle, signal.Data.Direction == Vector2Int.zero && _movementAvailable));
 
         CalculateSpeed(signal.Data.Direction);
+    }
+
+    private void RotatePlayer()
+    {
+        _rotateTween.Kill();
+        _rotateTween = null;
+        _rotateTween = _player.transform.DORotate(TargetRotation, 0.2f).OnComplete(() => _playerRotationAllowed = true);
     }
 
     private void CalculateSpeed(Vector2 input)

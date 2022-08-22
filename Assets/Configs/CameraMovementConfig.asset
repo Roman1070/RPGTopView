@@ -17,3 +17,4 @@ MonoBehaviour:
   MaxAngle: 10
   InvertX: 0
   InvertY: 1
+  CameraOffset: {x: 0, y: 0.6, z: 0}

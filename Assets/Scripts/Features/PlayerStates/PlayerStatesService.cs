@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum PlayerState
 {
+    Idle,
     Running,
     Rolling,
     Attacking,
@@ -20,6 +21,7 @@ public class PlayerStatesService : LoadableService
     {
         States = new Dictionary<PlayerState, bool>()
         {
+            {PlayerState.Idle, true},
             {PlayerState.Running, false},
             {PlayerState.Rolling, false},
             {PlayerState.Attacking, false},
