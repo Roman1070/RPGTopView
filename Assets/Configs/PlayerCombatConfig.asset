@@ -14,20 +14,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attacks:
   - Id: AttackDownward
-    Duration: 1
+    Duration: 0.8
     DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 0}
   - Id: ArmedUppercut
-    Duration: 1.5
+    Duration: 1.1
     DamageMultiplier: 1.3
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 0}
   - Id: Combo1
     Duration: 0.6666667
     DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 0}
   - Id: Combo2
     Duration: 0.5
     DamageMultiplier: 1.2
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 0}
   - Id: Combo3
-    Duration: 1.3076923
+    Duration: 1.1
     DamageMultiplier: 2.2
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 0}
   - Id: WalkingBackAttack
-    Duration: 1.5553334
+    Duration: 1.2
     DamageMultiplier: 2.2
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 0}

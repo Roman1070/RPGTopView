@@ -79,7 +79,8 @@ public class PlayerCombatController : PlayerCombatControllerBase
     {
         if (signal.Data.AttackAttempt )
         {
-            bool attackAvaialbe = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.DrawingWeapon]) &&!_isDuringTransaction;
+            bool attackAvaialbe = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.DrawingWeapon]
+                || _states.States[PlayerState.Interacting]) &&!_isDuringTransaction;
 
             if (attackAvaialbe)
             {
@@ -94,7 +95,7 @@ public class PlayerCombatController : PlayerCombatControllerBase
                     Attack();
                     SetCombatLayerActive(true);
                 }
-                else if (CurrentAttackNormalizedProgress >= 0.7f && _nextAttack == null)
+                else if (CurrentAttackNormalizedProgress >= 0.5f && _nextAttack == null)
                 {
                     QueueAttack();
                 }
@@ -162,7 +163,7 @@ public class PlayerCombatController : PlayerCombatControllerBase
             while (w < 1)
             {
                 yield return new WaitForEndOfFrame();
-                w += Time.deltaTime*2;
+                w += Time.deltaTime*3;
                 _animator.SetLayerWeight(layer, w);
             }
         }
@@ -172,7 +173,7 @@ public class PlayerCombatController : PlayerCombatControllerBase
             while (w >0)
             {
                 yield return new WaitForEndOfFrame();
-                w -= Time.deltaTime*2;
+                w -= Time.deltaTime*3;
                 _animator.SetLayerWeight(layer, w);
             }
         }

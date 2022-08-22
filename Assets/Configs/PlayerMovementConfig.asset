@@ -18,10 +18,43 @@ MonoBehaviour:
   Gravity: -9.81
   GroundCheckDistance: 0.02
   JumpHeight: 0.6
-  RollDistance: 6
+  RollDistance: 5
   MaxStamina: 100
   StaminaRegeneration: 8
   StaminaConsuming: 10
   StaminaRegeneratingDelay: 2
   StaminaOnJump: 15
   StaminaOnRoll: 12
+  RollCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.1007843
+      value: 0.002380371
+      inSlope: 5.240708
+      outSlope: 5.240708
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.1344165
+    - serializedVersion: 3
+      time: 0.2687891
+      value: 0.5702521
+      inSlope: 1.8826938
+      outSlope: 1.8826938
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.23385295
+      outWeight: 0.08643912
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

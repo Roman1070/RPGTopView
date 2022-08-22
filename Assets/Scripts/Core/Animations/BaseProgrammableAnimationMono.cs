@@ -44,6 +44,11 @@ public abstract class BaseProgrammableAnimationMono<T> : MonoBehaviour
         _EndValue = finalVal;
     }
 
+    public void SetCurve(AnimationCurve curve)
+    {
+        _Kurwa = curve;
+    }
+
     public void SetDuration(float value)
     {
         _Duration = value;

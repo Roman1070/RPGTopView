@@ -37,31 +37,46 @@ public class PlayerRollController : PlayerMovementControllerBase
             return;
         }
 
-        if(_z > 0)
+        /*if(_z > 0)
             _z -= Time.deltaTime * _config.RollDistance;
         else
             _z += Time.deltaTime * _config.RollDistance;
 
-        _player.Controller.Move(_rollVector*_z * Time.deltaTime);
+        _player.Controller.Move(_rollVector*_z * Time.deltaTime);*/
 
     }
 
     private void Roll(bool forward)
     {
-        _z = _config.RollDistance * (forward ? 1 : -1);
+        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Rolling, true));
         _signalBus.FireSignal(new OnStaminaChangedSignal(_stamina - _config.StaminaOnRoll));
         _animator.SetTrigger(forward ? "Roll forward" : "Roll backward");
 
-        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Rolling, true));
-        _rollVector = _player.Model.transform.TransformDirection(new Vector3(0,0,1));
-        DOVirtual.DelayedCall(0.8f, () =>
+        _z = _config.RollDistance * (forward ? 1 : -1);
+        _rollVector = _player.Model.transform.TransformDirection(new Vector3(0, 0, 1));
+        _player.MoveAnim.SetCurve(_config.RollCurve);
+        _player.MoveAnim.SetValues(_player.transform.position, _player.transform.position + _z * _rollVector);
+        _player.MoveAnim.Play(0, () =>
         {
             _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Rolling, false));
+        });
+
+
+
+        DOVirtual.DelayedCall(0.8f, () =>
+        {
         });
     }
 
     private void UpdateStamina(OnStaminaChangedSignal signal)
     {
         _stamina = signal.Stamina;
+    }
+}
+
+public class PlayerAddForceController : PlayerMovementControllerBase
+{
+    public PlayerAddForceController(PlayerView player, SignalBus signalBus, PlayerStatesService playerStatesService) : base(player, signalBus, playerStatesService)
+    {
     }
 }

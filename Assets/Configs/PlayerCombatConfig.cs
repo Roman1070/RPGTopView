@@ -22,4 +22,6 @@ public class AttackData
     public string Id;
     public float Duration;
     public float DamageMultiplier;
+    public AnimationCurve PlayerPushCurve;
+    public Vector3 PlayerPushForce;
 }

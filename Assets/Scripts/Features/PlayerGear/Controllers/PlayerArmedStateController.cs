@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerArmedStateController : PlayerGearControllerBase
@@ -34,8 +35,8 @@ public class PlayerArmedStateController : PlayerGearControllerBase
 
     private void DrawWeapon(DrawWeaponSignal obj)
     {
-        if (obj.Draw) DrawWeapon();
-        else RemoveWeapon();
+        if (obj.Draw)_player.StartCoroutine(DrawWeapon());
+        else _player.StartCoroutine(RemoveWeapon());
     }
 
     private void OnInput(OnInputDataRecievedSignal obj)
@@ -46,20 +47,22 @@ public class PlayerArmedStateController : PlayerGearControllerBase
                 || _statesService.States[PlayerState.Interacting] || _statesService.States[PlayerState.Attacking]);
 
             if(toggleAvailable && !_statesService.States[PlayerState.DrawingWeapon])
-                ToggleArmedStatus(); 
+                ToggleArmedStatus();
         }
     }
 
     private void ToggleArmedStatus()
     {
-        if (_statesService.States[PlayerState.IsArmed]) RemoveWeapon();
-        else DrawWeapon();
+        if (_statesService.States[PlayerState.IsArmed]) _player.StartCoroutine(RemoveWeapon());
+        else _player.StartCoroutine(DrawWeapon());
     }
 
-    private void DrawWeapon()
+    private IEnumerator DrawWeapon()
     {
+        yield return new WaitUntil(() => !_statesService.States[PlayerState.DrawingWeapon]);
+
         _animator.SetTrigger("DrawWeapon");
-        _statesService.States[PlayerState.DrawingWeapon] = true;
+        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, true));
 
         DOVirtual.DelayedCall(_animationDuration * 0.35f, () =>
         {
@@ -68,27 +71,29 @@ public class PlayerArmedStateController : PlayerGearControllerBase
             _currentWeapon.transform.localEulerAngles = _weaponOffsetConfig.GetOffsetData(_currentWeaponId).DrawnRotation;
         });
 
-        DOVirtual.DelayedCall(_animationDuration + 0.4f, () =>
+        DOVirtual.DelayedCall(_animationDuration + 0.3f, () =>
         {
-            _statesService.States[PlayerState.IsArmed] = true;
-            _statesService.States[PlayerState.DrawingWeapon] = false;
+            _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.IsArmed, true));
+            _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, false));
         }); 
     }
 
-    private void RemoveWeapon()
+    private IEnumerator RemoveWeapon()
     {
+        yield return new WaitUntil(() => !_statesService.States[PlayerState.DrawingWeapon]);
+
         _animator.SetTrigger("RemoveWeapon");
-        _statesService.States[PlayerState.DrawingWeapon] = true;
+        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, true));
         DOVirtual.DelayedCall(_animationDuration, () =>
         {
             _currentWeapon.SetParent(_spineAnchor);
-            _statesService.States[PlayerState.IsArmed] = false;
+            _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.IsArmed, false));
             _currentWeapon.transform.DOLocalMove(_weaponOffsetConfig.GetOffsetData(_currentWeaponId).RemovedPosition, 0.2f);
             _currentWeapon.transform.localEulerAngles = _weaponOffsetConfig.GetOffsetData(_currentWeaponId).RemovedRotation;
 
-            DOVirtual.DelayedCall(0.4f, () =>
+            DOVirtual.DelayedCall(0.3f, () =>
             {
-                _statesService.States[PlayerState.DrawingWeapon] = false;
+                _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, false));
             });
         });
     }

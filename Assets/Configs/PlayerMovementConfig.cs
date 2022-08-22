@@ -17,5 +17,7 @@ public class PlayerMovementConfig : ScriptableObject
     public float StaminaRegeneratingDelay;
     public float StaminaOnJump;
     public float StaminaOnRoll;
+
+    public AnimationCurve RollCurve;
 }
 
