@@ -87,13 +87,13 @@ public class PlayerArmedStateController : PlayerGearControllerBase
         DOVirtual.DelayedCall(_animationDuration, () =>
         {
             _currentWeapon.SetParent(_spineAnchor);
-            _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.IsArmed, false));
             _currentWeapon.transform.DOLocalMove(_weaponOffsetConfig.GetOffsetData(_currentWeaponId).RemovedPosition, 0.2f);
             _currentWeapon.transform.localEulerAngles = _weaponOffsetConfig.GetOffsetData(_currentWeaponId).RemovedRotation;
 
             DOVirtual.DelayedCall(0.3f, () =>
             {
                 _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, false));
+                _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.IsArmed, false));
             });
         });
     }

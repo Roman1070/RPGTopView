@@ -20,10 +20,10 @@ MonoBehaviour:
   JumpHeight: 0.6
   RollDistance: 5
   MaxStamina: 100
-  StaminaRegeneration: 8
-  StaminaConsuming: 10
+  StaminaRegeneration: 40
+  StaminaConsuming: 0
   StaminaRegeneratingDelay: 2
-  StaminaOnJump: 15
+  StaminaOnJump: 0
   StaminaOnRoll: 12
   RollCurve:
     serializedVersion: 2

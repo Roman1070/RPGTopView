@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class PlayerCombatController : PlayerCombatControllerBase
     private UpdateProvider _updateProvider;
     private float _currentAttackProgress;
     private bool _isDuringTransaction;
+    private bool _pushPlayer;
     private Tween _onEndFight;
 
     private float CurrentAttackNormalizedProgress
@@ -107,9 +109,9 @@ public class PlayerCombatController : PlayerCombatControllerBase
     private void QueueAttack()
     {
         if (_currentAttack.Id == "Combo1")
-            _nextAttack = _config.GetDataById("Combo2");
+            _nextAttack = _config.GetAttackById("Combo2");
         else if (_currentAttack.Id == "Combo2")
-            _nextAttack = _config.GetDataById("Combo3");
+            _nextAttack = _config.GetAttackById("Combo3");
         else
             _nextAttack = _config.GetRandomFirstAttack(_currentAttack.Id);
     }
@@ -123,16 +125,30 @@ public class PlayerCombatController : PlayerCombatControllerBase
                 SetCurrentAttack();
             else 
             { 
-                _currentAttack = _config.GetDataById("WalkingBackAttack");
+                _currentAttack = _config.GetAttackById("WalkingBackAttack");
                 _previousAttack = null;
             }
         }
 
-        _animator.SetBool(_currentAttack.Id, true);
+        _animator.SetTrigger(_currentAttack.Id);
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Attacking, true));
+
+        if(_config.GetAttackById(_currentAttack.Id).PlayerPushForce != Vector3.zero)
+        {
+            PushPlayer();
+        }
 
         _onEndFight.Kill();
         _onEndFight = null;
+    }
+
+    private void PushPlayer()
+    {
+        _player.MoveAnim.SetCurve(_currentAttack.PlayerPushCurve);
+
+        var pushVector = _player.Model.TransformDirection(new Vector3(0,0,1))* _currentAttack.PlayerPushForce.z;
+        _player.MoveAnim.SetValues(_player.transform.position, _player.transform.position + pushVector);
+        _player.MoveAnim.Play();
     }
 
     private void SetCombatLayerActive(bool toActive)

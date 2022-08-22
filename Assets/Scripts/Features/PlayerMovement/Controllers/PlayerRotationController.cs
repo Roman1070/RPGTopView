@@ -15,10 +15,10 @@ public class PlayerRotationController : PlayerMovementControllerBase
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
+        if (signal.Data.Direction != Vector2Int.zero && !(_states.States[PlayerState.Interacting] || _states.States[PlayerState.Rolling])) RotatePlayer();
         if (TargetRotation != _previousCameraRotation)
         {
             _previousCameraRotation = TargetRotation;
-            if (signal.Data.Direction != Vector2Int.zero && !(_states.States[PlayerState.Interacting] || _states.States[PlayerState.Rolling])) RotatePlayer();
         }
     }
 

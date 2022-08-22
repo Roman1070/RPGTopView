@@ -16,7 +16,8 @@ public class ShrineInteractController : ItemInteractControllerBase
     {
         if (obj is InteractableShrine)
         {
-            if (_statesService.States[PlayerState.IsArmed] || _statesService.States[PlayerState.DrawingWeapon])
+            if ((_statesService.States[PlayerState.IsArmed]&& !_statesService.States[PlayerState.DrawingWeapon]) 
+                || (_statesService.States[PlayerState.DrawingWeapon]&& ! _statesService.States[PlayerState.IsArmed]))
             {
                 _signalBus.FireSignal(new DrawWeaponSignal(false));
             }

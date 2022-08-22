@@ -6,9 +6,19 @@ public class PlayerMovementController : PlayerMovementControllerBase
 {
     private float _speed;
     private float _stamina;
-    private bool _movementAvailable;
+    private bool MovementAvailable => new bool[]
+    {
+        !_states.States[PlayerState.Grounded],
+        _states.States[PlayerState.Rolling],
+        _states.States[PlayerState.Interacting],
+        _states.States[PlayerState.Attacking]
+    }.Sum().Inverse();
+
+
     private PlayerMovementConfig _config;
     private Animator _animator;
+    private bool _forceSprint;
+    private float _lastSpeed;
 
     public PlayerMovementController(PlayerView player, SignalBus signalBus, UpdateProvider updateProvider, PlayerMovementConfig config, PlayerStatesService statesService) : base(player, signalBus, statesService)
     {
@@ -17,9 +27,16 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
         _signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
         _signalBus.Subscribe<OnStaminaChangedSignal>(OnStaminaChanged, this);
+        _signalBus.Subscribe<OnPlayerStateChangedSignal>(OnStateChanged, this);
 
         Cursor.lockState = CursorLockMode.Locked;
         _stamina = _config.MaxStamina;
+    }
+
+    private void OnStateChanged(OnPlayerStateChangedSignal obj)
+    {
+        _forceSprint = (obj.State == PlayerState.Grounded && obj.Value ||
+            obj.State == PlayerState.Rolling && !obj.Value) && _lastSpeed== _config.RunningSpeed;
     }
 
     private void OnStaminaChanged(OnStaminaChangedSignal signal)
@@ -30,40 +47,36 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
-
-        _movementAvailable = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling]
-         || _states.States[PlayerState.Interacting] || _states.States[PlayerState.Attacking]);
-
-
-        if (_movementAvailable)
+        if (MovementAvailable)
         {
             var moveDirection = new Vector3(signal.Data.Direction.x, 0, signal.Data.Direction.y);
             moveDirection = _player.transform.TransformDirection(moveDirection);
 
-            if (!_states.States[PlayerState.Running] && signal.Data.SprintAttempt && signal.Data.Direction.y >= 0 && _movementAvailable && _stamina > 10)
+            if ((signal.Data.SprintAttempt|| _forceSprint) && signal.Data.Direction.y >= 0 && MovementAvailable && _stamina > 10)
                 StartRun();
 
-            if (_states.States[PlayerState.Running] && (signal.Data.SprintBreak || signal.Data.Direction.y < 0 || signal.Data.Direction == Vector2.zero))
+            if (signal.Data.SprintBreak || signal.Data.Direction.y < 0 || signal.Data.Direction == Vector2.zero)
                 EndRun();
 
             _player.Controller.Move(moveDirection * _speed * Time.deltaTime);
             if (signal.Data.Direction == Vector2.zero)
             {
-                _signalBus.FireSignal(new UpdateLastSpeedSignal(0));
+                _lastSpeed = 0;
             }
             else
             {
-                _signalBus.FireSignal(new UpdateLastSpeedSignal(signal.Data.Direction.y >= 0 ? _speed : -_speed));
+                _lastSpeed = signal.Data.Direction.y >= 0 ? _speed : -_speed;
             }
+            _signalBus.FireSignal(new UpdateLastSpeedSignal(_lastSpeed));
             CalculateSpeed(signal.Data.Direction);
         }
         else
         {
-            EndRun();
             CalculateSpeed(Vector2Int.zero);
         }
-        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Idle, signal.Data.Direction == Vector2Int.zero && _movementAvailable));
-
+        if (signal.Data.SprintBreak) EndRun();
+        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Idle, signal.Data.Direction == Vector2Int.zero && MovementAvailable));
+        _forceSprint = false;
     }
 
     private void CalculateSpeed(Vector2 input)
@@ -96,6 +109,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
     private void EndRun()
     {
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Running, false));
+        _lastSpeed = 0;
     }
 
     private void StartRun()

@@ -7,7 +7,7 @@ public class PlayerCombatConfig : ScriptableObject
 {
     public AttackData[] Attacks;
 
-    public AttackData GetDataById(string id) => Attacks.First(a => a.Id == id);
+    public AttackData GetAttackById(string id) => Attacks.First(a => a.Id == id);
 
     public AttackData GetRandomFirstAttack(string expceptId)
     {
