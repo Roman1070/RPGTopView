@@ -34,7 +34,8 @@ public class PlayerArmedStateController : PlayerGearControllerBase
 
     private void DrawWeapon(DrawWeaponSignal obj)
     {
-        DrawWeapon();
+        if (obj.Draw) DrawWeapon();
+        else RemoveWeapon();
     }
 
     private void OnInput(OnInputDataRecievedSignal obj)

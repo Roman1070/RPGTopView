@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class PlayerMovementController : PlayerMovementControllerBase
@@ -6,6 +7,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
     private float _speed;
     private float _stamina;
     private bool _movementAvailable;
+    private bool _interruptMovement;
     private PlayerMovementConfig _config;
     private Animator _animator;
 
@@ -30,19 +32,20 @@ public class PlayerMovementController : PlayerMovementControllerBase
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
         _movementAvailable = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling]
-            || _states.States[PlayerState.Interacting]);
+            || _states.States[PlayerState.Interacting] || _states.States[PlayerState.Attacking]);
 
-        var moveDirection = new Vector3(signal.Data.Direction.x, 0, signal.Data.Direction.y);
-        moveDirection = _player.transform.TransformDirection(moveDirection);
-
-        if (!_states.States[PlayerState.Running] && signal.Data.SprintAttempt && signal.Data.Direction.y >= 0 && _movementAvailable && _stamina > 10)
-            StartRun();
-
-        if (_states.States[PlayerState.Running] && (signal.Data.SprintBreak || signal.Data.Direction.y < 0 || signal.Data.Direction == Vector2.zero))
-            EndRun();
 
         if (_movementAvailable)
         {
+            var moveDirection = new Vector3(signal.Data.Direction.x, 0, signal.Data.Direction.y);
+            moveDirection = _player.transform.TransformDirection(moveDirection);
+
+            if (!_states.States[PlayerState.Running] && signal.Data.SprintAttempt && signal.Data.Direction.y >= 0 && _movementAvailable && _stamina > 10)
+                StartRun();
+
+            if (_states.States[PlayerState.Running] && (signal.Data.SprintBreak || signal.Data.Direction.y < 0 || signal.Data.Direction == Vector2.zero || _interruptMovement))
+                EndRun();
+
             _player.Controller.Move(moveDirection * _speed * Time.deltaTime);
             _player.transform.Rotate(Vector3.up, signal.Data.Rotation.x);
             if (signal.Data.Direction == Vector2.zero)

@@ -59,7 +59,7 @@ public class ServicesLoader : MonoBehaviour
             new InputService(_signalBus, _updateProvider, _cameraConfig, _inputConfig),
             new PlayerMovementService(_signalBus, _updateProvider, _playerView, _movementConfig),
             new UiService(_signalBus, _gameCanvas, _movementConfig, _playerView.Camera),
-            new PlayerCombatService(_signalBus, _playerView, _combatConfig),
+            new PlayerCombatService(_signalBus, _playerView, _combatConfig,_updateProvider),
             new ItemCollectService(_signalBus, _updateProvider, _playerView),
             new InventoryService(_signalBus, _itemsMap),
             new DevConsoleService(_signalBus, _gameCanvas),

@@ -8,12 +8,14 @@ public class PlayerCombatService : LoadableService
     private PlayerCombatConfig _config;
     private List<PlayerCombatControllerBase> _controllers;
     private PlayerStatesService _playerStatesService;
+    private UpdateProvider _updateProvider;
 
-    public PlayerCombatService(SignalBus signalBus, PlayerView player, PlayerCombatConfig config)
+    public PlayerCombatService(SignalBus signalBus, PlayerView player, PlayerCombatConfig config, UpdateProvider updateProvider)
         : base(signalBus)
     {
         _player = player;
-        _config = config;        
+        _config = config;
+        _updateProvider = updateProvider;
     }
 
     public override void OnServicesLoaded(params LoadableService[] services)
@@ -26,7 +28,7 @@ public class PlayerCombatService : LoadableService
     {
         _controllers = new List<PlayerCombatControllerBase>()
         {
-            new PlayerCombatController(_player,_signalBus,_config,_playerStatesService),
+            new PlayerCombatController(_player,_signalBus,_config,_playerStatesService,_updateProvider),
         };
     }
 }
