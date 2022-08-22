@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -13,7 +11,7 @@ public class PlayerCombatConfig : ScriptableObject
 
     public AttackData GetRandomFirstAttack(string expceptId)
     {
-        var attacks = Attacks.Where(a => a.Id != "Combo2" && a.Id != "Combo3" &&a .Id!= expceptId).ToArray();
+        var attacks = Attacks.Where(a => a.Id != "Combo2" && a.Id != "Combo3" && a.Id != expceptId && a.Id != "WalkingBackAttack").ToArray();
         return attacks[UnityEngine.Random.Range(0, attacks.Length)];
     }
 }

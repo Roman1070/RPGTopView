@@ -20,12 +20,12 @@ public abstract class ItemInteractControllerBase
     private void OnInteractingStarted(OnInteractingItemStartedSignal signal)
     {
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Interacting, true));
-        CheckObjectType(signal.Object);
+        Interact(signal.Object);
     }
 
-    protected abstract void CheckObjectType(InteractableObject obj);
+    protected abstract void Interact(InteractableObject obj);
 
-    protected IEnumerator Interact(InteractableObject obj)
+    protected IEnumerator InteractProcess(InteractableObject obj)
     {
         yield return new WaitForSeconds(obj.InteractionTime);
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Interacting, false));

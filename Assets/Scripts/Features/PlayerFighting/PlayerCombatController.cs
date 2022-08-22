@@ -11,6 +11,7 @@ public class PlayerCombatController : PlayerCombatControllerBase
     private AttackData _nextAttack;
     private UpdateProvider _updateProvider;
     private float _currentAttackProgress;
+    private bool _isDuringTransaction;
     private Tween _onEndFight;
 
     private float CurrentAttackNormalizedProgress
@@ -58,18 +59,27 @@ public class PlayerCombatController : PlayerCombatControllerBase
         }
         else
         {
-            SetCombatLayerActive(false);
+            DOVirtual.DelayedCall(0.2f, () =>
+            {
+                SetCombatLayerActive(false);
+            });
             _previousAttack = null;
             _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Attacking, false));
             _animator.SetTrigger("ExitCombat");
         }
+
+        _isDuringTransaction = true;
+        DOVirtual.DelayedCall(0.2f, () =>
+        {
+            _isDuringTransaction = false;
+        });
     }
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
-        if (signal.Data.AttackAttempt)
+        if (signal.Data.AttackAttempt )
         {
-            bool attackAvaialbe = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.DrawingWeapon]);
+            bool attackAvaialbe = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.DrawingWeapon]) &&!_isDuringTransaction;
 
             if (attackAvaialbe)
             {
@@ -78,21 +88,23 @@ public class PlayerCombatController : PlayerCombatControllerBase
                     _signalBus.FireSignal(new DrawWeaponSignal(true));
                     return;
                 }
+
                 if (CurrentAttackNormalizedProgress == 0)
                 {
                     Attack();
                     SetCombatLayerActive(true);
                 }
-                else if (CurrentAttackNormalizedProgress >= 0.5f)
+                else if (CurrentAttackNormalizedProgress >= 0.7f && _nextAttack == null)
+                {
                     QueueAttack();
+                }
+
             }
         }
     }
 
     private void QueueAttack()
     {
-        if (_nextAttack != null) return;
-
         if (_currentAttack.Id == "Combo1")
             _nextAttack = _config.GetDataById("Combo2");
         else if (_currentAttack.Id == "Combo2")
@@ -104,7 +116,16 @@ public class PlayerCombatController : PlayerCombatControllerBase
     private void Attack()
     {
         _currentAttackProgress = 0;
-        if (_currentAttack == null) SetCurrentAttack();
+        if (_currentAttack == null)
+        {
+            if (_animator.GetInteger("Speed") >= 0)
+                SetCurrentAttack();
+            else 
+            { 
+                _currentAttack = _config.GetDataById("WalkingBackAttack");
+                _previousAttack = null;
+            }
+        }
 
         _animator.SetBool(_currentAttack.Id, true);
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Attacking, true));
@@ -122,6 +143,7 @@ public class PlayerCombatController : PlayerCombatControllerBase
                 if (toActive)
                 {
                     _animator.SetLayerWeight(i, 0);
+                    _player.StopAllCoroutines();
                 }
                 else
                 {
@@ -140,7 +162,7 @@ public class PlayerCombatController : PlayerCombatControllerBase
             while (w < 1)
             {
                 yield return new WaitForEndOfFrame();
-                w += Time.deltaTime*4;
+                w += Time.deltaTime*2;
                 _animator.SetLayerWeight(layer, w);
             }
         }
@@ -150,7 +172,7 @@ public class PlayerCombatController : PlayerCombatControllerBase
             while (w >0)
             {
                 yield return new WaitForEndOfFrame();
-                w -= Time.deltaTime*4;
+                w -= Time.deltaTime*2;
                 _animator.SetLayerWeight(layer, w);
             }
         }

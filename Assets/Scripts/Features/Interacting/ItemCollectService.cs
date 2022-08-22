@@ -29,7 +29,7 @@ public class ItemCollectService : LoadableService
         _controllers = new List<ItemInteractControllerBase>()
         {
             new ItemCollectController(_signalBus,_player),
-            new ShrineInteractController(_signalBus,_player)
+            new ShrineInteractController(_signalBus,_player,_playerStatesService)
         };
     }
 }

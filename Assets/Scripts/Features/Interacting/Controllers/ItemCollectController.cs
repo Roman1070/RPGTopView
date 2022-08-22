@@ -7,13 +7,13 @@ public class ItemCollectController : ItemInteractControllerBase
     {
     }
 
-    protected override void CheckObjectType(InteractableObject obj)
+    protected override void Interact(InteractableObject obj)
     {
         if (obj is CollectableObject)
         {
             _animator.SetTrigger("Collect");
             obj = obj as CollectableObject;
-            _player.StartCoroutine(Interact(obj));
+            _player.StartCoroutine(InteractProcess(obj));
         }
     }
 

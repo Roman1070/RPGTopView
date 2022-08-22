@@ -7,7 +7,6 @@ public class PlayerMovementController : PlayerMovementControllerBase
     private float _speed;
     private float _stamina;
     private bool _movementAvailable;
-    private bool _interruptMovement;
     private PlayerMovementConfig _config;
     private Animator _animator;
 
@@ -43,7 +42,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
             if (!_states.States[PlayerState.Running] && signal.Data.SprintAttempt && signal.Data.Direction.y >= 0 && _movementAvailable && _stamina > 10)
                 StartRun();
 
-            if (_states.States[PlayerState.Running] && (signal.Data.SprintBreak || signal.Data.Direction.y < 0 || signal.Data.Direction == Vector2.zero || _interruptMovement))
+            if (_states.States[PlayerState.Running] && (signal.Data.SprintBreak || signal.Data.Direction.y < 0 || signal.Data.Direction == Vector2.zero))
                 EndRun();
 
             _player.Controller.Move(moveDirection * _speed * Time.deltaTime);
@@ -56,6 +55,10 @@ public class PlayerMovementController : PlayerMovementControllerBase
             {
                 _signalBus.FireSignal(new UpdateLastSpeedSignal(signal.Data.Direction.y >= 0 ? _speed : -_speed));
             }
+        }
+        else
+        {
+            EndRun();
         }
 
         CalculateSpeed(signal.Data.Direction);

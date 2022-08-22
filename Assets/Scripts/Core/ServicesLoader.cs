@@ -31,18 +31,6 @@ public class ServicesLoader : MonoBehaviour
     protected readonly EquipedWeaponOffsetConfig _weaponOffsetConfig;
     #endregion
 
-    private static ServicesLoader _instance;
-    public static ServicesLoader Instance
-    {
-        get
-        {
-            if (_instance == null)
-                _instance = FindObjectOfType<ServicesLoader>();
-
-            return _instance;
-        }
-    }
-
     private List<LoadableService> _services;
 
 

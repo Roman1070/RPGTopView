@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System;
 using UnityEngine;
 
 public class PlayerStaminaController : PlayerMovementControllerBase
@@ -25,7 +24,7 @@ public class PlayerStaminaController : PlayerMovementControllerBase
     {
         if (obj.State == PlayerState.Running)
         {
-            if(obj.Value)
+            if (obj.Value)
             {
                 _StaminaGrowthEnabler.Kill();
                 _staminaIsGrowing = false;
@@ -39,7 +38,7 @@ public class PlayerStaminaController : PlayerMovementControllerBase
 
     private void OnStaminaChaged(OnStaminaChangedSignal signal)
     {
-        if(signal.Stamina < _stamina)
+        if (signal.Stamina < _stamina)
         {
             TryRestoreStamina();
         }

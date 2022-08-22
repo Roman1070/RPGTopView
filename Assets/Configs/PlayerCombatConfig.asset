@@ -20,11 +20,14 @@ MonoBehaviour:
     Duration: 1.5
     DamageMultiplier: 1.3
   - Id: Combo1
-    Duration: 0.56
+    Duration: 0.6666667
     DamageMultiplier: 1
   - Id: Combo2
-    Duration: 0.33
+    Duration: 0.5
     DamageMultiplier: 1.2
   - Id: Combo3
-    Duration: 1.4166666
+    Duration: 1.3076923
+    DamageMultiplier: 2.2
+  - Id: WalkingBackAttack
+    Duration: 1.5553334
     DamageMultiplier: 2.2
