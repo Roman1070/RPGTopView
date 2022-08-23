@@ -17,7 +17,14 @@
     {
         if (_currentAttack == null)
         {
-            SetCurrentAttack();
+            if (_animator.GetInteger("Speed") == 2)
+            {
+                _currentAttack = _config.GetAttackById("Double jump kick");
+            }
+            else
+            {
+                SetCurrentAttack();
+            }
         }
         base.Attack();
     }

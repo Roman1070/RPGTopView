@@ -18,7 +18,7 @@ public class PlayerCombatControllerBase
     protected bool _isDuringTransaction;
     protected Tween _onEndFight;
     protected PlayerCombatService _combatService;
-
+    private Vector2Int _lastDirection;
 
     protected virtual string CurrentLayerName { get; }
     protected virtual WeaponType TargetWeaponType{ get; }
@@ -110,6 +110,8 @@ public class PlayerCombatControllerBase
     {
         if (TargetWeaponType != _combatService.CurrentWeaponType) return;
 
+        _lastDirection = signal.Data.Direction;
+
         if (signal.Data.AttackAttempt)
         {
             bool attackAvaialbe = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.DrawingWeapon]
@@ -160,7 +162,17 @@ public class PlayerCombatControllerBase
 
         _player.MoveAnim.SetCurve(_currentAttack.PlayerPushCurve);
 
-        var pushVector = _player.Model.TransformDirection(new Vector3(0, 0, 1)) * _currentAttack.PlayerPushForce.z;
+        Vector3 pushVector;
+        if (_lastDirection != Vector2Int.zero)
+        {
+            pushVector = _player.Model.TransformDirection(new Vector3(0, 0, 1)) * _currentAttack.PlayerPushForce.z
+            + _player.Model.TransformDirection(new Vector3(0, 1, 0)) * _currentAttack.PlayerPushForce.y;
+        }
+        else
+        {
+            pushVector = _player.Camera.transform.parent.TransformDirection(new Vector3(0, 0, 1)) * _currentAttack.PlayerPushForce.z
+            + _player.Camera.transform.parent.TransformDirection(new Vector3(0, 1, 0)) * _currentAttack.PlayerPushForce.y;
+        }
         _player.MoveAnim.SetValues(_player.transform.position, _player.transform.position + pushVector);
         _player.MoveAnim.Play();
     }

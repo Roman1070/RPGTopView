@@ -196,7 +196,7 @@ MonoBehaviour:
   - Id: Knee kick
     TargetWeapon: 0
     InitialAttack: 1
-    Duration: 0.48666668
+    Duration: 0.45
     DamageMultiplier: 1
     PlayerPushCurve:
       serializedVersion: 2
@@ -222,11 +222,11 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    PlayerPushForce: {x: 0, y: 0, z: 2}
+    PlayerPushForce: {x: 0, y: 0, z: 3}
   - Id: Left hook
     TargetWeapon: 0
     InitialAttack: 1
-    Duration: 0.735
+    Duration: 0.6
     DamageMultiplier: 1
     PlayerPushCurve:
       serializedVersion: 2
@@ -252,11 +252,140 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    PlayerPushForce: {x: 0, y: 0, z: 2}
+    PlayerPushForce: {x: 0, y: 0, z: 1}
   - Id: Hook punch
     TargetWeapon: 0
     InitialAttack: 1
-    Duration: 0.75
+    Duration: 0.6
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.30628204
+        value: 0.002380371
+        inSlope: 4.751707
+        outSlope: 4.751707
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.030189611
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 1}
+  - Id: Double jump kick
+    TargetWeapon: 0
+    InitialAttack: 0
+    Duration: 0.7
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.0013046265
+        value: 0
+        inSlope: 10.475113
+        outSlope: 10.475113
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.09903548
+      - serializedVersion: 3
+        time: 0.11747484
+        value: 0.8620363
+        inSlope: 0.51951087
+        outSlope: 0.51951087
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.068331145
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 4, z: 5}
+  - Id: Lead jab
+    TargetWeapon: 0
+    InitialAttack: 1
+    Duration: 0.45
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.30628204
+        value: 0.002380371
+        inSlope: 4.751707
+        outSlope: 4.751707
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.030189611
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 1}
+  - Id: Left punch
+    TargetWeapon: 0
+    InitialAttack: 1
+    Duration: 0.6875
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.30628204
+        value: 0.002380371
+        inSlope: 4.751707
+        outSlope: 4.751707
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.030189611
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 1}
+  - Id: Right kick
+    TargetWeapon: 0
+    InitialAttack: 1
+    Duration: 0.65
     DamageMultiplier: 1
     PlayerPushCurve:
       serializedVersion: 2
@@ -283,3 +412,63 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 2}
+  - Id: Roundhouse kick
+    TargetWeapon: 0
+    InitialAttack: 1
+    Duration: 1
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.30628204
+        value: 0.002380371
+        inSlope: 4.751707
+        outSlope: 4.751707
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.030189611
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 3}
+  - Id: Uppercut
+    TargetWeapon: 0
+    InitialAttack: 1
+    Duration: 0.9
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.30628204
+        value: 0.002380371
+        inSlope: 4.751707
+        outSlope: 4.751707
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.030189611
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 1}
