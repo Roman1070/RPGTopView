@@ -36,7 +36,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
     private void OnStateChanged(OnPlayerStateChangedSignal obj)
     {
         _forceSprint = (obj.State == PlayerState.Grounded && obj.Value ||
-            obj.State == PlayerState.Rolling && !obj.Value) && _lastSpeed== _config.RunningSpeed;
+            obj.State == PlayerState.Rolling && !obj.Value || obj.State == PlayerState.Attacking && !obj.Value) && _lastSpeed== _config.RunningSpeed;
     }
 
     private void OnStaminaChanged(OnStaminaChangedSignal signal)

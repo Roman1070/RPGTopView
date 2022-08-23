@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ public class PlayerCombatControllerBase
     private Vector2Int _lastDirection;
 
     protected virtual string CurrentLayerName { get; }
-    protected virtual WeaponType TargetWeaponType{ get; }
+    protected virtual WeaponType TargetWeaponType { get; }
 
     private readonly string[] LayersToToggle = new string[]
     {
@@ -124,7 +123,7 @@ public class PlayerCombatControllerBase
                     Attack();
                     SetCombatLayerActive(true);
                 }
-                else if (CurrentAttackNormalizedProgress >= 0.5f && _nextAttack == null)
+                else if ((_currentAttack.Duration - _currentAttackProgress) <= 0.3f && _nextAttack == null)
                 {
                     QueueAttack();
                 }
