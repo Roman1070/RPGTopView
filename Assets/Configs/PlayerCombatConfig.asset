@@ -196,7 +196,7 @@ MonoBehaviour:
   - Id: Twohanded slash
     TargetWeapon: 1
     InitialAttack: 1
-    Duration: 1
+    Duration: 0.84210527
     DamageMultiplier: 1
     PlayerPushCurve:
       serializedVersion: 2

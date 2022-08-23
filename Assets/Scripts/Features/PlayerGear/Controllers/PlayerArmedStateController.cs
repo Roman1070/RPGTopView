@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class PlayerArmedStateController : PlayerGearControllerBase
 {
-    private float _animationDuration = 0.8f;
+    private float _animationDuration = 0.6f;
     private Animator _animator;
     private PlayerStatesService _statesService;
     private Transform _handAnchor;
     private Transform _spineAnchor;
-    private Transform _currentWeapon;
+    private Transform _weaponHolder;
     private EquipedWeaponOffsetConfig _weaponOffsetConfig;
     private string _currentWeaponId;
+
+    private Vector3 DrawnPosition => new Vector3(-0.007f, 0.067f , 0);
+    private Vector3 RemovedPosition => new Vector3(-0.188f, 0.325f , -0.06f);
+    private Vector3 RemovedRotation => new Vector3(103, 94 , 18);
 
     public PlayerArmedStateController(SignalBus signalBus, PlayerView player, PlayerStatesService statesService, EquipedWeaponOffsetConfig weaponOffsetConfig) : base(signalBus, player)
     {
@@ -20,12 +24,16 @@ public class PlayerArmedStateController : PlayerGearControllerBase
         _weaponOffsetConfig = weaponOffsetConfig;
         _handAnchor = player.HandAnchor;
         _spineAnchor = player.SpineAnchor;
-        _currentWeapon = player.CurrentWeapon;
+        _weaponHolder = player.WeaponsHolder;
         _animator = _player.Model.GetComponent<Animator>();
 
         signalBus.Subscribe<OnInputDataRecievedSignal>(OnInput, this);
         signalBus.Subscribe<DrawWeaponSignal>(DrawWeapon, this);
         signalBus.Subscribe<UpdateEquipedItemsDataSignal>(UpdateEquipedItem, this);
+
+        _weaponHolder.SetParent(_spineAnchor);
+        _weaponHolder.transform.localPosition = RemovedPosition;
+        _weaponHolder.transform.localEulerAngles = RemovedRotation;
     }
 
     private void UpdateEquipedItem(UpdateEquipedItemsDataSignal obj)
@@ -66,9 +74,9 @@ public class PlayerArmedStateController : PlayerGearControllerBase
 
         DOVirtual.DelayedCall(_animationDuration * 0.35f, () =>
         {
-            _currentWeapon.SetParent(_handAnchor);
-            _currentWeapon.transform.localPosition = _weaponOffsetConfig.GetOffsetData(_currentWeaponId).DrawnPosition;
-            _currentWeapon.transform.localEulerAngles = _weaponOffsetConfig.GetOffsetData(_currentWeaponId).DrawnRotation;
+            _weaponHolder.SetParent(_handAnchor);
+            _weaponHolder.transform.localPosition = DrawnPosition;
+            _weaponHolder.transform.localEulerAngles = Vector3.zero;
         });
 
         DOVirtual.DelayedCall(_animationDuration + 0.3f, () =>
@@ -84,11 +92,11 @@ public class PlayerArmedStateController : PlayerGearControllerBase
 
         _animator.SetTrigger("RemoveWeapon");
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, true));
-        DOVirtual.DelayedCall(_animationDuration, () =>
+        DOVirtual.DelayedCall(_animationDuration+0.2f, () =>
         {
-            _currentWeapon.SetParent(_spineAnchor);
-            _currentWeapon.transform.DOLocalMove(_weaponOffsetConfig.GetOffsetData(_currentWeaponId).RemovedPosition, 0.2f);
-            _currentWeapon.transform.localEulerAngles = _weaponOffsetConfig.GetOffsetData(_currentWeaponId).RemovedRotation;
+            _weaponHolder.SetParent(_spineAnchor);
+            _weaponHolder.transform.DOLocalMove(RemovedPosition, 0.2f);
+            _weaponHolder.transform.localEulerAngles = RemovedRotation;
 
             DOVirtual.DelayedCall(0.3f, () =>
             {

@@ -110,7 +110,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
 
         if (input == Vector2.zero)
         {
-            _animator.SetInteger("Speed", 0);
+            _animator.SetFloat("Speed", 0, 0.1f, Time.deltaTime);
             _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Running, false));
         }
         else
@@ -118,11 +118,11 @@ public class PlayerMovementController : PlayerMovementControllerBase
             if (input.y >= 0)
             {
                 _animator.SetBool("IsArmed", _states.States[PlayerState.IsArmed] || _states.States[PlayerState.DrawingWeapon]);
-                _animator.SetInteger("Speed", _states.States[PlayerState.Running] ? 2 : 1);
+                _animator.SetFloat("Speed", _states.States[PlayerState.Running] ? 2 : 1, 0.1f, Time.deltaTime);
             }
             else
             {
-                _animator.SetInteger("Speed", -1);
+                _animator.SetFloat("Speed", -1, 0.15f, Time.deltaTime);
             }
         }
     }

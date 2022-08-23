@@ -2919,7 +2919,8 @@ Transform:
   m_LocalRotation: {x: 0.028618986, y: 0.09157901, z: 0.109023534, w: 0.9893979}
   m_LocalPosition: {x: 0.47271246, y: -0.15476674, z: -0.1315194}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1803861602307167839}
   m_Father: {fileID: 3756727895771396132}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 2.101, y: 10.812, z: 12.775}
@@ -5709,3 +5710,33 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.47901866, y: -0.030463092, z: 0}
     m_Extent: {x: 0.5079102, y: 0.17379045, z: 0.257298}
   m_DirtyAABB: 0
+--- !u!1 &7893679680865320778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1803861602307167839}
+  m_Layer: 0
+  m_Name: WeaponHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1803861602307167839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893679680865320778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.557, y: 0.115, z: -0.086}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3756727896940338525}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

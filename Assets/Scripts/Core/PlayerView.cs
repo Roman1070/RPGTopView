@@ -11,6 +11,6 @@ public class PlayerView : MonoBehaviour
     public Camera Camera;
     public Transform HandAnchor;
     public Transform SpineAnchor;
-    public Transform CurrentWeapon;
+    public Transform WeaponsHolder;
     public CharacterControllerMoveAnimation MoveAnim;
 }

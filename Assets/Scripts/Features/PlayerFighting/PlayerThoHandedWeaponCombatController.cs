@@ -12,7 +12,7 @@
     {
         if (_currentAttack == null)
         {
-            if (_animator.GetInteger("Speed") >= 0)
+            if (_animator.GetFloat("Speed") >= 0)
                 SetCurrentAttack();
             else
             {

@@ -29,6 +29,8 @@ public class ServicesLoader : MonoBehaviour
     protected readonly InputConfig _inputConfig;
     [Inject]
     protected readonly EquipedWeaponOffsetConfig _weaponOffsetConfig;
+    [Inject]
+    protected readonly PlayerModelForRendering _playerModel;
     #endregion
 
     private List<LoadableService> _services;
@@ -55,7 +57,8 @@ public class ServicesLoader : MonoBehaviour
             new PlayerStatesService(_signalBus),
             new CameraMovementService(_signalBus, _playerView, _cameraConfig,_updateProvider),
             new InventoryUiService(_signalBus, _gameCanvas),
-            new PlayerGearService(_signalBus, _playerView, _weaponOffsetConfig)
+            new PlayerGearService(_signalBus, _playerView, _weaponOffsetConfig),
+            new PlayerModelUpdateService(_signalBus,_playerModel,_playerView,_weaponOffsetConfig)
         };
 
         foreach (var service in _services)

@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Offsets:
   - Id: WEAPON_SWORD_1
-    DrawnPosition: {x: -0.007, y: 0.064, z: 0}
-    DrawnRotation: {x: 0, y: 0, z: 0}
-    RemovedPosition: {x: -0.18809286, y: 0.3480429, z: -0.047609657}
-    RemovedRotation: {x: 76.6603, y: -67.1503, z: -141.8912}
+    PositionOffset: {x: 0.035, y: 0, z: -0.011}
+    RotationOffest: {x: 0, y: 0, z: 0}
     Scale: {x: 0.65, y: 0.65, z: 0.65}
+  - Id: WEAPON_SWORD_2
+    PositionOffset: {x: 0.026, y: -0.119, z: 0.003}
+    RotationOffest: {x: 352.26825, y: 359.74362, z: 357.76343}
+    Scale: {x: 0.7, y: 0.7, z: 0.7}

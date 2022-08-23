@@ -17,7 +17,7 @@
     {
         if (_currentAttack == null)
         {
-            if (_animator.GetInteger("Speed") == 2)
+            if (_animator.GetFloat("Speed") >=1.8f)
             {
                 _currentAttack = _config.GetAttackById("Double jump kick");
             }
