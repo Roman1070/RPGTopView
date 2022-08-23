@@ -1,4 +1,6 @@
-﻿public class DrawWeaponSignal : ISignal
+﻿using UnityEngine;
+
+public class DrawWeaponSignal : ISignal
 {
     public bool Draw;
 

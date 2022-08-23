@@ -55,7 +55,7 @@ public class PlayerMovementController : PlayerMovementControllerBase
             if ((signal.Data.SprintAttempt|| _forceSprint) && signal.Data.Direction.y >= 0 && MovementAvailable && _stamina > 10)
                 StartRun();
 
-            if (signal.Data.SprintBreak || signal.Data.Direction.y < 0 || signal.Data.Direction == Vector2.zero)
+            if (signal.Data.Direction.y < 0 || signal.Data.Direction == Vector2.zero)
                 EndRun();
 
             _player.Controller.Move(moveDirection * _speed * Time.deltaTime);
@@ -74,9 +74,30 @@ public class PlayerMovementController : PlayerMovementControllerBase
         {
             CalculateSpeed(Vector2Int.zero);
         }
+
+        CalculateBlend(signal.Data.Direction);
+
         if (signal.Data.SprintBreak) EndRun();
+
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Idle, signal.Data.Direction == Vector2Int.zero && MovementAvailable));
+
         _forceSprint = false;
+    }
+
+    private void CalculateBlend(Vector2 input)
+    {
+        _animator.SetFloat("BlendSpeed", 0);
+        if (input != Vector2.zero)
+        {
+            if (input.y >= 0)
+            {
+                _animator.SetFloat("BlendSpeed", _states.States[PlayerState.Running] ? 2 : 1);
+            }
+            else
+            {
+                _animator.SetFloat("BlendSpeed", -1);
+            }
+        }
     }
 
     private void CalculateSpeed(Vector2 input)

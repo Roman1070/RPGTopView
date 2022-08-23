@@ -48,7 +48,7 @@ public class InventoryUiContentController : InventoryUiControllerBase
     {
         if (signal != null && signal.PanelType != typeof(InventoryPanel)) return;
 
-        UpdateTab(0, ItemGroup.MeleeWeapon);
+        UpdateTab(0, ItemGroup.Weapon);
         UpdateTab(1, ItemGroup.Resource);
     }
 

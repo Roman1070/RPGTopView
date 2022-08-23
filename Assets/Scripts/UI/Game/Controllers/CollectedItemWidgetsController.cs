@@ -25,7 +25,7 @@ public class CollectedItemWidgetsController : GameUiControllerBase
             {
                 _widgets[i].SetItem(_inventoryService.GetItem(signal.Items[i].Id), signal.Items[i].Count);
             }
-            if (_inventoryService.GetItem(signal.Items[i].Id).GroupDef.Group == ItemGroup.MeleeWeapon)
+            if (_inventoryService.GetItem(signal.Items[i].Id).GroupDef.Group == ItemGroup.Weapon)
             {
                 _widgets[i].SetItem(_inventoryService.GetItem(signal.Items[i].Id), signal.Items[i].Count,_inventoryService);
             }

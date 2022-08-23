@@ -73,10 +73,3 @@ public class PlayerRollController : PlayerMovementControllerBase
         _stamina = signal.Stamina;
     }
 }
-
-public class PlayerAddForceController : PlayerMovementControllerBase
-{
-    public PlayerAddForceController(PlayerView player, SignalBus signalBus, PlayerStatesService playerStatesService) : base(player, signalBus, playerStatesService)
-    {
-    }
-}

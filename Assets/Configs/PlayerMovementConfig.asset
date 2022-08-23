@@ -21,9 +21,9 @@ MonoBehaviour:
   RollDistance: 5
   MaxStamina: 100
   StaminaRegeneration: 40
-  StaminaConsuming: 0
+  StaminaConsuming: 10
   StaminaRegeneratingDelay: 2
-  StaminaOnJump: 0
+  StaminaOnJump: 15
   StaminaOnRoll: 12
   RollCurve:
     serializedVersion: 2

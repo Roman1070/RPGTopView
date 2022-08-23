@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public class Inventory
+{
+    public WeaponType CurrentWeaponType;
+}
+
 public class InventoryService : LoadableService
 {
     public ItemsMap ItemsMap { get; private set; }
@@ -45,9 +50,13 @@ public class InventoryService : LoadableService
 
     private List<InventoryControllerBase> _controllers;
 
+    public Inventory Inventory { get; private set; }
+
     public InventoryService(SignalBus signalBus, ItemsMap itemsMap) : base(signalBus)
     {
         ItemsMap = itemsMap;
+        Inventory = new Inventory();
+        Inventory.CurrentWeaponType = WeaponType.TwoHanded;
         _signalBus.Subscribe<OnItemCountChangedSignal>(ChangeItemCount, this);
 
         InitControllers();
