@@ -21,3 +21,9 @@ MonoBehaviour:
     Item: {fileID: 11400000, guid: 27e98869f6a818b49a7499bf2bae6b7b, type: 2}
   - Id: WEAPON_SWORD_2
     Item: {fileID: 11400000, guid: 846fe646456ef3c40b0e5fdd0b88e6a9, type: 2}
+  - Id: WEAPON_SWORD_3
+    Item: {fileID: 11400000, guid: 5afec4b0f59db8f458cd74229713c86c, type: 2}
+  - Id: WEAPON_SWORD_4
+    Item: {fileID: 11400000, guid: 10e63fceb93989d41b95b941e6ef1ed4, type: 2}
+  - Id: WEAPON_SWORD_5
+    Item: {fileID: 11400000, guid: 8d78b171918604644a6beede86551a96, type: 2}

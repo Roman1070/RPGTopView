@@ -26,7 +26,7 @@ public class PlayerModelUpdateService : LoadableService
 
     private void OnEquipementChanged(OnEquipedItemChangedSignal obj)
     {
-        if (_equippedGear.Keys.Contains(obj.Slot))
+        if (_equippedGear.Keys.Contains(obj.Slot) && _equippedGear[obj.Slot]!=null)
         {
             foreach(var ob in _equippedGear[obj.Slot])
                 ob.SetActive(false);
@@ -34,57 +34,34 @@ public class PlayerModelUpdateService : LoadableService
 
         if (_cachedModels.Keys.Contains(obj.Item))
         {
-            foreach (var ob in _equippedGear[obj.Slot])
-                ob.SetActive(true);
+            foreach (var ob in _cachedModels[obj.Item])
+                 ob.SetActive(true);
         }
         else
         {
             int level = _inventoryService.ItemsLevels[obj.Item.Id];
-            var prefab = obj.Item.PrafabDef.Prefabs[level].Prefab;
+            var prefab = obj.Item.PrafabDef.Prefabs[level-1].Prefab;
 
-            var newModel = GameObject.Instantiate(prefab, _player.WeaponsHolder);
-            var newModel2 = GameObject.Instantiate(prefab, _renderModel.HandAnchor);
+            var newModels = new GameObject[] { GameObject.Instantiate(prefab, _player.WeaponsHolder), GameObject.Instantiate(prefab, _renderModel.HandAnchor) };
             switch (obj.Slot)
             {
                 case ItemSlot.Weapon:
-                    newModel.transform.localPosition = _offsetConfig.GetOffsetData(obj.Item.Id).PositionOffset;
-                    newModel.transform.localEulerAngles = _offsetConfig.GetOffsetData(obj.Item.Id).RotationOffest;
-                    newModel.transform.localScale = _offsetConfig.GetOffsetData(obj.Item.Id).Scale;
-                    newModel2.transform.localPosition = _offsetConfig.GetOffsetData(obj.Item.Id).PositionOffset;
-                    newModel2.transform.localEulerAngles = _offsetConfig.GetOffsetData(obj.Item.Id).RotationOffest;
-                    newModel2.transform.localScale = _offsetConfig.GetOffsetData(obj.Item.Id).Scale;
+                    foreach(var model in newModels)
+                    {
+                        model.transform.localPosition = _offsetConfig.GetOffsetData(obj.Item.Id).PositionOffset;
+                        model.transform.localEulerAngles = _offsetConfig.GetOffsetData(obj.Item.Id).RotationOffest;
+                        model.transform.localScale = _offsetConfig.GetOffsetData(obj.Item.Id).Scale;
+                    }
                     break;
             }
-            _cachedModels.Add(obj.Item, new GameObject[] { newModel.gameObject ,newModel2.gameObject});
+            _cachedModels.Add(obj.Item, newModels);
         }
         _equippedGear[obj.Slot] = _cachedModels[obj.Item];
-    }
-
-    private void OnSceneLoadedEquip(Item item, ItemSlot slot)
-    {
-        int level = _inventoryService.ItemsLevels[item.Id];
-        var prefab = item.PrafabDef.Prefabs[level-1].Prefab;
-
-        var newModel = GameObject.Instantiate(prefab, _player.WeaponsHolder);
-        var newModel2 = GameObject.Instantiate(prefab, _renderModel.HandAnchor);
-        switch (slot)
-        {
-            case ItemSlot.Weapon:
-                newModel.transform.localPosition = _offsetConfig.GetOffsetData(item.Id).PositionOffset;
-                newModel.transform.localEulerAngles = _offsetConfig.GetOffsetData(item.Id).RotationOffest;
-                newModel.transform.localScale = _offsetConfig.GetOffsetData(item.Id).Scale;
-                newModel2.transform.localPosition = _offsetConfig.GetOffsetData(item.Id).PositionOffset;
-                newModel2.transform.localEulerAngles = _offsetConfig.GetOffsetData(item.Id).RotationOffest;
-                newModel2.transform.localScale = _offsetConfig.GetOffsetData(item.Id).Scale;
-                break;
-        }
-        _cachedModels.Add(item, new GameObject[] { newModel.gameObject, newModel2.gameObject });
-        _equippedGear[slot] = _cachedModels[item];
     }
 
     public override void OnServicesLoaded(params LoadableService[] services)
     {
         _inventoryService = services.First(s => s is InventoryService) as InventoryService;
-        OnSceneLoadedEquip(_inventoryService.GetItem("WEAPON_SWORD_1"), ItemSlot.Weapon);
+        _signalBus.FireSignal(new OnEquipedItemChangedSignal(_inventoryService.GetItem("WEAPON_SWORD_1"), ItemSlot.Weapon));
     }
 }

@@ -11,8 +11,6 @@ public class PlayerArmedStateController : PlayerGearControllerBase
     private Transform _handAnchor;
     private Transform _spineAnchor;
     private Transform _weaponHolder;
-    private EquipedWeaponOffsetConfig _weaponOffsetConfig;
-    private string _currentWeaponId;
 
     private Vector3 DrawnPosition => new Vector3(-0.007f, 0.067f , 0);
     private Vector3 RemovedPosition => new Vector3(-0.188f, 0.325f , -0.06f);
@@ -21,7 +19,6 @@ public class PlayerArmedStateController : PlayerGearControllerBase
     public PlayerArmedStateController(SignalBus signalBus, PlayerView player, PlayerStatesService statesService, EquipedWeaponOffsetConfig weaponOffsetConfig) : base(signalBus, player)
     {
         _statesService = statesService;
-        _weaponOffsetConfig = weaponOffsetConfig;
         _handAnchor = player.HandAnchor;
         _spineAnchor = player.SpineAnchor;
         _weaponHolder = player.WeaponsHolder;
@@ -29,16 +26,10 @@ public class PlayerArmedStateController : PlayerGearControllerBase
 
         signalBus.Subscribe<OnInputDataRecievedSignal>(OnInput, this);
         signalBus.Subscribe<DrawWeaponSignal>(DrawWeapon, this);
-        signalBus.Subscribe<UpdateEquipedItemsDataSignal>(UpdateEquipedItem, this);
 
         _weaponHolder.SetParent(_spineAnchor);
         _weaponHolder.transform.localPosition = RemovedPosition;
         _weaponHolder.transform.localEulerAngles = RemovedRotation;
-    }
-
-    private void UpdateEquipedItem(UpdateEquipedItemsDataSignal obj)
-    {
-        _currentWeaponId = obj.EquipedItems[ItemSlot.Weapon].Id;
     }
 
     private void DrawWeapon(DrawWeaponSignal obj)
@@ -67,7 +58,7 @@ public class PlayerArmedStateController : PlayerGearControllerBase
 
     private IEnumerator DrawWeapon()
     {
-        yield return new WaitUntil(() => !_statesService.States[PlayerState.DrawingWeapon]);
+        yield return new WaitUntil(() => !_statesService.States[PlayerState.DrawingWeapon] && !_statesService.States[PlayerState.Attacking]);
 
         _animator.SetTrigger("DrawWeapon");
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, true));
@@ -88,7 +79,7 @@ public class PlayerArmedStateController : PlayerGearControllerBase
 
     private IEnumerator RemoveWeapon()
     {
-        yield return new WaitUntil(() => !_statesService.States[PlayerState.DrawingWeapon]);
+        yield return new WaitUntil(() => !_statesService.States[PlayerState.DrawingWeapon] && !_statesService.States[PlayerState.Attacking]);
 
         _animator.SetTrigger("RemoveWeapon");
         _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, true));

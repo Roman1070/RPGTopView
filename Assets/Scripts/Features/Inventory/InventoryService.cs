@@ -58,7 +58,14 @@ public class InventoryService : LoadableService
         Inventory = new Inventory();
         Inventory.CurrentWeaponType = WeaponType.TwoHanded;
         _signalBus.Subscribe<OnItemCountChangedSignal>(ChangeItemCount, this);
-
+        _signalBus.FireSignal(new OnItemCountChangedSignal(new EnumerableItem[]
+        {
+            new EnumerableItem("WEAPON_SWORD_1",1),
+            new EnumerableItem("WEAPON_SWORD_2",1),
+            new EnumerableItem("WEAPON_SWORD_3",1),
+            new EnumerableItem("WEAPON_SWORD_4",1),
+            new EnumerableItem("WEAPON_SWORD_5",1),
+         }));
         InitControllers();
     }
 
