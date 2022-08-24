@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attacks:
   - Id: AttackDownward
-    TargetWeapon: 1
+    TargetAttackType: 0
     InitialAttack: 1
     Duration: 0.8
     DamageMultiplier: 1
@@ -44,7 +44,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 2}
   - Id: ArmedUppercut
-    TargetWeapon: 1
+    TargetAttackType: 0
     InitialAttack: 1
     Duration: 0.8
     DamageMultiplier: 1.3
@@ -74,7 +74,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 4}
   - Id: Combo1
-    TargetWeapon: 1
+    TargetAttackType: 0
     InitialAttack: 1
     Duration: 0.6666667
     DamageMultiplier: 1
@@ -104,7 +104,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 3}
   - Id: Combo2
-    TargetWeapon: 1
+    TargetAttackType: 0
     InitialAttack: 0
     Duration: 0.5
     DamageMultiplier: 1.2
@@ -134,7 +134,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 0.5}
   - Id: Combo3
-    TargetWeapon: 1
+    TargetAttackType: 0
     InitialAttack: 0
     Duration: 1.1
     DamageMultiplier: 2.2
@@ -164,7 +164,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 4}
   - Id: WalkingBackAttack
-    TargetWeapon: 1
+    TargetAttackType: 0
     InitialAttack: 0
     Duration: 0.9
     DamageMultiplier: 2.2
@@ -193,8 +193,8 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: -2}
-  - Id: Twohanded slash
-    TargetWeapon: 1
+  - Id: Onehanded slash
+    TargetAttackType: 0
     InitialAttack: 1
     Duration: 0.84210527
     DamageMultiplier: 1
@@ -224,7 +224,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 3}
   - Id: Knee kick
-    TargetWeapon: 0
+    TargetAttackType: 2
     InitialAttack: 1
     Duration: 0.45
     DamageMultiplier: 1
@@ -254,7 +254,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 3}
   - Id: Left hook
-    TargetWeapon: 0
+    TargetAttackType: 2
     InitialAttack: 1
     Duration: 0.6
     DamageMultiplier: 1
@@ -284,7 +284,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 0.5}
   - Id: Hook punch
-    TargetWeapon: 0
+    TargetAttackType: 2
     InitialAttack: 1
     Duration: 0.6
     DamageMultiplier: 1
@@ -314,7 +314,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 0.5}
   - Id: Double jump kick
-    TargetWeapon: 0
+    TargetAttackType: 2
     InitialAttack: 0
     Duration: 0.7
     DamageMultiplier: 1
@@ -353,7 +353,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 4, z: 5}
   - Id: Lead jab
-    TargetWeapon: 0
+    TargetAttackType: 2
     InitialAttack: 1
     Duration: 0.6
     DamageMultiplier: 1
@@ -383,7 +383,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 0.5}
   - Id: Left punch
-    TargetWeapon: 0
+    TargetAttackType: 2
     InitialAttack: 1
     Duration: 0.6875
     DamageMultiplier: 1
@@ -413,7 +413,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 1}
   - Id: Right kick
-    TargetWeapon: 0
+    TargetAttackType: 2
     InitialAttack: 1
     Duration: 0.6
     DamageMultiplier: 1
@@ -443,7 +443,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 0.5}
   - Id: Roundhouse kick
-    TargetWeapon: 0
+    TargetAttackType: 2
     InitialAttack: 1
     Duration: 0.8
     DamageMultiplier: 1
@@ -473,9 +473,99 @@ MonoBehaviour:
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 3}
   - Id: Uppercut
-    TargetWeapon: 0
+    TargetAttackType: 2
     InitialAttack: 1
     Duration: 0.7
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.30628204
+        value: 0.002380371
+        inSlope: 4.751707
+        outSlope: 4.751707
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.030189611
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 0.5}
+  - Id: Two handed lower slash
+    TargetAttackType: 1
+    InitialAttack: 1
+    Duration: 1
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.30628204
+        value: 0.002380371
+        inSlope: 4.751707
+        outSlope: 4.751707
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.030189611
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 1}
+  - Id: Two handed far kick
+    TargetAttackType: 1
+    InitialAttack: 1
+    Duration: 1
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.30628204
+        value: 0.002380371
+        inSlope: 4.751707
+        outSlope: 4.751707
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.030189611
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 1.5}
+  - Id: Two handed turnaround kick
+    TargetAttackType: 1
+    InitialAttack: 1
+    Duration: 1
     DamageMultiplier: 1
     PlayerPushCurve:
       serializedVersion: 2

@@ -11,6 +11,7 @@ public class PlayerMovementConfig : ScriptableObject
     public float GroundCheckDistance;
     public float JumpHeight;
     public float RollDistance;
+    public float DodgeDistance;
     public float MaxStamina;
     public float StaminaRegeneration;
     public float StaminaConsuming;
@@ -19,5 +20,6 @@ public class PlayerMovementConfig : ScriptableObject
     public float StaminaOnRoll;
 
     public AnimationCurve RollCurve;
+    public AnimationCurve DodgeCurve;
 }
 

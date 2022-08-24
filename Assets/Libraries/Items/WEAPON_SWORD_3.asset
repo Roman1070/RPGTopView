@@ -17,7 +17,7 @@ MonoBehaviour:
     Name: Royal Guard
   GroupDef:
     Group: 1
-    WeaponType: 1
+    WeaponType: 2
   IconDef:
     Icon: {fileID: 0}
   RarityDef:

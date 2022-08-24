@@ -17,7 +17,7 @@ MonoBehaviour:
     Name: Light sword
   GroupDef:
     Group: 1
-    WeaponType: 1
+    WeaponType: 0
   IconDef:
     Icon: {fileID: 0}
   RarityDef:

@@ -1,6 +1,14 @@
 ﻿using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
+
+public enum AttackType
+{
+    OneHanded,
+    TwoHanded,
+    Disarmed, //Disarmed всегда в конец, здесь порядок такой же как и в WeaponType
+}
 
 public class PlayerCombatControllerBase
 {
@@ -17,10 +25,11 @@ public class PlayerCombatControllerBase
     protected bool _isDuringTransaction;
     protected Tween _onEndFight;
     protected PlayerCombatService _combatService;
+    protected Inventory _inventory;
     private Vector2Int _lastDirection;
 
     protected virtual string CurrentLayerName { get; }
-    protected virtual WeaponType TargetWeaponType { get; }
+    protected virtual AttackType TargetAttackType { get; }
 
     private readonly string[] LayersToToggle = new string[]
     {
@@ -32,6 +41,7 @@ public class PlayerCombatControllerBase
     {
         "CombatLayerTwoHanded",
         "CombatLayerDisarmed",
+        "CombatLayerOneHanded",
     };
 
     protected float CurrentAttackNormalizedProgress
@@ -45,12 +55,13 @@ public class PlayerCombatControllerBase
     }
 
     public PlayerCombatControllerBase(SignalBus signalBus, PlayerView player, PlayerCombatConfig config, PlayerStatesService states,
-        UpdateProvider updateProvider, PlayerCombatService combatService)
+        UpdateProvider updateProvider, PlayerCombatService combatService, Inventory inventory)
     {
         _signalBus = signalBus;
         _player = player;
         _config = config;
         _combatService = combatService;
+        _inventory = inventory;
 
         _animator = player.Model.GetComponent<Animator>();
         _config = config;
@@ -59,12 +70,30 @@ public class PlayerCombatControllerBase
         _updateProvider.Updates.Add(Update);
         _animator.SetLayerWeight(_animator.GetLayerIndex(CurrentLayerName), 0);
         signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
+        signalBus.Subscribe<OnEquipedItemChangedSignal>(OnEquipementChanged, this);
     }
 
+    private void OnEquipementChanged(OnEquipedItemChangedSignal obj)
+    {
+        if (_states.States[PlayerState.IsArmed])
+            foreach (var layer in CombatLayers) _animator.SetLayerWeight(_animator.GetLayerIndex(layer), 0);
+    }
 
     private void Update()
     {
-        if (TargetWeaponType != _combatService.CurrentWeaponType) return;
+        switch (_inventory.CurrentWeaponType)
+        {
+            case WeaponType.OneHanded:
+                _animator.SetBool("Is onehanded weapon", true);
+                _animator.SetBool("Is twohanded weapon", false);
+                break;
+            case WeaponType.TwoHanded:
+                _animator.SetBool("Is twohanded weapon", true);
+                _animator.SetBool("Is onehanded weapon", false);
+                break;
+        }
+
+        if (TargetAttackType != _combatService.CurrentAttackType) return;
 
         if (_states.States[PlayerState.Attacking])
         {
@@ -78,7 +107,7 @@ public class PlayerCombatControllerBase
     }
     private void OnAttackEnded()
     {
-        if (TargetWeaponType != _combatService.CurrentWeaponType) return;
+        if (TargetAttackType != _combatService.CurrentAttackType) return;
 
         _currentAttack = null;
         if (_nextAttack != null)
@@ -107,7 +136,7 @@ public class PlayerCombatControllerBase
 
     private void OnInputRecieved(OnInputDataRecievedSignal signal)
     {
-        if (TargetWeaponType != _combatService.CurrentWeaponType) return;
+        if (TargetAttackType != _combatService.CurrentAttackType) return;
 
         _lastDirection = signal.Data.Direction;
 
@@ -134,12 +163,14 @@ public class PlayerCombatControllerBase
 
     protected virtual void QueueAttack()
     {
-        if (TargetWeaponType != _combatService.CurrentWeaponType) return;
+        if (TargetAttackType != _combatService.CurrentAttackType) return;
+
+        _nextAttack = _config.GetRandomFirstAttack(_currentAttack.Id, TargetAttackType);
     }
 
     protected virtual void Attack()
     {
-        if (TargetWeaponType != _combatService.CurrentWeaponType) return;
+        if (TargetAttackType != _combatService.CurrentAttackType) return;
 
         _currentAttackProgress = 0;
 
@@ -157,7 +188,7 @@ public class PlayerCombatControllerBase
 
     private void PushPlayer()
     {
-        if (TargetWeaponType != _combatService.CurrentWeaponType) return;
+        if (TargetAttackType != _combatService.CurrentAttackType) return;
 
         _player.MoveAnim.SetCurve(_currentAttack.PlayerPushCurve);
 
@@ -178,11 +209,17 @@ public class PlayerCombatControllerBase
 
     private void SetCombatLayerActive(bool toActive)
     {
-        if (TargetWeaponType != _combatService.CurrentWeaponType) return;
+        if (TargetAttackType != _combatService.CurrentAttackType) return;
+        string layerNameToEnable = CurrentLayerName;
+        if (!_states.States[PlayerState.IsArmed])
+        {
+            layerNameToEnable = "CombatLayerDisarmed";
+        }
+
 
         for (int i = 0; i < LayersToToggle.Length; i++)
         {
-            if (_animator.GetLayerName(_animator.GetLayerIndex(LayersToToggle[i])) != CurrentLayerName)
+            if (_animator.GetLayerName(_animator.GetLayerIndex(LayersToToggle[i])) != layerNameToEnable)
             {
                 if (toActive)
                 {
@@ -197,7 +234,7 @@ public class PlayerCombatControllerBase
         }
         for (int i = 0; i < CombatLayers.Length; i++)
         {
-            if (_animator.GetLayerName(_animator.GetLayerIndex(LayersToToggle[i])) != CurrentLayerName)
+            if (_animator.GetLayerName(_animator.GetLayerIndex(LayersToToggle[i])) != layerNameToEnable)
             {
                 if (toActive)
                 {
@@ -206,12 +243,12 @@ public class PlayerCombatControllerBase
                 }
             }
         }
-        _player.StartCoroutine(SetLayerWeightSmmoth(_animator.GetLayerIndex(CurrentLayerName), toActive));
+        _player.StartCoroutine(SetLayerWeightSmmoth(_animator.GetLayerIndex(layerNameToEnable), toActive));
     }
 
     private IEnumerator SetLayerWeightSmmoth(int layer, bool turnActive)
     {
-        if (TargetWeaponType != _combatService.CurrentWeaponType) yield return null;
+        if (TargetAttackType != _combatService.CurrentAttackType) yield return null;
 
         if (turnActive)
         {
@@ -237,14 +274,14 @@ public class PlayerCombatControllerBase
 
     protected void SetCurrentAttack()
     {
-        if (TargetWeaponType != _combatService.CurrentWeaponType) return;
+        if (TargetAttackType != _combatService.CurrentAttackType) return;
 
         if (_previousAttack != null)
         {
-            _currentAttack = _config.GetRandomFirstAttack(_previousAttack.Id, TargetWeaponType);
+            _currentAttack = _config.GetRandomFirstAttack(_previousAttack.Id, TargetAttackType);
         }
         else
-            _currentAttack = _config.GetRandomFirstAttack("", TargetWeaponType);
+            _currentAttack = _config.GetRandomFirstAttack("", TargetAttackType);
 
         _previousAttack = _currentAttack;
     }

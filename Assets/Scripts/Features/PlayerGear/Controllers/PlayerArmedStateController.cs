@@ -72,6 +72,7 @@ public class PlayerArmedStateController : PlayerGearControllerBase
 
         DOVirtual.DelayedCall(_animationDuration + 0.3f, () =>
         {
+            _animator.SetBool("IsArmed", true);
             _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.IsArmed, true));
             _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, false));
         }); 
@@ -91,6 +92,7 @@ public class PlayerArmedStateController : PlayerGearControllerBase
 
             DOVirtual.DelayedCall(0.3f, () =>
             {
+                _animator.SetBool("IsArmed", false);
                 _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, false));
                 _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.IsArmed, false));
             });

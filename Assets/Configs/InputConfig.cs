@@ -20,4 +20,5 @@ public class InputConfig : ScriptableObject
     public KeyCode DevConsole = KeyCode.KeypadMinus;
     public KeyCode Inventory = KeyCode.I;
     public KeyCode ToggleArmedStatus = KeyCode.Alpha1;
+    public KeyCode Dodge = KeyCode.LeftAlt;
 }

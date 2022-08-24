@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 public enum PlayerState
 {
@@ -11,6 +10,7 @@ public enum PlayerState
     Grounded,
     IsArmed,
     DrawingWeapon,
+    Dodging,
 }
 
 public class PlayerStatesService : LoadableService
@@ -29,6 +29,7 @@ public class PlayerStatesService : LoadableService
             {PlayerState.Grounded, true},
             {PlayerState.IsArmed, false},
             {PlayerState.DrawingWeapon, false},
+            {PlayerState.Dodging, false},
         };
         _signalBus.Subscribe<SetPlayerStateSignal>(SetState, this);
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -56,8 +57,9 @@ public class InventoryService : LoadableService
     {
         ItemsMap = itemsMap;
         Inventory = new Inventory();
-        Inventory.CurrentWeaponType = WeaponType.TwoHanded;
+        Inventory.CurrentWeaponType = WeaponType.OneHanded;
         _signalBus.Subscribe<OnItemCountChangedSignal>(ChangeItemCount, this);
+        _signalBus.Subscribe<OnEquipedItemChangedSignal>(OnEquipementChanged, this);
         _signalBus.FireSignal(new OnItemCountChangedSignal(new EnumerableItem[]
         {
             new EnumerableItem("WEAPON_SWORD_1",1),
@@ -67,6 +69,12 @@ public class InventoryService : LoadableService
             new EnumerableItem("WEAPON_SWORD_5",1),
          }));
         InitControllers();
+    }
+
+    private void OnEquipementChanged(OnEquipedItemChangedSignal obj)
+    {
+        if (obj.Slot == ItemSlot.Weapon)
+            Inventory.CurrentWeaponType = obj.Item.GroupDef.WeaponType;
     }
 
     public void InitControllers()

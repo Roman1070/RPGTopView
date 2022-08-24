@@ -9,6 +9,7 @@ public class InputDataPack
     public bool SprintBreak;
     public bool AttackAttempt;
     public bool RollAttempt;
+    public bool DodgeAttempt;
     public bool CollectAttempt;
     public bool DevConsoleCall;
     public bool InventoryCall;
@@ -65,6 +66,7 @@ public class InputService : LoadableService
         data.InventoryCall = Input.GetKeyDown(Config.Inventory);
         data.Esc = Input.GetKeyDown(KeyCode.Escape);
         data.ToggleArmedStatus = Input.GetKeyDown(Config.ToggleArmedStatus);
+        data.DodgeAttempt = Input.GetKeyDown(Config.Dodge);
 
         _previousDirection = direction;
         _signalBus.FireSignal(new OnInputDataRecievedSignal(data));

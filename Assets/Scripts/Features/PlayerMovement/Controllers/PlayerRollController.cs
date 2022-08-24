@@ -1,6 +1,4 @@
-﻿using DG.Tweening;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerRollController : PlayerMovementControllerBase
 {
@@ -11,7 +9,7 @@ public class PlayerRollController : PlayerMovementControllerBase
     private float _z;
     private Vector3 _rollVector;
 
-    public PlayerRollController(PlayerView player, SignalBus signalBus, PlayerMovementConfig config, UpdateProvider updateProvider, PlayerStatesService playerStatesService) : base(player, signalBus,playerStatesService)
+    public PlayerRollController(PlayerView player, SignalBus signalBus, PlayerMovementConfig config, UpdateProvider updateProvider, PlayerStatesService playerStatesService) : base(player, signalBus, playerStatesService)
     {
         _config = config;
         updateProvider.Updates.Add(Update);
@@ -31,19 +29,6 @@ public class PlayerRollController : PlayerMovementControllerBase
     private void Update()
     {
         _rollAvailable = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.Attacking]);
-
-        if (Mathf.Abs(_z) <= 0.1f)
-        {
-            return;
-        }
-
-        /*if(_z > 0)
-            _z -= Time.deltaTime * _config.RollDistance;
-        else
-            _z += Time.deltaTime * _config.RollDistance;
-
-        _player.Controller.Move(_rollVector*_z * Time.deltaTime);*/
-
     }
 
     private void Roll(bool forward)
@@ -59,12 +44,6 @@ public class PlayerRollController : PlayerMovementControllerBase
         _player.MoveAnim.Play(0, () =>
         {
             _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Rolling, false));
-        });
-
-
-
-        DOVirtual.DelayedCall(0.8f, () =>
-        {
         });
     }
 

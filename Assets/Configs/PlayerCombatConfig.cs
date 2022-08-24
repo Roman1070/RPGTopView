@@ -9,9 +9,9 @@ public class PlayerCombatConfig : ScriptableObject
 
     public AttackData GetAttackById(string id) => Attacks.First(a => a.Id == id);
 
-    public AttackData GetRandomFirstAttack(string expceptId, WeaponType targetWeapon)
+    public AttackData GetRandomFirstAttack(string expceptId, AttackType targetAttackType)
     {
-        var attacks = Attacks.Where(a => a.InitialAttack && a.Id != expceptId && a.TargetWeapon==targetWeapon).ToArray();
+        var attacks = Attacks.Where(a => a.InitialAttack && a.Id != expceptId && a.TargetAttackType==targetAttackType).ToArray();
         return attacks[UnityEngine.Random.Range(0, attacks.Length)];
     }
 }
@@ -20,7 +20,7 @@ public class PlayerCombatConfig : ScriptableObject
 public class AttackData
 {
     public string Id;
-    public WeaponType TargetWeapon;
+    public AttackType TargetAttackType;
     public bool InitialAttack;
     public float Duration;
     public float DamageMultiplier;

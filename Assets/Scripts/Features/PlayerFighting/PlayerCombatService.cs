@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public enum WeaponType
 {
-    Disarmed,
+    OneHanded,
     TwoHanded,
 }
 
 public class PlayerCombatService : LoadableService
 {
-    public WeaponType CurrentWeaponType { get; private set; }
+    public AttackType CurrentAttackType { get; private set; }
 
     private PlayerView _player;
     private PlayerCombatConfig _config;
@@ -26,7 +25,7 @@ public class PlayerCombatService : LoadableService
         _player = player;
         _config = config;
         _updateProvider = updateProvider;
-        CurrentWeaponType = WeaponType.Disarmed;
+        CurrentAttackType = AttackType.OneHanded;
     }
 
 
@@ -35,23 +34,28 @@ public class PlayerCombatService : LoadableService
         _playerStatesService = services.First(s => s.GetType() == typeof(PlayerStatesService)) as PlayerStatesService;
         _inventory = (services.First(s => s.GetType() == typeof(InventoryService)) as InventoryService).Inventory;
         _signalBus.Subscribe<OnPlayerStateChangedSignal>(OnWeaponDrawn, this);
+        _signalBus.Subscribe<OnEquipedItemChangedSignal>(OnEquipementChanged, this);
+        CurrentAttackType = _playerStatesService.States[PlayerState.IsArmed]? (AttackType)_inventory.CurrentWeaponType : AttackType.Disarmed;
         InitControllers();
+    }
+
+    private void OnEquipementChanged(OnEquipedItemChangedSignal obj)
+    {
+        CurrentAttackType = _playerStatesService.States[PlayerState.IsArmed] ? (AttackType)_inventory.CurrentWeaponType : AttackType.Disarmed;
     }
 
     private void OnWeaponDrawn(OnPlayerStateChangedSignal obj)
     {
-        if (obj.State==PlayerState.IsArmed)
-        {
-            CurrentWeaponType = obj.Value ? _inventory.CurrentWeaponType : WeaponType.Disarmed;
-        }
+        CurrentAttackType = _playerStatesService.States[PlayerState.IsArmed] ? (AttackType)_inventory.CurrentWeaponType : AttackType.Disarmed;
     }
 
     private void InitControllers()
     {
         _controllers = new List<PlayerCombatControllerBase>()
         {
-            new PlayerThoHandedWeaponCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this),
-            new PlayerDisarmedCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this),
+            new PlayerDisarmedCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this,_inventory),
+            new PlayerOneHandedWeaponCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this,_inventory),
+            new PlayerTwoHandedWeaponCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this,_inventory)
         };
     }
 }
