@@ -12,6 +12,6 @@ public class PlayerView : MonoBehaviour
 
     private void Start()
     {
-        transform.position = new Vector3(25, 3, 68);
+        transform.position = new Vector3(30.27f, 0.73f, 117);
     }
 }
