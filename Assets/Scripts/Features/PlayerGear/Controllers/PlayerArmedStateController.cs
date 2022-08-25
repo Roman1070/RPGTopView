@@ -53,7 +53,10 @@ public class PlayerArmedStateController : PlayerGearControllerBase
     private void ToggleArmedStatus()
     {
         if (_statesService.States[PlayerState.IsArmed]) _player.StartCoroutine(RemoveWeapon());
-        else _player.StartCoroutine(DrawWeapon());
+        else 
+        { 
+            _player.StartCoroutine(DrawWeapon());
+        }
     }
 
     private IEnumerator DrawWeapon()
@@ -70,7 +73,7 @@ public class PlayerArmedStateController : PlayerGearControllerBase
             _weaponHolder.transform.localEulerAngles = Vector3.zero;
         });
 
-        DOVirtual.DelayedCall(_animationDuration + 0.3f, () =>
+        DOVirtual.DelayedCall(_animationDuration + 0.15f, () =>
         {
             _animator.SetBool("IsArmed", true);
             _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.IsArmed, true));
@@ -90,7 +93,7 @@ public class PlayerArmedStateController : PlayerGearControllerBase
             _weaponHolder.transform.DOLocalMove(RemovedPosition, 0.2f);
             _weaponHolder.transform.localEulerAngles = RemovedRotation;
 
-            DOVirtual.DelayedCall(0.3f, () =>
+            DOVirtual.DelayedCall(0.15f, () =>
             {
                 _animator.SetBool("IsArmed", false);
                 _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.DrawingWeapon, false));

@@ -5,7 +5,14 @@
 
     private bool _collectAttempt;
 
-    private bool _interactingAvailable;
+    private bool InteractingAvailable => new bool[]
+    {
+        _states.States[PlayerState.Rolling],
+        !_states.States[PlayerState.Grounded],
+        _states.States[PlayerState.Interacting],
+        _states.States[PlayerState.Attacking],
+        _states.States[PlayerState.BrowsingUI]
+    }.Sum().Inverse();
 
     public ItemInteractAttemptController(SignalBus signalBus, PlayerStatesService states)
     {
@@ -22,10 +29,7 @@
 
     private void UpdateCollectablesData(UpdateInteractableItemSignal signal)
     {
-        _interactingAvailable = !(_states.States[PlayerState.Rolling] || !_states.States[PlayerState.Grounded]
-               || _states.States[PlayerState.Interacting] || _states.States[PlayerState.Attacking]);
-
-        if (_collectAttempt && _interactingAvailable)
+        if (_collectAttempt && InteractingAvailable)
         {
             if (signal.Object != null)
             {

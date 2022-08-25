@@ -502,7 +502,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 0.5}
-  - Id: Two handed lower slash
+  - Id: Twohanded lower slash
     TargetAttackType: 1
     InitialAttack: 1
     Duration: 1
@@ -532,7 +532,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 1}
-  - Id: Two handed far kick
+  - Id: Twohanded far kick
     TargetAttackType: 1
     InitialAttack: 1
     Duration: 1
@@ -562,7 +562,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 1.5}
-  - Id: Two handed turnaround kick
+  - Id: Twohanded turnaround kick
     TargetAttackType: 1
     InitialAttack: 1
     Duration: 1
@@ -592,3 +592,33 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     PlayerPushForce: {x: 0, y: 0, z: 0.5}
+  - Id: Twohanded slash
+    TargetAttackType: 1
+    InitialAttack: 1
+    Duration: 1
+    DamageMultiplier: 1
+    PlayerPushCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0.74853516
+        value: 0.01184082
+        inSlope: 12.25509
+        outSlope: 12.25509
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.046870258
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    PlayerPushForce: {x: 0, y: 0, z: 3}

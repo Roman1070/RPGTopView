@@ -42,6 +42,7 @@ public class UiPanelsController : GameUiControllerBase
         panelToActivate.SetActive(true);
         _activePanelType = panelToActivate.GetType();
         Cursor.lockState = _activePanelType == typeof(GameUiPanel) ? CursorLockMode.Locked : CursorLockMode.None;
+        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.BrowsingUI, _activePanelType != typeof(GameUiPanel)));
     }
 
     private void BackToPreviousPanel(BackToPreviuosPanelSignal signal)

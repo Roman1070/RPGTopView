@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -26,7 +25,7 @@ public class PlayerCombatControllerBase
     protected Tween _onEndFight;
     protected PlayerCombatService _combatService;
     protected Inventory _inventory;
-    private Vector2Int _lastDirection;
+    protected Vector2Int _lastDirection;
 
     protected virtual string CurrentLayerName { get; }
     protected virtual AttackType TargetAttackType { get; }
@@ -54,6 +53,15 @@ public class PlayerCombatControllerBase
         }
     }
 
+    private bool AttackAvailable => new bool[]
+    {
+        !_states.States[PlayerState.Grounded],
+        _states.States[PlayerState.Rolling],
+        _states.States[PlayerState.DrawingWeapon],
+        _states.States[PlayerState.Interacting],
+        _states.States[PlayerState.BrowsingUI],
+    }.Sum().Inverse() && !_isDuringTransaction;
+
     public PlayerCombatControllerBase(SignalBus signalBus, PlayerView player, PlayerCombatConfig config, PlayerStatesService states,
         UpdateProvider updateProvider, PlayerCombatService combatService, Inventory inventory)
     {
@@ -62,11 +70,11 @@ public class PlayerCombatControllerBase
         _config = config;
         _combatService = combatService;
         _inventory = inventory;
-
-        _animator = player.Model.GetComponent<Animator>();
         _config = config;
         _states = states;
         _updateProvider = updateProvider;
+        _animator = player.Model.GetComponent<Animator>();
+
         _updateProvider.Updates.Add(Update);
         _animator.SetLayerWeight(_animator.GetLayerIndex(CurrentLayerName), 0);
         signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
@@ -75,8 +83,7 @@ public class PlayerCombatControllerBase
 
     private void OnEquipementChanged(OnEquipedItemChangedSignal obj)
     {
-        if (_states.States[PlayerState.IsArmed])
-            foreach (var layer in CombatLayers) _animator.SetLayerWeight(_animator.GetLayerIndex(layer), 0);
+         foreach (var layer in CombatLayers) _animator.SetLayerWeight(_animator.GetLayerIndex(layer), 0);
     }
 
     private void Update()
@@ -96,15 +103,12 @@ public class PlayerCombatControllerBase
         if (TargetAttackType != _combatService.CurrentAttackType) return;
 
         if (_states.States[PlayerState.Attacking])
-        {
             _currentAttackProgress += Time.deltaTime;
-        }
 
         if (CurrentAttackNormalizedProgress >= 0.98f)
-        {
             OnAttackEnded();
-        }
     }
+
     private void OnAttackEnded()
     {
         if (TargetAttackType != _combatService.CurrentAttackType) return;
@@ -142,10 +146,7 @@ public class PlayerCombatControllerBase
 
         if (signal.Data.AttackAttempt)
         {
-            bool attackAvaialbe = !(!_states.States[PlayerState.Grounded] || _states.States[PlayerState.Rolling] || _states.States[PlayerState.DrawingWeapon]
-                || _states.States[PlayerState.Interacting]) && !_isDuringTransaction;
-
-            if (attackAvaialbe)
+            if (AttackAvailable)
             {
                 if (CurrentAttackNormalizedProgress == 0)
                 {
@@ -156,7 +157,6 @@ public class PlayerCombatControllerBase
                 {
                     QueueAttack();
                 }
-
             }
         }
     }
@@ -212,9 +212,8 @@ public class PlayerCombatControllerBase
         if (TargetAttackType != _combatService.CurrentAttackType) return;
         string layerNameToEnable = CurrentLayerName;
         if (!_states.States[PlayerState.IsArmed])
-        {
             layerNameToEnable = "CombatLayerDisarmed";
-        }
+
 
 
         for (int i = 0; i < LayersToToggle.Length; i++)

@@ -11,6 +11,7 @@ public enum PlayerState
     IsArmed,
     DrawingWeapon,
     Dodging,
+    BrowsingUI,
 }
 
 public class PlayerStatesService : LoadableService
@@ -30,6 +31,7 @@ public class PlayerStatesService : LoadableService
             {PlayerState.IsArmed, false},
             {PlayerState.DrawingWeapon, false},
             {PlayerState.Dodging, false},
+            {PlayerState.BrowsingUI, false},
         };
         _signalBus.Subscribe<SetPlayerStateSignal>(SetState, this);
     }

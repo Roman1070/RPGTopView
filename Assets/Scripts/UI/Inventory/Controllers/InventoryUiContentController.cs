@@ -90,7 +90,6 @@ public class InventoryUiContentController : InventoryUiControllerBase
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
-            Debug.LogError(item.Item.GroupDef.WeaponType);
             _signalBus.FireSignal(new OnEquipedItemChangedSignal(item.Item, ItemSlot.Weapon));
         });
     }
