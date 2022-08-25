@@ -17,7 +17,7 @@ public class MainMenuServicesLoader : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         _signalBus.Subscribe<OnGameStartedSignal>(OnGameStarted, this);
     }
 
