@@ -1,13 +1,13 @@
 ﻿public class PlayerTwoHandedWeaponCombatController : PlayerCombatControllerBase
 {
-    protected override string CurrentLayerName => "CombatLayerTwoHanded";
-    protected override AttackType TargetAttackType => AttackType.TwoHanded;
-
-    public PlayerTwoHandedWeaponCombatController(SignalBus signalBus, PlayerView player, PlayerCombatConfig config, PlayerStatesService states,
-        UpdateProvider updateProvider, PlayerCombatService combatService, Inventory inventory)
-        : base(signalBus, player, config, states, updateProvider, combatService, inventory)
+    public PlayerTwoHandedWeaponCombatController(SignalBus signalBus, PlayerView player, PlayerCombatConfig config,
+        PlayerStatesService states, UpdateProvider updateProvider, PlayerCombatService combatService, Inventory inventory, MainCameraAnchor cameraAnchor)
+        : base(signalBus, player, config, states, updateProvider, combatService, inventory, cameraAnchor)
     {
     }
+
+    protected override string CurrentLayerName => "CombatLayerTwoHanded";
+    protected override AttackType TargetAttackType => AttackType.TwoHanded;
 
     protected override void Attack()
     {

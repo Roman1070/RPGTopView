@@ -10,7 +10,8 @@ public class PlayerInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<PlayerView>().FromInstance(_player).AsSingle().NonLazy();
-        Container.QueueForInject(_player);
+        var player = GameObject.Instantiate(_player);
+        Container.Bind<PlayerView>().FromInstance(player).AsSingle().NonLazy();
+        Container.QueueForInject(player);
     }
 }

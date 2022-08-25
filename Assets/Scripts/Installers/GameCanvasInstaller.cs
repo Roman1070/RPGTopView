@@ -10,6 +10,6 @@ public class GameCanvasInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<GameCanvas>().FromInstance(_gameCanvas).AsSingle().NonLazy();
+        Container.Bind<GameCanvas>().FromComponentInNewPrefab(_gameCanvas).AsSingle().NonLazy();
     }
 }

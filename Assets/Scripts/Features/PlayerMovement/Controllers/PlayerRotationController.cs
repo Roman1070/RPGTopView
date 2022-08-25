@@ -4,11 +4,13 @@ using UnityEngine;
 public class PlayerRotationController : PlayerMovementControllerBase
 {
     private Tween _rotateTween;
+    private MainCameraAnchor _cameraAnchor;
     private Vector3 _previousCameraRotation;
-    private Vector3 TargetRotation => new Vector3(_player.transform.eulerAngles.x, _player.Camera.transform.parent.eulerAngles.y, _player.transform.eulerAngles.z);
+    private Vector3 TargetRotation => new Vector3(_player.transform.eulerAngles.x, _cameraAnchor.transform.eulerAngles.y, _player.transform.eulerAngles.z);
 
-    public PlayerRotationController(PlayerView player, SignalBus signalBus, PlayerStatesService statesService) : base(player, signalBus, statesService)
+    public PlayerRotationController(PlayerView player, SignalBus signalBus, PlayerStatesService statesService, MainCameraAnchor cameraAnchor) : base(player, signalBus, statesService)
     {
+        _cameraAnchor = cameraAnchor;
         _signalBus.Subscribe<OnInputDataRecievedSignal>(OnInputRecieved, this);
         _signalBus.Subscribe<OnPlayerStateChangedSignal>(OnStateChanged, this);
     }

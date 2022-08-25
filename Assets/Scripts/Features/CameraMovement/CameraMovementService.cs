@@ -11,10 +11,10 @@ public class CameraMovementService : LoadableService
     private PlayerView _player;
     private UpdateProvider _updateProvider;
 
-    public CameraMovementService(SignalBus signalBus, PlayerView player, CameraMovementConfig config, UpdateProvider updateProvider) : base(signalBus)
+    public CameraMovementService(SignalBus signalBus, PlayerView player, CameraMovementConfig config, UpdateProvider updateProvider,MainCameraAnchor camera) : base(signalBus)
     {
         _player = player;
-        _cameraAnchor = player.Camera.transform.parent;
+        _cameraAnchor = camera.transform;
         _config = config;
         _updateProvider = updateProvider;
         InitControllers();

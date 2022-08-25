@@ -2137,7 +2137,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5153273298454531542}
-  - component: {fileID: 3161994562001981544}
   m_Layer: 0
   m_Name: Player (2)
   m_TagString: Untagged
@@ -2160,19 +2159,6 @@ Transform:
   m_Father: {fileID: 6800350579571311041}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3161994562001981544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4018228235949475758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62729b491d3d06f448d8845437be58ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HandAnchor: {fileID: 3372916506374159885}
 --- !u!1 &4030733572861475145
 GameObject:
   m_ObjectHideFlags: 0
@@ -4343,6 +4329,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6800350579571311041}
+  - component: {fileID: 8000942341246694801}
   m_Layer: 0
   m_Name: RenderSpace
   m_TagString: Untagged
@@ -4367,6 +4354,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8000942341246694801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6800350579571311040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62729b491d3d06f448d8845437be58ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Model: {fileID: 4789325758851402065}
+  HandAnchor: {fileID: 3372916506374159885}
 --- !u!1 &6800350581426516084
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class ServicesLoader : MonoBehaviour
+public class GameServicesLoader : MonoBehaviour
 {
     #region DEPENDENCIES
     [Inject]
@@ -30,15 +28,14 @@ public class ServicesLoader : MonoBehaviour
     [Inject]
     protected readonly EquipedWeaponOffsetConfig _weaponOffsetConfig;
     [Inject]
-    protected readonly PlayerModelForRendering _playerModel;
+    protected readonly RenderSpace _playerModel;
+    [Inject]
+    protected readonly MainCameraAnchor _cameraAnchor;
     #endregion
-
     private List<LoadableService> _services;
-
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
         InitServices();
     }
 
@@ -46,19 +43,19 @@ public class ServicesLoader : MonoBehaviour
     {
         _services = new List<LoadableService>()
         {
-            new InputService(_signalBus, _updateProvider, _cameraConfig, _inputConfig),
-            new PlayerMovementService(_signalBus, _updateProvider, _playerView, _movementConfig),
-            new UiService(_signalBus, _gameCanvas, _movementConfig, _playerView.Camera),
-            new PlayerCombatService(_signalBus, _playerView, _combatConfig,_updateProvider),
-            new ItemCollectService(_signalBus, _updateProvider, _playerView),
-            new InventoryService(_signalBus, _itemsMap),
+            new PlayerMovementService(_signalBus, _updateProvider, _playerView, _movementConfig,_cameraAnchor),
+            new GameUiService(_signalBus, _gameCanvas, _movementConfig, _cameraAnchor),
             new DevConsoleService(_signalBus, _gameCanvas),
-            new PlayerDataService(_signalBus, _levelsConfig),
-            new PlayerStatesService(_signalBus),
-            new CameraMovementService(_signalBus, _playerView, _cameraConfig,_updateProvider),
+            new PlayerCombatService(_signalBus, _playerView, _combatConfig, _updateProvider,_cameraAnchor),
+            new ItemCollectService(_signalBus, _updateProvider, _playerView),
+            new CameraMovementService(_signalBus, _playerView, _cameraConfig, _updateProvider,_cameraAnchor),
+            new InventoryService(_signalBus, _itemsMap),
             new InventoryUiService(_signalBus, _gameCanvas),
             new PlayerGearService(_signalBus, _playerView, _weaponOffsetConfig),
-            new PlayerModelUpdateService(_signalBus,_playerModel,_playerView,_weaponOffsetConfig)
+            new PlayerModelUpdateService(_signalBus, _playerModel, _playerView, _weaponOffsetConfig),
+            new PlayerDataService(_signalBus, _levelsConfig),
+            new InputService(_signalBus, _updateProvider, _cameraConfig, _inputConfig),
+            new PlayerStatesService(_signalBus)
         };
 
         foreach (var service in _services)

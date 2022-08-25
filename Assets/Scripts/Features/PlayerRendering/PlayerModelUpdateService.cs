@@ -9,14 +9,14 @@ public class PlayerModelUpdateService : LoadableService
     private InventoryService _inventoryService;
     private PlayerView _player;
     private EquipedWeaponOffsetConfig _offsetConfig;
-    private PlayerModelForRendering _renderModel;
+    private RenderSpace _renderModel;
     private Dictionary<Item, GameObject[]> _cachedModels = new Dictionary<Item, GameObject[]>();
     private Dictionary<ItemSlot, GameObject[]> _equippedGear = new Dictionary<ItemSlot, GameObject[]>()
     {
         {ItemSlot.Weapon, null }
     };
 
-    public PlayerModelUpdateService(SignalBus signalBus, PlayerModelForRendering renderModel, PlayerView player, EquipedWeaponOffsetConfig offsetConfig) : base(signalBus)
+    public PlayerModelUpdateService(SignalBus signalBus, RenderSpace renderModel, PlayerView player, EquipedWeaponOffsetConfig offsetConfig) : base(signalBus)
     {
         _renderModel = renderModel;
         _player = player;

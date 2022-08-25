@@ -43,9 +43,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e6589720da476459dc6dd71624b071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 2d2204ad4e63096469f591b3b6b724f5, type: 2}
+  - {fileID: 11400000, guid: 45e5448c30e3516499bf853f1a17238e, type: 2}
+  - {fileID: 11400000, guid: 38209f094dcd58749a6daff33d91cbab, type: 2}
+  - {fileID: 11400000, guid: 2cc6a4c80568b3347aa5b734d37e6510, type: 2}
+  - {fileID: 11400000, guid: 8653dc7b497552746abb0f302670bb44, type: 2}
+  - {fileID: 11400000, guid: 572b8ac0a7232f946820cfb7050f4c4a, type: 2}
+  - {fileID: 11400000, guid: 9234c391c4af46042b5af382d8522e28, type: 2}
   _monoInstallers: []
-  _installerPrefabs: []
+  _installerPrefabs:
+  - {fileID: 9041829990214179640, guid: c1ffb0ed8aedc2b45a565dda553c4f98, type: 3}
+  - {fileID: 6547303761913226102, guid: 130127cba3bf8274ea31dfc53e52ce57, type: 3}
+  - {fileID: 1772917884285995266, guid: a9607844fa69c334ba8a2283e5669aaa, type: 3}
   _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0
   _buildsReflectionBakingCoverageMode: 0

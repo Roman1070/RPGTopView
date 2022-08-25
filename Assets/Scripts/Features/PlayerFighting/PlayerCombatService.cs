@@ -18,13 +18,15 @@ public class PlayerCombatService : LoadableService
     private PlayerStatesService _playerStatesService;
     private UpdateProvider _updateProvider;
     protected Inventory _inventory;
+    protected MainCameraAnchor _cameraAnchor;
 
-    public PlayerCombatService(SignalBus signalBus, PlayerView player, PlayerCombatConfig config, UpdateProvider updateProvider)
+    public PlayerCombatService(SignalBus signalBus, PlayerView player, PlayerCombatConfig config, UpdateProvider updateProvider, MainCameraAnchor cameraAnchor)
         : base(signalBus)
     {
         _player = player;
         _config = config;
         _updateProvider = updateProvider;
+        _cameraAnchor = cameraAnchor;
         CurrentAttackType = AttackType.OneHanded;
     }
 
@@ -53,9 +55,9 @@ public class PlayerCombatService : LoadableService
     {
         _controllers = new List<PlayerCombatControllerBase>()
         {
-            new PlayerDisarmedCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this,_inventory),
-            new PlayerOneHandedWeaponCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this,_inventory),
-            new PlayerTwoHandedWeaponCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this,_inventory)
+            new PlayerDisarmedCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this,_inventory,_cameraAnchor),
+            new PlayerOneHandedWeaponCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this,_inventory,_cameraAnchor),
+            new PlayerTwoHandedWeaponCombatController(_signalBus,_player,_config,_playerStatesService,_updateProvider,this,_inventory,_cameraAnchor)
         };
     }
 }

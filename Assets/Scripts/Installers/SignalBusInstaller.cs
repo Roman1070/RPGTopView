@@ -10,7 +10,7 @@ public class SignalBusInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<SignalBus>().FromInstance(_signalBus).AsSingle();
+        Container.Bind<SignalBus>().FromComponentInNewPrefab(_signalBus).AsSingle();
         Container.QueueForInject(_signalBus);
     }
 }

@@ -1,13 +1,14 @@
 ﻿public class PlayerOneHandedWeaponCombatController : PlayerCombatControllerBase
 {
+    public PlayerOneHandedWeaponCombatController(SignalBus signalBus, PlayerView player, PlayerCombatConfig config,
+        PlayerStatesService states, UpdateProvider updateProvider, PlayerCombatService combatService, Inventory inventory, MainCameraAnchor cameraAnchor)
+        : base(signalBus, player, config, states, updateProvider, combatService, inventory, cameraAnchor)
+    {
+    }
+
     protected override string CurrentLayerName => "CombatLayerOneHanded";
     protected override AttackType TargetAttackType => AttackType.OneHanded;
 
-    public PlayerOneHandedWeaponCombatController(SignalBus signalBus, PlayerView player, PlayerCombatConfig config, PlayerStatesService states, UpdateProvider updateProvider
-        , PlayerCombatService combatService, Inventory inventory)
-        : base(signalBus, player, config, states, updateProvider, combatService, inventory)
-    {
-    }
 
     protected override void Attack()
     {

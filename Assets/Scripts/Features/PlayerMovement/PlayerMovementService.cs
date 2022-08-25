@@ -10,15 +10,17 @@ public class PlayerMovementService : LoadableService
     private PlayerMovementConfig _movementConfig;
     private UpdateProvider _updateProvider;
     private PlayerStatesService _playerStatesService;
+    private MainCameraAnchor _cameraAnchor;
 
     private List<PlayerMovementControllerBase> _controllers;
 
-    public PlayerMovementService(SignalBus signalBus, UpdateProvider updateProvider, PlayerView playerView, PlayerMovementConfig config):
+    public PlayerMovementService(SignalBus signalBus, UpdateProvider updateProvider, PlayerView playerView, PlayerMovementConfig config, MainCameraAnchor cameraAnchor) :
         base(signalBus)
     {
         _updateProvider = updateProvider;
-           _player = playerView;
+        _player = playerView;
         _movementConfig = config;
+        _cameraAnchor = cameraAnchor;
     }
 
     public override void OnServicesLoaded(params LoadableService[] services)
@@ -36,7 +38,7 @@ public class PlayerMovementService : LoadableService
             new PlayerJumpController(_player,_signalBus,_updateProvider,_movementConfig,_playerStatesService),
             new PlayerRollController(_player,_signalBus,_movementConfig,_updateProvider,_playerStatesService),
             new PlayerStaminaController(_player, _signalBus, _movementConfig, _updateProvider,_playerStatesService),
-            new PlayerRotationController(_player,_signalBus,_playerStatesService),
+            new PlayerRotationController(_player,_signalBus,_playerStatesService,_cameraAnchor),
             //new PlayerDodgeController(_player,_signalBus,_playerStatesService, _updateProvider,_movementConfig)
         };
     }

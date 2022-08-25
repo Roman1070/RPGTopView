@@ -5,18 +5,18 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class UiService : LoadableService
+public class GameUiService : LoadableService
 {
     private GameCanvas _gameCanvas;
     private PlayerMovementConfig _movementConfig;
-    private Camera _playerCamera;
+    private MainCameraAnchor _playerCamera;
     private PlayerStatesService _statesService;
     private InputService _inputService;
     private InventoryService _inventory;
 
     private List<GameUiControllerBase> _controllers;
 
-    public UiService(SignalBus signalBus, GameCanvas canvas, PlayerMovementConfig config, Camera playerCamera) : base(signalBus)
+    public GameUiService(SignalBus signalBus, GameCanvas canvas, PlayerMovementConfig config, MainCameraAnchor playerCamera) : base(signalBus)
     {
         _gameCanvas = canvas;
         _movementConfig = config;
@@ -37,7 +37,7 @@ public class UiService : LoadableService
         {
             new StaminaSliderController(_signalBus,_gameCanvas,_movementConfig),
             new CollectedItemWidgetsController(_signalBus,_gameCanvas, _inventory),
-            new InteractButtonController(_signalBus, _gameCanvas,_playerCamera,_statesService,_inputService),
+            new InteractButtonController(_signalBus, _gameCanvas,_playerCamera.Camera,_statesService,_inputService),
             new PlayerExperienceUiController(_signalBus,_gameCanvas),
             new UiPanelsController(_signalBus, _gameCanvas)
         };

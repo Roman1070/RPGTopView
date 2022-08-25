@@ -10,6 +10,6 @@ public class UpdateProviderInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<UpdateProvider>().FromInstance(_updateProvider).AsSingle().NonLazy();
+        Container.Bind<UpdateProvider>().FromComponentInNewPrefab(_updateProvider).AsSingle().NonLazy();
     }
 }

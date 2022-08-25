@@ -12,6 +12,7 @@ public enum AttackType
 public class PlayerCombatControllerBase
 {
     protected SignalBus _signalBus;
+    protected MainCameraAnchor _cameraAnchor;
     protected PlayerView _player;
     protected PlayerCombatConfig _config;
     protected PlayerStatesService _states;
@@ -63,7 +64,7 @@ public class PlayerCombatControllerBase
     }.Sum().Inverse() && !_isDuringTransaction;
 
     public PlayerCombatControllerBase(SignalBus signalBus, PlayerView player, PlayerCombatConfig config, PlayerStatesService states,
-        UpdateProvider updateProvider, PlayerCombatService combatService, Inventory inventory)
+        UpdateProvider updateProvider, PlayerCombatService combatService, Inventory inventory, MainCameraAnchor cameraAnchor)
     {
         _signalBus = signalBus;
         _player = player;
@@ -73,6 +74,7 @@ public class PlayerCombatControllerBase
         _config = config;
         _states = states;
         _updateProvider = updateProvider;
+        _cameraAnchor = cameraAnchor;
         _animator = player.Model.GetComponent<Animator>();
 
         _updateProvider.Updates.Add(Update);
@@ -200,8 +202,8 @@ public class PlayerCombatControllerBase
         }
         else
         {
-            pushVector = _player.Camera.transform.parent.TransformDirection(new Vector3(0, 0, 1)) * _currentAttack.PlayerPushForce.z
-            + _player.Camera.transform.parent.TransformDirection(new Vector3(0, 1, 0)) * _currentAttack.PlayerPushForce.y;
+            pushVector = _cameraAnchor.transform.TransformDirection(new Vector3(0, 0, 1)) * _currentAttack.PlayerPushForce.z
+            + _cameraAnchor.transform.TransformDirection(new Vector3(0, 1, 0)) * _currentAttack.PlayerPushForce.y;
         }
         _player.MoveAnim.SetValues(_player.transform.position, _player.transform.position + pushVector);
         _player.MoveAnim.Play();

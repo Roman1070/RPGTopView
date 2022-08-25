@@ -1,13 +1,12 @@
 ﻿public class PlayerDisarmedCombatController : PlayerCombatControllerBase
 {
+    public PlayerDisarmedCombatController(SignalBus signalBus, PlayerView player, PlayerCombatConfig config, PlayerStatesService states, UpdateProvider updateProvider, PlayerCombatService combatService, Inventory inventory, MainCameraAnchor cameraAnchor) : base(signalBus, player, config, states, updateProvider, combatService, inventory, cameraAnchor)
+    {
+    }
+
     protected override string CurrentLayerName => "CombatLayerDisarmed";
     protected override AttackType TargetAttackType => AttackType.Disarmed;
 
-    public PlayerDisarmedCombatController(SignalBus signalBus, PlayerView player, PlayerCombatConfig config,
-        PlayerStatesService states, UpdateProvider updateProvider, PlayerCombatService combatService, Inventory inventory) 
-        : base(signalBus, player, config, states, updateProvider,combatService, inventory)
-    {
-    }
 
     protected override void Attack()
     {
