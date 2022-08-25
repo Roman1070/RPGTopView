@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 1671488}
   m_Layer: 3
   m_Name: Stump (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 59531939}
   m_Layer: 3
   m_Name: Fence
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 63014802}
   m_Layer: 3
   m_Name: Stone01 (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 65749832}
   m_Layer: 3
   m_Name: Stump
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -685,7 +685,7 @@ GameObject:
   - component: {fileID: 68577886}
   m_Layer: 3
   m_Name: Fence (17)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -780,7 +780,7 @@ GameObject:
   - component: {fileID: 94840179}
   m_Layer: 3
   m_Name: Stone01 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -876,7 +876,7 @@ GameObject:
   - component: {fileID: 118304021}
   m_Layer: 3
   m_Name: Fence (11)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1133,7 +1133,7 @@ GameObject:
   - component: {fileID: 135004315}
   m_Layer: 3
   m_Name: Stone02 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1229,7 +1229,7 @@ GameObject:
   - component: {fileID: 137756131}
   m_Layer: 3
   m_Name: Fence (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1652,7 +1652,7 @@ GameObject:
   - component: {fileID: 192523383}
   m_Layer: 3
   m_Name: Fence (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1840,7 +1840,7 @@ GameObject:
   - component: {fileID: 206805666}
   m_Layer: 3
   m_Name: Fence
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2121,7 +2121,7 @@ GameObject:
   - component: {fileID: 223711305}
   m_Layer: 3
   m_Name: Fence (8)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2380,7 +2380,7 @@ GameObject:
   - component: {fileID: 257232489}
   m_Layer: 3
   m_Name: Stone02 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2812,7 +2812,7 @@ GameObject:
   - component: {fileID: 277568483}
   m_Layer: 3
   m_Name: Stump
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2909,7 +2909,7 @@ GameObject:
   - component: {fileID: 277606142}
   m_Layer: 3
   m_Name: Fence (15)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3086,7 +3086,7 @@ GameObject:
   - component: {fileID: 313718172}
   m_Layer: 3
   m_Name: Fence (14)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3181,7 +3181,7 @@ GameObject:
   - component: {fileID: 329274022}
   m_Layer: 3
   m_Name: Fence (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3373,7 +3373,7 @@ GameObject:
   - component: {fileID: 338507384}
   m_Layer: 3
   m_Name: Stone01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3633,7 +3633,7 @@ GameObject:
   - component: {fileID: 368533542}
   m_Layer: 3
   m_Name: Fence (12)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3728,7 +3728,7 @@ GameObject:
   - component: {fileID: 387677005}
   m_Layer: 3
   m_Name: Fence (10)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4068,7 +4068,7 @@ GameObject:
   - component: {fileID: 426537141}
   m_Layer: 3
   m_Name: Stone01 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4166,7 +4166,7 @@ GameObject:
   - component: {fileID: 436687765}
   m_Layer: 0
   m_Name: Streetlight_OFF (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4450,7 +4450,7 @@ GameObject:
   - component: {fileID: 488192810}
   m_Layer: 3
   m_Name: Stone01 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4546,7 +4546,7 @@ GameObject:
   - component: {fileID: 488909127}
   m_Layer: 3
   m_Name: Fence (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5295,7 +5295,7 @@ GameObject:
   - component: {fileID: 560684844}
   m_Layer: 3
   m_Name: Fence
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5472,7 +5472,7 @@ GameObject:
   - component: {fileID: 572124944}
   m_Layer: 3
   m_Name: Fence (15)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5567,7 +5567,7 @@ GameObject:
   - component: {fileID: 602835976}
   m_Layer: 3
   m_Name: Fence (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5662,7 +5662,7 @@ GameObject:
   - component: {fileID: 605103650}
   m_Layer: 3
   m_Name: Fence (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5757,7 +5757,7 @@ GameObject:
   - component: {fileID: 619445667}
   m_Layer: 3
   m_Name: Fence (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5888,7 +5888,7 @@ GameObject:
   - component: {fileID: 629062476}
   m_Layer: 3
   m_Name: Fence (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5985,7 +5985,7 @@ GameObject:
   - component: {fileID: 640647211}
   m_Layer: 0
   m_Name: Streetlight_OFF
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6863,7 +6863,7 @@ GameObject:
   - component: {fileID: 723934633}
   m_Layer: 3
   m_Name: Stone01 (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6959,7 +6959,7 @@ GameObject:
   - component: {fileID: 732279160}
   m_Layer: 3
   m_Name: Fence (7)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7099,7 +7099,7 @@ GameObject:
   - component: {fileID: 750736203}
   m_Layer: 3
   m_Name: Stone02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7364,7 +7364,7 @@ GameObject:
   - component: {fileID: 774832522}
   m_Layer: 3
   m_Name: Fence (7)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7795,7 +7795,7 @@ GameObject:
   - component: {fileID: 821064228}
   m_Layer: 3
   m_Name: Stone01 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7973,7 +7973,7 @@ GameObject:
   - component: {fileID: 861609824}
   m_Layer: 3
   m_Name: Stone02 (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8151,7 +8151,7 @@ GameObject:
   - component: {fileID: 868468788}
   m_Layer: 3
   m_Name: Fence (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8536,7 +8536,7 @@ GameObject:
   - component: {fileID: 952888861}
   m_Layer: 3
   m_Name: Fence (9)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8677,7 +8677,7 @@ GameObject:
   - component: {fileID: 956739215}
   m_Layer: 0
   m_Name: Streetlight_OFF (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8799,7 +8799,7 @@ GameObject:
   - component: {fileID: 958125134}
   m_Layer: 3
   m_Name: Fence (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9069,7 +9069,7 @@ GameObject:
   - component: {fileID: 975604731}
   m_Layer: 3
   m_Name: Fence (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9842,7 +9842,7 @@ GameObject:
   - component: {fileID: 1067791923}
   m_Layer: 3
   m_Name: Fence (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10019,7 +10019,7 @@ GameObject:
   - component: {fileID: 1087261366}
   m_Layer: 3
   m_Name: Fence (16)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10196,7 +10196,7 @@ GameObject:
   - component: {fileID: 1088196146}
   m_Layer: 3
   m_Name: Fence (10)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10349,7 +10349,7 @@ GameObject:
   - component: {fileID: 1110939297}
   m_Layer: 3
   m_Name: Stone02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10445,7 +10445,7 @@ GameObject:
   - component: {fileID: 1115041417}
   m_Layer: 3
   m_Name: Stump (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10716,7 +10716,7 @@ GameObject:
   - component: {fileID: 1133663893}
   m_Layer: 3
   m_Name: Fence (9)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11079,7 +11079,7 @@ GameObject:
   - component: {fileID: 1174957820}
   m_Layer: 3
   m_Name: Stone02 (6)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11594,7 +11594,7 @@ GameObject:
   - component: {fileID: 1208907354}
   m_Layer: 3
   m_Name: Fence (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11689,7 +11689,7 @@ GameObject:
   - component: {fileID: 1227214028}
   m_Layer: 3
   m_Name: Fence (16)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11932,7 +11932,7 @@ GameObject:
   - component: {fileID: 1256460757}
   m_Layer: 3
   m_Name: Stone01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12203,7 +12203,7 @@ GameObject:
   - component: {fileID: 1316825097}
   m_Layer: 3
   m_Name: Stone02 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12299,7 +12299,7 @@ GameObject:
   - component: {fileID: 1341016526}
   m_Layer: 0
   m_Name: Streetlight_OFF_item
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12475,7 +12475,7 @@ GameObject:
   - component: {fileID: 1347418956}
   m_Layer: 3
   m_Name: Fence (14)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12758,7 +12758,7 @@ GameObject:
   - component: {fileID: 1397852565}
   m_Layer: 3
   m_Name: Stone02 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12854,7 +12854,7 @@ GameObject:
   - component: {fileID: 1405427137}
   m_Layer: 3
   m_Name: Stump
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13230,7 +13230,7 @@ GameObject:
   - component: {fileID: 1436028393}
   m_Layer: 3
   m_Name: Stump
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13327,7 +13327,7 @@ GameObject:
   - component: {fileID: 1437804791}
   m_Layer: 3
   m_Name: Stone02 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13575,7 +13575,7 @@ GameObject:
   - component: {fileID: 1553614221}
   m_Layer: 3
   m_Name: Fence (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13752,7 +13752,7 @@ GameObject:
   - component: {fileID: 1559633424}
   m_Layer: 3
   m_Name: Stone01 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14025,7 +14025,7 @@ GameObject:
   - component: {fileID: 1607070701}
   m_Layer: 0
   m_Name: Streetlight_OFF
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14147,7 +14147,7 @@ GameObject:
   - component: {fileID: 1609434215}
   m_Layer: 3
   m_Name: Stump (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14800,7 +14800,7 @@ GameObject:
   - component: {fileID: 1698561482}
   m_Layer: 3
   m_Name: Stump (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14897,7 +14897,7 @@ GameObject:
   - component: {fileID: 1710531938}
   m_Layer: 3
   m_Name: Stone02 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15155,7 +15155,7 @@ GameObject:
   - component: {fileID: 1748987668}
   m_Layer: 3
   m_Name: Stone01 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15415,7 +15415,7 @@ GameObject:
   - component: {fileID: 1793849873}
   m_Layer: 3
   m_Name: Fence (11)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15696,7 +15696,7 @@ GameObject:
   - component: {fileID: 1810340642}
   m_Layer: 3
   m_Name: Fence (8)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15829,7 +15829,7 @@ GameObject:
   - component: {fileID: 1839918960}
   m_Layer: 3
   m_Name: Stone01 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16006,7 +16006,7 @@ GameObject:
   - component: {fileID: 1850412655}
   m_Layer: 3
   m_Name: Stone02 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16183,7 +16183,7 @@ GameObject:
   - component: {fileID: 1876715235}
   m_Layer: 3
   m_Name: Stone02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16361,7 +16361,7 @@ GameObject:
   - component: {fileID: 1895162239}
   m_Layer: 3
   m_Name: Fence (12)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16630,7 +16630,7 @@ GameObject:
   - component: {fileID: 1913613052}
   m_Layer: 3
   m_Name: Fence (17)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16888,7 +16888,7 @@ GameObject:
   - component: {fileID: 1934498678}
   m_Layer: 3
   m_Name: Fence (13)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17148,7 +17148,7 @@ GameObject:
   - component: {fileID: 1955515437}
   m_Layer: 0
   m_Name: Streetlight_OFF (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17363,7 +17363,7 @@ GameObject:
   - component: {fileID: 1970704779}
   m_Layer: 3
   m_Name: Stone02
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18342,7 +18342,7 @@ GameObject:
   - component: {fileID: 2065465377}
   m_Layer: 3
   m_Name: Stone01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18438,7 +18438,7 @@ GameObject:
   - component: {fileID: 2071618006}
   m_Layer: 3
   m_Name: Fence (13)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18883,7 +18883,7 @@ GameObject:
   - component: {fileID: 2109103785}
   m_Layer: 3
   m_Name: Fence (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19154,7 +19154,7 @@ GameObject:
   - component: {fileID: 2125905705}
   m_Layer: 3
   m_Name: Stone01 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19332,7 +19332,7 @@ GameObject:
   - component: {fileID: 2131182392}
   m_Layer: 3
   m_Name: Stone01
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19471,7 +19471,7 @@ GameObject:
   - component: {fileID: 2144019801}
   m_Layer: 3
   m_Name: Stone02 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
