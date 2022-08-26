@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine.UI;
 
 public static class Extensions
 {
@@ -19,5 +20,10 @@ public static class Extensions
     }
 
     public static bool Inverse(this bool b) => !b;
+
+    public static void SetAlpha(this Graphic graphic, float alpha)
+    {
+        graphic.color = new UnityEngine.Color(graphic.color.r, graphic.color.g, graphic.color.b, alpha);
+    }
 }
 

@@ -55,7 +55,8 @@ public class GameServicesLoader : MonoBehaviour
             new PlayerModelUpdateService(_signalBus, _playerModel, _playerView, _weaponOffsetConfig),
             new PlayerDataService(_signalBus, _levelsConfig),
             new InputService(_signalBus, _updateProvider, _cameraConfig, _inputConfig),
-            new PlayerStatesService(_signalBus)
+            new PlayerStatesService(_signalBus),
+            new VFXService(_signalBus,_playerView)
         };
 
         foreach (var service in _services)

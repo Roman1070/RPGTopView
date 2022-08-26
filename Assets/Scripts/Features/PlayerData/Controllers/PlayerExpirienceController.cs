@@ -47,7 +47,7 @@ public class PlayerExpirienceController : PlayerDataControllerBase
             if (Expirience >= _levelsConfig.ExpOnLevel[i])
             {
                 Level = i + 1;
-
+                _signalBus.FireSignal(new OnPlayerLevelIncreasedSignal());
                 queue.Enqueue(new UpdatePlayerUiWidgetSignal(NormalizedExp, Level,true));
 
             }

@@ -36,6 +36,8 @@ public class ShrineInteractController : ItemInteractControllerBase
 
     protected override void OnCollected(InteractableObject obj)
     {
+        (obj as InteractableShrine).VFX.loop = false;
+        (obj as InteractableShrine).VFX.DOPlayBackwards();
         _signalBus.FireSignal(new OnExperienceChangedSignal((obj as InteractableShrine).ExperienceAmount));
     }
 }

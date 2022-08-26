@@ -1,6 +1,9 @@
-﻿public class InteractableShrine : InteractableObject
+﻿using UnityEngine;
+
+public class InteractableShrine : InteractableObject
 {
     public int ExperienceAmount;
+    public ParticleSystem VFX;
 
     public override string Action => "Pray";
 

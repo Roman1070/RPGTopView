@@ -13,10 +13,3 @@ public class OpacityAnimation : BaseProgrammableAnimationMono<float>
     }
 
 }
-public static class GraphicExtensions
-{
-    public static void SetAlpha(this Graphic component, float value)
-    {
-        component.color = new Color(component.color.r, component.color.g, component.color.b,value);
-    }
-}
