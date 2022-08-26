@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
 
-public class EnemyNPCView : NPCViewBase
+public class EnemyNPCView : NPCViewBase, IDamagable
 {
     [Inject] private UpdateProvider _updateProvider;
     [Inject] private PlayerView _player;
@@ -25,12 +25,14 @@ public class EnemyNPCView : NPCViewBase
     private Animator _animator;
     [SerializeField]
     private EnemyNPCConfig _config;
+    [SerializeField]
+    private Rigidbody _rb;
 
     private Vector3 _startPoint;
 
     private float _distanceToPlayer;
-    private float _health;
     private Vector3 _destinationPoint;
+    private float _health;
 
     private void Start()
     {
@@ -55,20 +57,18 @@ public class EnemyNPCView : NPCViewBase
     {
         _distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
 
-        if (_distanceToPlayer <= _config.AttackRange &&!_states[NPCState.Attacking])
+        if (_distanceToPlayer <= _config.AttackRange && !_states[NPCState.Attacking])
         {
             Attack();
+            _animator.SetLayerWeightSmooth(this, "MovementLayer", false, 4);
+            _animator.SetLayerWeightSmooth(this, "CombatLayer", true, 4);
         }
         else if (_distanceToPlayer <= _config.DetectionDistance)
         {
-            _states[NPCState.Chasing]=true;
-            _animator.SetFloat("Speed", 2, 0.15f, Time.deltaTime);
             Chase();
         }
         else if (_distanceToPlayer > _config.ChaseDistance)
         {
-            _states[NPCState.Patroling] = true;
-            _animator.SetFloat("Speed", 1, 0.15f,Time.deltaTime);
             Patrol();
         }
     }
@@ -77,12 +77,8 @@ public class EnemyNPCView : NPCViewBase
     {
         _states[NPCState.Attacking] = true;
         var attack = _config.Attacks.Random();
-        _animator.SetLayerWeightSmooth(this, "MovementLayer", false, 4);
-        _animator.SetLayerWeightSmooth(this, "CombatLayer", true, 4);
         _animator.SetTrigger(attack.Id);
 
-        var pushVector = transform.TransformDirection(new Vector3(0, 0, 1)) * attack.PushForce.z + transform.TransformDirection(new Vector3(0, 1, 0)) * attack.PushForce.y;
-        GetPushed(pushVector, attack.PushCurve);
         DOVirtual.DelayedCall(attack.Duration, () =>
         {
             if (_distanceToPlayer <= _config.AttackRange)
@@ -93,23 +89,45 @@ public class EnemyNPCView : NPCViewBase
             {
                 _states[NPCState.Attacking] = false;
                 _animator.SetTrigger("exit combat");
-                _animator.SetFloat("Speed", 2, 0.15f, Time.deltaTime);
                 Chase();
-                _animator.SetLayerWeightSmooth(this, "MovementLayer", true, 4);
-                _animator.SetLayerWeightSmooth(this, "CombatLayer", false, 4);
+                _animator.SetLayerWeightSmooth(this, "MovementLayer", true, 8);
+                _animator.SetLayerWeightSmooth(this, "CombatLayer", false, 8);
             }
         });
     }
 
     private void Chase()
     {
+        _states[NPCState.Patroling] = false;
+        _states[NPCState.Chasing] = true;
+        _animator.SetFloat("Speed", 2, 0.15f, Time.deltaTime);
         _destinationPoint = _player.transform.position;
-        _navMeshAgent.SetDestination(_destinationPoint);
-        _navMeshAgent.speed = _config.ChaseSpeed;
+
+        if (Vector3.Distance(transform.position, _destinationPoint) < _navMeshAgent.stoppingDistance) 
+        { 
+            _navMeshAgent.isStopped = true;
+            _navMeshAgent.velocity = Vector3.zero;
+        }
+        else if (Vector3.Distance(transform.position, _destinationPoint) > _navMeshAgent.stoppingDistance+0.5f)
+        {
+            _navMeshAgent.isStopped = false;
+            _navMeshAgent.SetDestination(_destinationPoint);
+            _navMeshAgent.speed = _config.ChaseSpeed;
+            if(Physics.Raycast(transform.position+Vector3.up,_player.transform.position- transform.position, out var hit, 10))
+            {
+                if (hit.collider.TryGetComponent<PlayerView>(out var player))
+                    _navMeshAgent.velocity = (player.transform.position-transform.position).normalized * _config.ChaseSpeed;
+            }
+        }
         transform.LookAt(_player.transform);
+
     }
     private void Patrol()
     {
+        _states[NPCState.Patroling] = true;
+        _states[NPCState.Chasing] = false;
+        _animator.SetFloat("Speed", 1, 0.15f, Time.deltaTime);
+        _navMeshAgent.isStopped = false;
         _navMeshAgent.speed = _config.PatrolSpeed;
         if ((transform.position - _destinationPoint).magnitude < 1)
         {
@@ -126,8 +144,9 @@ public class EnemyNPCView : NPCViewBase
         return new Vector3(x, transform.position.y, z);
     }
 
-    public void GetPushed(Vector3 direction, AnimationCurve curve)
+    public void TakeDamage(int damage, float pushbackForce)
     {
-     //   GetComponent<Rigidbody>().MovePosition(direction);
+        _health -= damage;
+       // transform.DOMove(transform.TransformDirection(0, 0, -1) * pushbackForce, 0.2f);
     }
 }

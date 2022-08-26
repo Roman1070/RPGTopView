@@ -69,13 +69,15 @@ public class PlayerJumpController : PlayerMovementControllerBase
     private void Update()
     {
         UpdateGroundedStatus();
-
-        if (_states.States[PlayerState.Grounded] && _velocity.y <= 0)
+        _velocity.y = -10f;
+        if (_states.States[PlayerState.Grounded])
         {
-            _velocity.y = -10f;
+            //_velocity.y = -1f;
         }
-
-        _velocity.y += _config.Gravity * Time.deltaTime;
+        else
+        {
+            _velocity.y += _config.Gravity * Time.deltaTime;
+        }
 
         _player.Controller.Move(_velocity * Time.deltaTime);
     }

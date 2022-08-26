@@ -17,7 +17,7 @@ MonoBehaviour:
   WalkingBackSpeed: 2
   Gravity: -9.81
   GroundCheckDistance: 0.2
-  JumpHeight: 0.8
+  JumpHeight: 1.5
   RollDistance: 8.333333
   DodgeDistance: 1.6666666
   MaxStamina: 100

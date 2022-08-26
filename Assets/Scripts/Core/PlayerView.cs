@@ -1,19 +1,24 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 public class PlayerView : MonoBehaviour
 {
+    [Inject]
+    private UpdateProvider _updateProvider;
+
     public CharacterController Controller;
     public Transform Model;
     public Transform GroundChecker;
-    public Transform HandAnchor;
     public Transform SpineAnchor;
+    public Transform HandAnchor;
     public Transform WeaponsHolder;
     public CharacterControllerMoveAnimation MoveAnim;
-    public SurfaceSlider SurfaceSlider;
 
     private void Start()
     {
-        transform.position = new Vector3(30.27f, 0.73f, 117);
+        transform.position = new Vector3(30.27f, 1.73f, 117);
     }
 }

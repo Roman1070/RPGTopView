@@ -183,6 +183,13 @@ public class PlayerCombatControllerBase
         {
             PushPlayer();
         }
+        if (Physics.SphereCast(_player.transform.position+_player.transform.up-_player.transform.forward, 1, _player.transform.forward, out var hit, 1/*,LayerMask.GetMask("Damagable")*/))
+        {
+            if(hit.collider.TryGetComponent(out IDamagable enemy))
+            {
+                enemy.TakeDamage(10,0.1f);
+            }
+        }
 
         _onEndFight.Kill();
         _onEndFight = null;
