@@ -23,4 +23,10 @@
         }
         base.Attack();
     }
+
+    protected override void QueueAttack()
+    {
+        if (_currentAttack.Id == "WalkingBackAttack")
+            _nextAttack = _animator.GetFloat("BlendSpeed") >= 0 ? _config.GetRandomFirstAttack(_currentAttack.Id, TargetAttackType) : _config.GetAttackById("WalkingBackAttack");
+    }
 }
