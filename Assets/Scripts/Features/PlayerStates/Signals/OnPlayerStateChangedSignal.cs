@@ -1,4 +1,6 @@
-﻿public class OnPlayerStateChangedSignal : ISignal
+﻿using UnityEngine;
+
+public class OnPlayerStateChangedSignal : ISignal
 {
     public PlayerState State;
     public bool Value;

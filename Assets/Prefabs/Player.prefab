@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1411110047}
+  - component: {fileID: 6873291632044037627}
   m_Layer: 0
   m_Name: GroundChecker
   m_TagString: Untagged
@@ -30,45 +31,19 @@ Transform:
   m_Father: {fileID: 795541417178074152}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1251959478818318696
+--- !u!114 &6873291632044037627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3756727896327743704}
+  m_GameObject: {fileID: 1411110046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a3b5e4262111f43a56ab9ee84955c3, type: 3}
+  m_Script: {fileID: 11500000, guid: 08ad27b5183f1b548b9f8a369631961e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Kurwa:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _StartValue: {x: 0, y: 0, z: 0}
-  _EndValue: {x: 0, y: 0, z: 0}
-  _Duration: 0.2
+  _player: {fileID: 1639848298521068737}
 --- !u!33 &798068790
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -89,8 +64,8 @@ GameObject:
   - component: {fileID: 1639848298521068737}
   - component: {fileID: 3099874770490587427}
   - component: {fileID: 5221673903363969819}
-  - component: {fileID: 702123414125538102}
   - component: {fileID: 684478613}
+  - component: {fileID: 2271864118881360616}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -133,6 +108,7 @@ MonoBehaviour:
   SpineAnchor: {fileID: 3756727897179381535}
   WeaponsHolder: {fileID: 1803861602596607005}
   MoveAnim: {fileID: 684478613}
+  SurfaceSlider: {fileID: 0}
 --- !u!143 &3099874770490587427
 CharacterController:
   m_ObjectHideFlags: 0
@@ -147,7 +123,7 @@ CharacterController:
   m_Height: 1.98
   m_Radius: 0.35
   m_SlopeLimit: 45
-  m_StepOffset: 0.5
+  m_StepOffset: 0.1
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
@@ -167,20 +143,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &702123414125538102
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9020809407807743868}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.35
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &684478613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +192,20 @@ MonoBehaviour:
   _EndValue: {x: 31.043257, y: 3.1802952, z: 69.050545}
   _Duration: 0.5
   _characterController: {fileID: 3099874770490587427}
+--- !u!136 &2271864118881360616
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9020809407807743868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.35
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1001 &331383362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -289,10 +265,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale_Character
       objectReference: {fileID: 0}
-    - target: {fileID: 3756727896583629467, guid: bf1bfac2f1f52124a88eae02354cea04, type: 3}
-      propertyPath: m_Avatar
-      value: 
-      objectReference: {fileID: 9000000, guid: 3443a9693cfcd8a4fbd4cbbee065454d, type: 3}
     - target: {fileID: 3756727896583629468, guid: bf1bfac2f1f52124a88eae02354cea04, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -463,11 +435,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf1bfac2f1f52124a88eae02354cea04, type: 3}
---- !u!1 &3756727896327743704 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3756727896583629466, guid: bf1bfac2f1f52124a88eae02354cea04, type: 3}
-  m_PrefabInstance: {fileID: 331383362}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3756727896327743710 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3756727896583629468, guid: bf1bfac2f1f52124a88eae02354cea04, type: 3}

@@ -72,7 +72,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
 
         if (_states.States[PlayerState.Grounded] && _velocity.y <= 0)
         {
-            _velocity.y = -2f;
+            _velocity.y = -10f;
         }
 
         _velocity.y += _config.Gravity * Time.deltaTime;
@@ -89,7 +89,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
         }
 
         Vector3 origin = _player.GroundChecker.position;
-        RaycastHit[] hits = Physics.SphereCastAll(origin, 0.6f, -_player.transform.up, 0.1f);
+        RaycastHit[] hits = Physics.SphereCastAll(origin, 0.3f, -_player.transform.up, _config.GroundCheckDistance);
 
         _isGrounded = false;
         foreach (var hit in hits)
@@ -110,9 +110,10 @@ public class PlayerJumpController : PlayerMovementControllerBase
         _velocity = _player.Model.transform.TransformDirection(_velocity);
         _signalBus.FireSignal(new OnStaminaChangedSignal(_stamina - _config.StaminaOnJump));
         _animator.SetTrigger("Jump");
+        _signalBus.FireSignal(new SetPlayerStateSignal(PlayerState.Grounded, false));
         _groundCheckEnabled = false;
         _jumpEnabled = false;
-        DOVirtual.DelayedCall(0.1f, () =>
+        DOVirtual.DelayedCall(0.3f, () =>
         {
             _groundCheckEnabled = true;
         });

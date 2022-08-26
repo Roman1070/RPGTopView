@@ -9,6 +9,7 @@ public class PlayerView : MonoBehaviour
     public Transform SpineAnchor;
     public Transform WeaponsHolder;
     public CharacterControllerMoveAnimation MoveAnim;
+    public SurfaceSlider SurfaceSlider;
 
     private void Start()
     {

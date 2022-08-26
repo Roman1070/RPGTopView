@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerModelRotationController : PlayerMovementControllerBase
@@ -40,7 +37,7 @@ public class PlayerModelRotationController : PlayerMovementControllerBase
 
         Vector3 startValue = _player.Model.localEulerAngles;
         if (startValue.y > 180)
-            startValue = new Vector3(startValue.x, startValue.y-360,startValue.z);
+            startValue = new Vector3(startValue.x, startValue.y - 360, startValue.z);
 
         _anim.SetValues(startValue, new Vector3(_player.Model.localEulerAngles.x, angle, _player.Model.localEulerAngles.z));
         _anim.Play();
