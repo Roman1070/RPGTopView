@@ -17,9 +17,9 @@ public class PlayerCombatControllerBase
     protected PlayerCombatConfig _config;
     protected PlayerStatesService _states;
     protected Animator _animator;
-    protected AttackData _currentAttack;
-    protected AttackData _previousAttack;
-    protected AttackData _nextAttack;
+    protected PlayerAttackData _currentAttack;
+    protected PlayerAttackData _previousAttack;
+    protected PlayerAttackData _nextAttack;
     protected UpdateProvider _updateProvider;
     protected float _currentAttackProgress;
     protected bool _isDuringTransaction;
@@ -216,8 +216,6 @@ public class PlayerCombatControllerBase
         if (!_states.States[PlayerState.IsArmed])
             layerNameToEnable = "CombatLayerDisarmed";
 
-
-
         for (int i = 0; i < LayersToToggle.Length; i++)
         {
             if (_animator.GetLayerName(_animator.GetLayerIndex(LayersToToggle[i])) != layerNameToEnable)
@@ -229,7 +227,7 @@ public class PlayerCombatControllerBase
                 }
                 else
                 {
-                    _player.StartCoroutine(SetLayerWeightSmmoth(_animator.GetLayerIndex(LayersToToggle[i]), true));
+                    _animator.SetLayerWeightSmooth(_player,LayersToToggle[i], true, 6);
                 }
             }
         }
@@ -244,33 +242,7 @@ public class PlayerCombatControllerBase
                 }
             }
         }
-        _player.StartCoroutine(SetLayerWeightSmmoth(_animator.GetLayerIndex(layerNameToEnable), toActive));
-    }
-
-    private IEnumerator SetLayerWeightSmmoth(int layer, bool turnActive)
-    {
-        if (TargetAttackType != _combatService.CurrentAttackType) yield return null;
-
-        if (turnActive)
-        {
-            float w = 0;
-            while (w < 1)
-            {
-                yield return new WaitForEndOfFrame();
-                w += Time.deltaTime * 3;
-                _animator.SetLayerWeight(layer, w);
-            }
-        }
-        else
-        {
-            float w = 1;
-            while (w > 0)
-            {
-                yield return new WaitForEndOfFrame();
-                w -= Time.deltaTime * 3;
-                _animator.SetLayerWeight(layer, w);
-            }
-        }
+        _animator.SetLayerWeightSmooth(_player, layerNameToEnable, toActive, 6);
     }
 
     protected void SetCurrentAttack()

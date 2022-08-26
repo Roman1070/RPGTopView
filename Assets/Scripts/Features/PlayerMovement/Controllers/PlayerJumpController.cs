@@ -89,7 +89,7 @@ public class PlayerJumpController : PlayerMovementControllerBase
         }
 
         Vector3 origin = _player.GroundChecker.position;
-        RaycastHit[] hits = Physics.SphereCastAll(origin, 0.3f, -_player.transform.up, _config.GroundCheckDistance);
+        RaycastHit[] hits = Physics.SphereCastAll(origin, 0.6f, -_player.transform.up, _config.GroundCheckDistance);
 
         _isGrounded = false;
         foreach (var hit in hits)

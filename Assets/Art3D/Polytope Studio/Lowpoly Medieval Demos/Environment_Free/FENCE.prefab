@@ -765,6 +765,7 @@ GameObject:
   - component: {fileID: 2154705375535455120}
   - component: {fileID: 7272389663771021863}
   - component: {fileID: 6990894236982284037}
+  - component: {fileID: 8604946023690450575}
   m_Layer: 0
   m_Name: PT_Medieval_Village_Fence_03
   m_TagString: Untagged
@@ -849,6 +850,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 955f7ab7f12013b42b2aa2e494846f3a, type: 3}
+--- !u!114 &8604946023690450575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2148495326215863154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 2
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &2677124822427839638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,102 +1154,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: faaede3d1773ae2488a568c13e10cee4, type: 3}
---- !u!1 &3032652061304598207
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2917219865980533882}
-  - component: {fileID: 2140393664225490375}
-  - component: {fileID: 6816666450342108714}
-  - component: {fileID: 2143407771234974037}
-  m_Layer: 0
-  m_Name: PT_Medieval_Village_Fence_01 (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2917219865980533882
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3032652061304598207}
-  m_LocalRotation: {x: -0, y: -0.90679276, z: -0, w: 0.42157668}
-  m_LocalPosition: {x: 332.12, y: 5.72, z: 712.776}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 529876361894922179}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -130.132, z: 0}
---- !u!33 &2140393664225490375
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3032652061304598207}
-  m_Mesh: {fileID: 4300000, guid: ed920bad5318ee347ad3e34dd82e273f, type: 3}
---- !u!23 &6816666450342108714
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3032652061304598207}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 56532089e45dbc1479865e115cc8c637, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2143407771234974037
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3032652061304598207}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: ed920bad5318ee347ad3e34dd82e273f, type: 3}
 --- !u!1 &3123459812554633591
 GameObject:
   m_ObjectHideFlags: 0
@@ -4105,3 +4026,65 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: ed920bad5318ee347ad3e34dd82e273f, type: 3}
+--- !u!1001 &4348784726649500334
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 529876361894922179}
+    m_Modifications:
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 332.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 712.776
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.42157668
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.90679276
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -130.132
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607741431948827665, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+      propertyPath: m_Name
+      value: PT_Medieval_Village_Fence_01 (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+--- !u!4 &2917219865980533882 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1451831059643436756, guid: 6c278b06bc06dd747a47e92a187f7ed5, type: 3}
+  m_PrefabInstance: {fileID: 4348784726649500334}
+  m_PrefabAsset: {fileID: 0}

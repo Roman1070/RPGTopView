@@ -16,7 +16,7 @@ MonoBehaviour:
   RunningSpeed: 8.3
   WalkingBackSpeed: 2
   Gravity: -9.81
-  GroundCheckDistance: 0.7
+  GroundCheckDistance: 0.2
   JumpHeight: 0.8
   RollDistance: 8.333333
   DodgeDistance: 1.6666666
